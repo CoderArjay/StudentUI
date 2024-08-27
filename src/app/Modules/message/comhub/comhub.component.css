@@ -1,0 +1,162 @@
+  @media (max-width: 1600px){
+
+    .Mobile-Devices{
+        display: none;
+    }
+
+    .left-message-bar {
+        height: 450px; /* Set a fixed height for the container to enable scrolling */
+        overflow-y: scroll; /* Enable vertical scrolling */
+        scrollbar-width: thin; /* Set the width of the scrollbar */
+        scrollbar-color: rgba(0, 0, 0, 0.3) transparent; /* Set the color of the scrollbar */
+      }
+    
+      .left-message-bar::-webkit-scrollbar {
+        width: 8px; /* Set the width of the scrollbar */
+        border-radius: 1rem;
+      }
+    
+      .left-message-bar::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.3); 
+      }
+    
+      .user-list-item {
+        font-weight: 500;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        cursor: pointer;
+      }
+      .user-list-item:hover {
+        background-color: #f8f9fa;
+      }
+    
+      .chat-area {
+        flex: 1;
+        overflow-y: auto;
+        padding: 10px;
+      }
+      .message {
+        margin-bottom: 10px;
+      }
+      .message.sent {
+        text-align: right;
+      }
+      .message.received {
+        text-align: left;
+      }
+    
+      .message-content {
+        display: inline-block;
+        padding: 8px 12px;
+        border-radius: 18px;
+        background-color: #f1f1f1;
+      }
+      .message.sent .message-content {
+        background-color: #007bff;
+        color: white;
+      }
+  }
+
+  @media (max-width: 768px) {
+    .left-message-bar img {
+      max-width: 50%; /* Reduce the image size on smaller screens */
+      margin: auto; /* Center the image on smaller screens */
+    }
+
+    .users-list{
+        display: none;
+      }
+  }
+
+  .message-box .card-body {
+    height: 450px; /* Set a fixed height for the container to enable scrolling */
+    overflow-y: scroll; /* Enable vertical scrolling */
+    scrollbar-width: thin; /* Set the width of the scrollbar */
+    scrollbar-color: rgba(0, 0, 0, 0.3) transparent; /* Set the color of the scrollbar */
+  }
+
+  .message-box .card-body::-webkit-scrollbar {
+    width: 8px; /* Set the width of the scrollbar */
+    border-radius: 1rem;
+  }
+
+  .message-box .card-body::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3); /* Set the color of the scrollbar thumb */
+  }
+
+  @media (max-width: 768px) {
+    .message-box .card-body {
+      height: 300px; /* Adjust the height for smaller screens */
+    }
+
+    .users-list{
+        display: none;
+      }
+  }
+
+  /* @media (max-width: 576px) {
+    .message-box .card-body {
+      height: 200px; 
+    }
+
+    .users-list{
+        display: none;
+      }
+  } */
+
+  /* Media query for screens 430px or smaller */
+  @media (max-width: 576px) {
+    .Large-Screen-Devices{
+        display: none;
+    }
+
+    .Mobile-Devices{
+        display: block;
+    }
+    
+
+    .user-name{
+        font-size: 15px;
+    }
+
+    .user-message{
+        /* margin-left: 50px; */
+        font-size: 12px;
+    }
+
+    .users-list {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      .user span{
+        font-size: 10px;
+      }
+
+
+      /* .message-container {
+        margin-bottom: 10px;
+      }
+      
+      .message-bubble {
+        background-color: #f1f0f0;
+        border-radius: 20px;
+        padding: 10px 15px;
+        max-width: 70%;
+        display: inline-block;
+      }
+      
+      .message-content {
+        display: inline-block;
+        vertical-align: top;
+      }
+      
+      .message-time {
+        color: #999;
+        font-size: 12px;
+        margin-top: 5px;
+        display: block;
+        text-align: right;
+      } */
+  }

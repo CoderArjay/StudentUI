@@ -1,0 +1,16 @@
+  .example-spacer {
+    flex: 1 0 auto;
+  }
+
+  .personal-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .personal-info-card {
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+  }

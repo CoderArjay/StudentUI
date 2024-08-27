@@ -1,0 +1,174 @@
+
+    <div class="container-fluid ">
+      <blockquote class="blockquote mb-4" style="border-bottom: 2px solid; border-bottom-color: black;">
+        <strong>Personal Information</strong>
+      </blockquote>
+        <form>
+            <div class="row g-2 justify-content-between">
+                <div class="col-md">
+                    <div class="form-floating mb-3" style="width: 300px;">
+                        <input type="text" class="form-control" id="floatingInput" formControlName="email" placeholder="name@example.com">
+                        <label for="floatingInput">LRN</label>
+                      </div>
+                </div>
+                <div class="col-md">
+                    <mat-form-field>
+                        <mat-label>Grade Level</mat-label>
+                        <mat-select disableRipple>
+                          <mat-option value="7">Grade 7</mat-option>
+                          <mat-option value="8">Grade 8</mat-option>
+                          <mat-option value="9">Grade 9</mat-option>
+                          <mat-option value="10">Grade 10</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                  </div>
+            </div>
+
+           
+
+              <div class="row g-2">
+                <div class="col-md">
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control" id="floatingPassword" formControlName="pw" placeholder="Password">
+                      <label for="floatingPassword">Lastname</label>
+                    </div>
+                </div>
+
+                <div class="col-md">
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control" id="floatingPassword" formControlName="pw" placeholder="Password">
+                      <label for="floatingPassword">Firstname</label>
+                    </div>
+                </div>
+
+                <div class="col-md">
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control" id="floatingPassword" formControlName="pw" placeholder="Password">
+                      <label for="floatingPassword">Middlename</label>
+                    </div>
+                </div>
+
+                <div class="col-md">
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control" id="floatingPassword" formControlName="pw" placeholder="Password">
+                      <label for="floatingPassword">Suffix: "Jr. I, II, IV"</label>
+                    </div>
+                </div>
+              </div>
+        
+              <div class="row g-2">
+                <div class="col-md">
+                    <mat-form-field>
+                        <mat-label>Birthdate</mat-label>
+                        <input matInput [matDatepicker]="picker">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                </div>
+                <div class="col-md">
+                  <mat-label>Gender</mat-label> <br>
+                  <mat-radio-group aria-label="Select an option">
+                    <mat-radio-button value="male">Male</mat-radio-button>
+                    <mat-radio-button value="female">Female</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+
+                <div class="col-md">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingPassword" formControlName="pw" placeholder="Password">
+                        <label for="floatingPassword">Religion</label>
+                      </div>
+                </div>
+              </div>
+
+              <div class="row g-2 mt-2">
+                <div class="col-md">
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="floatingPassword" formControlName="pw" placeholder="Password">
+                        <label for="floatingPassword">Phone Number</label>
+                      </div>
+                </div>
+                <div class="col-md">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="floatingPassword" formControlName="pw" placeholder="Password">
+                        <label for="floatingPassword">Email Address</label>
+                      </div>
+                </div>
+              </div>
+
+
+              <div class="row g-2">
+                <div class="col-md">
+                  <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingPassword" formControlName="pw" placeholder="Password">
+                <label for="floatingPassword">Birth Place</label>
+              </div>
+                </div>
+                <div class="col-md">
+                  <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingPassword" formControlName="pw" placeholder="Password">
+                <label for="floatingPassword">Address</label>
+              </div>
+                </div>
+              </div>
+
+            <blockquote class="blockquote mb-4" style="border-bottom: 2px solid; border-bottom-color: black;">
+            <strong>Parents Information</strong>
+            </blockquote>
+
+            <div class="row g-2">
+                <div class="col-md">
+                  <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingPassword" formControlName="pw" placeholder="Password">
+                <label for="floatingPassword">Mother's Maiden Name</label>
+              </div>
+                </div>
+                <div class="col-md">
+                  <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="floatingPassword" formControlName="pw" placeholder="Password">
+                <label for="floatingPassword">Contact Number</label>
+              </div>
+                </div>
+                <div class="col-md">
+                  <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingPassword" formControlName="pw" placeholder="Password">
+                <label for="floatingPassword">Religion</label>
+              </div>
+                </div>
+              </div>
+
+              <div class="row g-2">
+                <div class="col-md">
+                  <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingPassword" formControlName="pw" placeholder="Password">
+                <label for="floatingPassword">Fathers Name</label>
+              </div>
+                </div>
+                <div class="col-md">
+                  <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="floatingPassword" formControlName="pw" placeholder="Password">
+                <label for="floatingPassword">Contact Number</label>
+              </div>
+                </div>
+                <div class="col-md">
+                  <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingPassword" formControlName="pw" placeholder="Password">
+                <label for="floatingPassword">Religion</label>
+              </div>
+                </div>
+              </div>
+
+              <div class="col-md">
+                <mat-form-field>
+                  <mat-label>Dormitory</mat-label>
+                  <mat-select disableRipple>
+                    <mat-option value="dormitory">Dormitory</mat-option>
+                    <mat-option value="village">Village</mat-option>
+                    <mat-option value="parent's_home">Parent's Home</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            <button class="btn btn-success" style="float:right;" type="submit">Submit</button><br>
+        </form>
+    </div>

@@ -1,0 +1,118 @@
+/* Existing CSS */
+.container-fluid {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items at the start for better spacing */
+  padding: 10px; /* Add some padding to the container */
+  height: auto; /* Allow height to adjust based on content */
+}
+
+.row {
+  width: 100%; /* Set the width of the row to 100% */
+}
+
+.example-card {
+  max-width: 100%; /* Set a smaller max width for cards */
+  border-width: thin;
+  height: auto; /* Allow height to adjust based on content */
+  margin: 10px auto; /* Center cards with some margin */
+}
+
+.mat-card-header {
+  display: flex; /* Use flexbox for header layout */
+  align-items: center; /* Center align items vertically */
+}
+
+.responsive-title {
+  font-size: 1.1rem; /* Adjust title size for mobile */
+}
+
+
+.example-header-image1,
+.example-header-image2,
+.example-header-image3,
+.example-header-image4 {
+  height: 40px; /* Set avatar height */
+  width: 40px; /* Set avatar width */
+  border-radius: 50%; /* Make avatars circular */
+  background-size: cover; /* Ensure background image covers the area */
+}
+
+.ml-3 {
+  margin-left: 1rem; /* Add margin to the left of the text container */
+}
+
+.mat-card-image {
+  width: 100%;
+  height: auto;
+}
+
+.example-header-image1 {
+  background-image: url('/samplePic/download1.jfif');
+}
+
+.example-header-image2 {
+  background-image: url('/samplePic/download2.jfif');
+}
+
+.example-header-image3 {
+  background-image: url('/samplePic/download.jfif');
+}
+
+.example-header-image4 {
+  background-image: url('/samplePic/Yoriichi Tsugikuni.jfif');
+}
+
+/* New interactive styles */
+.interactive-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition for hover effects */
+}
+
+.interactive-card:hover {
+  transform: scale(1.05); /* Slightly enlarge the card on hover */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+}
+
+@media (max-width: 768px) {
+  .container-fluid {
+    flex-direction: column; /* Stack columns vertically on mobile */
+    align-items: center; /* Center align items */
+  }
+
+  .example-card {
+    width: 90%; /* Set card width to 90% on mobile for better visibility */
+    margin: 10px 0; /* Add vertical margin between cards */
+  }
+
+  .announcement-card {
+    width: 90%; /* Set announcement card width to 90% on mobile */
+  }
+
+  .example-header-image1,
+  .example-header-image2,
+  .example-header-image3,
+  .example-header-image4 {
+    height: 30px; /* Smaller avatar height for mobile */
+    width: 30px; /* Set avatar width to match height */
+  }
+
+  .responsive-title {
+    font-size: 1.1rem; /* Adjust title size for mobile */
+  }
+
+  .card-text {
+    font-size: 0.9rem; /* Adjust text size for mobile */
+    line-height: 1.4; /* Improve text readability */
+  }
+}
+
+/* Other existing styles */
+.card-text {
+  line-height: 1.5; /* Improve text readability */
+}
+
+/* Additional styles for announcements */
+.announcement-card {
+  max-width: 90%; /* Set a smaller max width for announcement cards */
+  margin-bottom: 8px;
+}

@@ -1,0 +1,111 @@
+table {
+    width: 100%;
+  }
+
+  /* New interactive styles */
+.interactive-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition for hover effects */
+  position: relative;
+    /* padding-top: 100%; 1:1 Aspect Ratio */
+}
+
+.interactive-card:hover {
+  transform: scale(1.05); /* Slightly enlarge the card on hover */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+}
+
+  .card {
+    width: auto;
+    height: 200px;
+    padding: 4px;
+  }
+
+  .card img {
+    filter: blur(.5px);
+    max-width: 100%;
+    max-height: 100%;
+    /* border-radius: 8px; */
+  }
+  
+  .card-img-overlay {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .card-title {
+    font-size: .7rem;
+    display: flex;
+    font-weight: lighter;
+    color: #ffffff;
+  }
+
+  .card-name{
+    font-size: 1.5rem;
+  }
+
+  .card-text {
+    font-size:15px;
+    color: #f0e7e7;
+  }
+
+  .card-text small {
+    color: #999;
+  }
+
+  .demo-table {
+    width: 100%;
+  }
+  
+  .mat-mdc-row .mat-mdc-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+  }
+  
+  .mat-mdc-row:hover .mat-mdc-cell {
+    border-color: currentColor;
+  }
+  
+  .demo-row-is-clicked {
+    font-weight: bold;
+  }
+ 
+  @media (max-width: 576px) {
+    .interactive-card {
+      flex: 0 1 calc(50% - 1rem); /* Adjust card size */
+      position: relative;
+      width: 50%;
+      height: 50%;
+      /* padding-top: 100%; */
+    }
+    .card-title, .card-text{
+      font-size: 10px; /* Smaller font size */
+    }
+    .card-img {
+      width: 100%; /* Smaller image size */
+      height: auto;
+    }
+    
+    .card-name{
+      font-size: 14px;
+    }
+
+    .card-email{
+      font-size: 6px;
+    }
+
+    .subject-table{
+      font-size: 12px;
+    }
+    
+    .demo-table th, .demo-table td {
+      font-size: 10px; /* Smaller font size */
+      padding: 4px; /* Smaller padding */
+    }
+    .demo-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  }

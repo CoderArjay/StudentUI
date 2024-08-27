@@ -1,0 +1,5 @@
+@media (max-width: 576px){
+    .card-header, .card-body, .card-footer{
+        font-size: 14px;
+      }
+}

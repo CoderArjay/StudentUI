@@ -1,0 +1,154 @@
+
+  <div class="container-fluid ">
+    <blockquote class="blockquote mb-4" style="border-bottom: 2px solid; border-bottom-color: black;">
+      <strong>Financial Statement</strong>
+  </blockquote>
+      <!-- Financial Statement Card -->
+      <mat-card appearance="outlined" class="mb-3 bg-success">
+          <mat-card-content> LRN: <span class="text-light" style="font-weight: normal;">123-456-789</span></mat-card-content>
+          <mat-card-content> Name: <span class="text-light" style="font-weight: normal;">Subido Arjay</span></mat-card-content>
+          <mat-card-content> Grade Level: <span class="text-light" style="font-weight: normal;">12 (HUMMS)</span></mat-card-content>
+      </mat-card>
+
+      <div class="card">
+        <div class="card-header">
+          <blockquote class="blockquote" style="border-bottom: 2px solid; border-bottom-color: black;">
+          <strong><i class="bi bi-card-list text-primary"></i> Subject Lineup</strong>
+      </blockquote>
+        </div>
+        
+        <div class="card-body">
+          <!-- Table for Subjects -->
+        <table class="table table-secondary table-hover table-borderless " >
+          <thead>
+            <tr>
+              <th scope="col">Subjects</th>
+              <th scope="col">Unit</th>
+              <th scope="col">Class Schedule</th>
+              <th scope="col">Instructor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th >Mathematics</th>
+              <td>3</td>
+              <td>8:00-9:30</td>
+              <td>NTBA</td>
+            </tr>
+            <tr>
+              <th>English</th>
+              <td>3</td>
+              <td>NTBA</td>
+              <td>NTBA</td>
+            </tr>
+            <tr>
+              <th>Science</th>
+              <td>3</td>
+              <td>NTBA</td>
+              <td>NTBA</td>
+            </tr>
+            <tr>
+              <th >MAPEH</th>
+              <td>3</td>
+              <td>NTBA</td>
+              <td>NTBA</td>
+            </tr>
+            <tr>
+              <th >TLE</th>
+              <td>3</td>
+              <td>NTBA</td>
+              <td>NTBA</td>
+            </tr>
+            <tr>
+              <td><strong>Total Units :</strong></td>
+              <td colspan="3"><strong>15</strong></td>
+            </tr>
+          </tbody>
+        </table> 
+        </div>
+      </div>
+  </div>
+
+  <div class="container mt-5">
+    <div class="row g-2">
+      <div class="col-md">
+        <blockquote class="blockquote mb-4" style="border-bottom: 2px solid; border-bottom-color: black;">
+          <strong><i class="bi bi-coin text-warning"></i> Tuition and Fees</strong>
+      </blockquote>
+
+      <div class="card-body mb-2">
+        <table class="tuition-table">
+          <tbody>
+            <tr>
+              <th>Old Account:</th>
+              <td class="text-end">0.00</td>
+            </tr>
+            <tr>
+              <th>Tuition Fee:</th>
+              <td class="text-end">0.00</td>
+            </tr>
+            <tr>
+              <th>General and Miscellaneous Fees:</th>
+              <td class="text-end">0.00</td>
+            </tr>
+            <tr>
+              <th>Total Tuition and Fees (+old account):</th>
+              <td class="text-end">0.00</td>
+            </tr>
+            <tr>
+              <th>Less: ESC</th>
+              <td class="text-end">0.00</td>
+            </tr>
+            <tr>
+              <th>TOTAL BALANCE</th>
+              <td class="text-end">0.00</td>
+            </tr>
+            <tr>
+              <th>Down Payment</th>
+              <td class="text-end" style="border-bottom: 2px solid; border-bottom-color: black;">0.00</td>
+            </tr>
+            <tr>
+              <th>Down Payment (NO ESC)</th>
+              <td class="text-end">0.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="card border-info mb-3" >
+          <div class="card-header text-primary"><i class="bi bi-exclamation-octagon "></i> <strong> For incoming Grade 11,</strong> ESC Certificate can be use as down payment. Those coming from public school no need to pay downpayment.</div>
+          <div class="card-body">
+            <span class="card-title text-success">Payment could be made through:</span>
+              <ol>
+                <li>School Cashier</li>
+                <p class="card-text fw-bold">7:30-12:00 A.M. (Mon.to.Fri.)<br>
+                  7:30-12:00 A.M. | 1:30-5:00 P.M. (Mon.to.Thurs.)
+                 </p>
+                <li>Online Payment (To pay online please click the link below)</li>
+                <a class="card-text">Link for Online Payment</a>
+              </ol>
+          </div>
+          <div class="card-footer d-flex">
+            <div class="col-md">
+              <p>You may upload you <strong class="text-success">Bank Deposit Slip</strong> or your <strong class="text-success">ESC Certificate.</strong></p>
+            </div>
+            <div class="col-md">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <label class="card-title h5"><strong>Proof of Payment:</strong></label>
+                    <span class="text-primary h4"><i class="bi bi-receipt"></i></span>
+                </div>
+                    <input type="file" id="imageUpload" class="form-control" accept="image/*">
+                </div>
+                <button class="btn btn-success ms-3 mx-2" style="float:right;" type="submit">Submit</button><br>
+              </div>
+            </div> 
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-success" style="float:right;" type="submit">Next</button>
+    </div>
+  </div>

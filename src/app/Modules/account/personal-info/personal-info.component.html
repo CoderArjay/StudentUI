@@ -1,0 +1,90 @@
+<div class="container">
+    <mat-toolbar style="background-color: transparent; border-bottom: 1px solid;">
+        <mat-toolbar-row>
+            <span>Student Name</span>
+            <span class="example-spacer"></span>
+            <!-- <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon">verified_user</mat-icon> -->
+             <a class="btn btn-warning" style="border-radius: 1.5rem ;" routerLink="/login">Sign out</a>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div class="row mt-3">
+        <div class="col-md-3 text-center">
+            <img src="Zeni.jfif" alt="" style="width: 100px; height: auto; border-radius: 75%;"> <br>
+            <div class="mt-2 mb-2">
+                <a class="btn btn-secondary">Upload Profile</a>
+            </div>
+            <span class="mt-5 mb-2">arjaysubidogmail.com</span>
+        </div>
+        <div class="col-md-9">
+            <h5><strong>Personal Information</strong></h5>
+            <p>You can't edit your personal informations, but you can update your password.</p>
+
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <span class="card-title h5"><strong>Name</strong></span>
+                                    <span class="text-danger h4"><i class="bi bi-person-circle"></i></span>
+                                </div>
+                                <p class="card-text mt-2">Zenitsu</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <span class="card-title h5"><strong>Contact Number</strong></span>
+                                    <span class="text-danger h4"><i class="bi bi-wechat"></i></span>
+                                </div>
+                                <p class="card-text mt-2">09123456789</p>
+                            </div>
+                        </div>
+                    </div>
+                   
+                        <div class="row g-2">
+                            <div class="col-md-5">
+                                <mat-form-field>
+                                    <mat-label>Enter your password</mat-label>
+                                    <input matInput [type]="hide1() ? 'password' : 'text'" />
+                                    <button
+                                      mat-icon-button
+                                      matSuffix
+                                      (click)="clickEvent($event)"
+                                      [attr.aria-label]="'Hide password'"
+                                      [attr.aria-pressed]="hide1()"
+                                    >
+                                      <mat-icon>{{hide1() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </button>
+                                  </mat-form-field>
+                            </div>
+                            <div class="col-md-5">
+                                <mat-form-field>
+                                    <mat-label>Enter your password</mat-label>
+                                    <input matInput [type]="hide2() ? 'password' : 'text'" />
+                                    <button
+                                      mat-icon-button
+                                      matSuffix
+                                      (click)="clickEvent2($event)"
+                                      [attr.aria-label]="'Hide password'"
+                                      [attr.aria-pressed]="hide2()"
+                                    >
+                                      <mat-icon>{{hide2() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </button>
+                                  </mat-form-field>
+                            </div>
+                        </div>
+                </div>
+                <div class="mt-3">
+                    <a class="btn btn-success" type="submit">Update</a>
+                </div>
+            </div>
+           
+            
+        </div>
+        
+    </div>
+</div>

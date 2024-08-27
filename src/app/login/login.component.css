@@ -1,0 +1,38 @@
+.login {
+    /* background-image: url('/login-background.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;  */
+    height: 100vh;
+    font-family: 'Roboto Slab', serif;
+  }
+  .login .logo {
+    text-align: center;
+  }
+  .login .logo img {
+    height: 150px;
+  }
+  .login .content {
+    padding-top: 6%;
+  }
+  .login .card {
+    margin: auto;
+    padding: 20px;
+    box-shadow: 5px 5px 5px #9bb294;
+    background-color: #3181e9;
+  }
+  .login .card-body .card-title {
+    text-align: center;
+  }
+  .login form {
+    padding: 20px;
+    margin: auto;
+  }
+ 
+  /* .col-md {
+    background-image: url('/login-background.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+    height: 100vh; 
+}  */

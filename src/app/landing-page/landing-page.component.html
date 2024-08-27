@@ -1,0 +1,77 @@
+<mat-toolbar class="mat-elevation-z3">
+  <button mat-icon-button class="toggle-button" (click)="collapsed.set(!collapsed())">
+    <mat-icon><i class="bi bi-list-task text-light"></i></mat-icon>
+  </button>
+  
+  <img [width]="180" [height]="40" src="Logo.png"/>
+    <span class="example-spacer"></span>
+
+<button mat-icon-button class="example-icon" [matMenuTriggerFor]="messageMenu" aria-label="Messages">
+  <mat-icon matBadgeColor="accent" matBadge="3">message</mat-icon>
+</button>
+
+<mat-menu #messageMenu="matMenu">
+    <mat-list>
+        <mat-list-item>
+          <div class="user-list-item mb-2" [routerLink]="['/main/message-page']">
+            <span class="h6">
+              <img src="samplePic/download2.jfif" alt="User" class="rounded-circle me-1" width="30" height="30" style="float: left;">
+              Mario "Miko" Ofiaza III <br>
+              <figcaption style="font-size: 9px;">Date: August 9, 2024</figcaption>
+            </span>
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <div class="user-list-item mb-2" [routerLink]="['/main/message-page']">
+            <span class="h6">
+              <img src="samplePic/download.jfif" alt="User" class="rounded-circle me-1" width="40" height="40" style="float: left;">
+              Glenson Lozada <br>
+              <figcaption style="font-size: 9px;">Date: August 9, 2024</figcaption>
+            </span>
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <div class="user-list-item mb-2" [routerLink]="['/main/message-page']">
+            <span class="h6">
+              <img src="samplePic/download1.jfif" alt="User" class="rounded-circle me-1" width="40" height="40" style="float: left;">
+              Jhonnel Manaois <br>
+              <figcaption style="font-size: 9px;">Date: August 9, 2024</figcaption>
+            </span>
+          </div>
+        </mat-list-item>
+    </mat-list>
+</mat-menu>
+
+
+<!-- Profile Button with Dropdown -->
+<button mat-icon-button class="example-icon circle-btn ms-2" [matMenuTriggerFor]="profileMenu">
+    <img src="Zeni.jfif" class="prof-image" />
+</button>
+
+<!-- Profile Dropdown Menu -->
+<mat-menu #profileMenu="matMenu">
+    <button mat-menu-item [routerLink]="['/main/account-page']">
+        <mat-icon>settings</mat-icon>
+        <span>Account Settings</span>
+    </button>
+    <button mat-menu-item [routerLink]="['/login']">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+    </button>
+</mat-menu>
+
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav opened mode="side" [style.width]="sidenavWidth()" autosize>
+    <app-custom-sidenav [collapsed]="collapsed()"/>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content" [style.margin-left]="sidenavWidth()">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
