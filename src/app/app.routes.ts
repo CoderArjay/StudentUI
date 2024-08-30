@@ -3,9 +3,13 @@ import { LoginComponent } from './login/login.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { homeRoutes } from './Modules/home/home.routes';
 import { accountRoutes } from './Modules/account/account.routes';
-import { inquiryRoutes } from './Modules/inquiry/inquiry.routes';
 import { messageRoutes } from './Modules/message/message.routes' 
 import { enrollmentRoutes } from './Modules/enrollment/enrollment.routes';
+import { financialRoutes } from './Modules/financial/financial.routes';
+import { gradesRoutes } from './Modules/grades/grades.routes';
+import { attendanceRoutes } from './Modules/attendance/attendance.routes';
+
+
 export const routes: Routes = [
     {path: 'login', component: LoginComponent},
     {
@@ -22,9 +26,19 @@ export const routes: Routes = [
                 import('./Modules/enrollment/enrollment.routes').then((r) => enrollmentRoutes),
             },
             {
-              path: 'inquiry-page',
+              path: 'attendance-page',
               loadChildren: () =>
-                import('./Modules/inquiry/inquiry.routes').then((r) => inquiryRoutes),
+                import('./Modules/attendance/attendance.routes').then((r) => attendanceRoutes),
+            },
+            {
+              path: 'grades-page',
+              loadChildren: () =>
+                import('./Modules/grades/grades.routes').then((r) => gradesRoutes),
+            },
+            {
+              path: 'financial-page',
+              loadChildren: () =>
+                import('./Modules/financial/financial.routes').then((r) => financialRoutes),
             },
             {
               path: 'message-page',

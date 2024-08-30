@@ -1,0 +1,30 @@
+<div class="container">
+    <h3>Grade Report</h3>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="subject-cards">
+            <mat-card class="grade-report-card" *ngFor="let subject of subjects" [ngStyle]="{'border-left': '5px solid ' + subjectColors[subject]}">
+            <mat-card-header>
+              <mat-card-title>{{ subject }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Period</th>
+                    <th>Grade</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let period of periods">
+                    <td>{{ period }}</td>
+                    <td>{{ getGrade(subject, period) }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>

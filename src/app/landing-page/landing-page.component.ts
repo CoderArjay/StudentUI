@@ -10,6 +10,7 @@ import { CustomSidenavComponent } from "../custom-sidenav/custom-sidenav.compone
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-landing-page',
@@ -19,7 +20,7 @@ import { MatMenuModule } from '@angular/material/menu';
     CommonModule, MatToolbarModule, 
     MatButtonModule, MatIconModule, 
     MatListModule, CustomSidenavComponent,
-    MatExpansionModule, MatBadgeModule, MatMenuModule],
+    MatExpansionModule, MatBadgeModule, MatMenuModule, MatTooltipModule],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css'
 })

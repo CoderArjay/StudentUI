@@ -1,0 +1,37 @@
+.container {
+    margin: 20px;
+  }
+  
+  .subject-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between cards */
+  }
+  
+  .grade-report-card {
+    flex: 1 1 calc(33.333% - 20px); /* Three cards per row */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .table {
+    width: 100%; /* Full width */
+  }
+  
+  .table th, .table td {
+    text-align: left; /* Align text to the left */
+    padding: 8px; /* Padding for table cells */
+  }
+  
+  .table th {
+    background-color: #007bff; /* Blue background for header */
+    color: white; /* White text for header */
+  }
+  
+  .table-bordered {
+    border: 1px solid #dee2e6; /* Border for the table */
+  }
+  
+  .table-bordered th, .table-bordered td {
+    border: 1px solid #dee2e6; /* Border for table cells */
+  }

@@ -1,0 +1,20 @@
+/* Media query for screens 430px or smaller */
+@media (max-width: 576px) {
+    .table th, .table td {
+      font-size: 10px; /* Smaller font size */
+    }
+
+    .card-header td{
+        font-size: 10.5px;
+    }
+
+    span{
+        font-size: 16px;
+    }
+
+    .table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+  }

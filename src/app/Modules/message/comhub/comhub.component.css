@@ -1,4 +1,4 @@
-  @media (max-width: 1600px){
+  @media (max-width: 1700px){
 
     .Mobile-Devices{
         display: none;
@@ -94,18 +94,18 @@
       }
   }
 
-  /* @media (max-width: 576px) {
+  @media (max-width: 576px) {
     .message-box .card-body {
-      height: 200px; 
+      height: 200px; /* Further adjust the height for extra small screens */
     }
 
     .users-list{
         display: none;
       }
-  } */
+  }
 
   /* Media query for screens 430px or smaller */
-  @media (max-width: 576px) {
+  @media (max-width: 768px) {
     .Large-Screen-Devices{
         display: none;
     }

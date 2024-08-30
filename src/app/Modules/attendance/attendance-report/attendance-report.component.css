@@ -1,0 +1,61 @@
+.attendance-card {
+    margin-top: 20px; /* Space above the card */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .subject-selector,
+  .month-selector {
+    flex: 1; /* Equal width for subject and month selectors */
+  }
+  
+  .calendar {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+  }
+  
+  .calendar-day {
+    flex: 1;
+    text-align: center;
+    padding: 5px;
+  }
+  
+  .calendar-body {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .calendar-cell {
+    flex: 1 0 14.28%; /* 7 days in a week */
+    border: 1px solid #e0e0e0; /* Light border */
+    padding: 10px;
+    text-align: center;
+    position: relative;
+  }
+  
+  .date {
+    font-weight: bold;
+  }
+  
+  .status {
+    margin-top: 5px;
+    font-size: 0.9em;
+  }
+  
+  .present {
+    color: green; /* Green for present */
+  }
+  
+  .absent {
+    color: red; /* Red for absent */
+  }
+  
+  .no-record {
+    color: gray; /* Gray for no record */
+  }

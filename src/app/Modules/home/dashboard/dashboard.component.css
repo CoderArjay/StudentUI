@@ -2,9 +2,45 @@
 .container-fluid {
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Align items at the start for better spacing */
+  align-items: center; /* Align items at the start for better spacing */
+  flex-direction: column;
   padding: 10px; /* Add some padding to the container */
-  height: auto; /* Allow height to adjust based on content */
+  height: 100hv; /* Allow height to adjust based on content */
+}
+
+/* Event Card Styles */
+.event-card {
+  margin-top: 20px; /* Space above the card */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+
+/* Image Styles */
+.event-image {
+  
+  border-radius: 2rem;
+  width: 200px; /* Set desired width */
+  height: auto; /* Maintain aspect ratio */
+  margin: 10px 0; /* Space above and below the image */
+}
+
+/* Event List Styles */
+.event-list {
+
+  margin-top: 15px; /* Space above the event list */
+}
+
+.event-item {
+  padding: 10px; /* Padding for each event item */
+  border-radius: 5px; /* Rounded corners */
+  margin-bottom: 10px; /* Space between items */
+  color: #333; /* Dark text color */
+  transition: transform 0.2s; /* Smooth transition for hover effect */
+}
+
+.event-item:hover {
+  transform: scale(1.02); /* Slightly enlarge on hover */
 }
 
 .row {
@@ -116,3 +152,48 @@
   max-width: 90%; /* Set a smaller max width for announcement cards */
   margin-bottom: 8px;
 }
+
+/* Joined Clubs Card Styles */
+.joined-clubs-card {
+  margin-top: 20px; /* Space above the card */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.mat-card-header {
+  background-color: #007bff; /* Blue background for header */
+  color: white; /* White text in header */
+}
+
+.mat-card-title {
+  font-weight: bold; /* Bold title */
+}
+
+/* Clubs List Styles */
+.clubs-list {
+  margin-top: 15px; /* Space above the event list */
+  list-style-type: none; /* Remove default list styling */
+  padding: 0; /* Remove padding */
+}
+
+.clubs-item {
+  padding: 10px; /* Padding for each event item */
+  border-radius: 5px; /* Rounded corners */
+  margin-bottom: 10px; /* Space between items */
+  color: #333; /* Dark text color */
+  transition: transform 0.2s; /* Smooth transition for hover effect */
+}
+
+.clubs-item:hover {
+  transform: scale(1.02); /* Slightly enlarge on hover */
+}
+
+.clubs-list li {
+  padding: 10px; /* Padding for each item */
+  border-bottom: 1px solid #e0e0e0; /* Light gray border between items */
+}
+
+.clubs-list li:last-child {
+  border-bottom: none; /* Remove border for the last item */
+}
+

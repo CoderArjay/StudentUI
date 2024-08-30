@@ -4,6 +4,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 export type MenuItem = {
   icon: string,
@@ -15,7 +16,7 @@ export type MenuItem = {
 @Component({
   selector: 'app-custom-sidenav',
   standalone: true,
-  imports: [CommonModule, MatListModule, MatIconModule, RouterModule, MenuItemComponent],
+  imports: [CommonModule, MatListModule, MatIconModule, RouterModule, MenuItemComponent, MatTooltipModule],
   templateUrl: './custom-sidenav.component.html',
   styleUrl: './custom-sidenav.component.css',
 })
@@ -37,22 +38,21 @@ export class CustomSidenavComponent {
       route: 'enrollment-page'
     },
     {
-      icon: 'help_outline',
-      label: 'Inquiry',
-      route: 'inquiry-page',
-      subItems: [
-        {
-          icon: 'school',
-          label: 'Academic Performance',
-          route: 'inquiry-page/inquiry-page/academic-performance',
-        },
-        {
-          icon: 'attach_money',
-          label: 'Financial Statement',
-          route: 'inquiry-page/inquiry-page/financial-statement',
-        },
-      ]
+      icon: 'table',
+      label: 'Attendance',
+      route: 'attendance-page'
     },
+    {
+      icon: 'grade',
+      label: 'Grades',
+      route: 'grades-page'
+    },
+    {
+      icon: 'money',
+      label: 'Financial',
+      route: 'financial-page'
+    },
+   
     {
       icon: 'chat',
       label: 'Message',
