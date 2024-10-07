@@ -8,6 +8,7 @@ export const attendanceRoutes: Routes = [
     component: AttendancePageComponent,
     children: [
       { path: 'attendance-report', component: AttendanceReportComponent },
+      { path: 'attendance/:subject', component: AttendanceReportComponent },
       { path: '', redirectTo: 'attendance-report', pathMatch: 'full' },
     ],
   },

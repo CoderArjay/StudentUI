@@ -1,33 +1,25 @@
-import { Component } from '@angular/core';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
-import { PersonalInformationComponent } from '../personal-information/personal-information.component';
-import { PaymentComponent } from '../payment/payment.component';
-import { PaymentApprovalComponent } from '../payment-approval/payment-approval.component';
-import { StudentContractComponent } from '../student-contract/student-contract.component';
-import { IDPhotoComponent } from '../id-photo/id-photo.component';
-import { SubmissionVerificationComponent } from '../submission-verification/submission-verification.component';
-import { ConfirmationComponent } from '../confirmation/confirmation.component';
+
+import {Component, inject} from '@angular/core';
+import {FormBuilder, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatStepperModule} from '@angular/material/stepper';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'app-stepper',
   standalone: true,
+ 
   imports: [
-    MatStepperModule, 
-    MatInputModule, 
-    ReactiveFormsModule,
-    PersonalInformationComponent,
-    PaymentComponent,
-    PaymentApprovalComponent,
-    StudentContractComponent,
-    IDPhotoComponent,
-    SubmissionVerificationComponent,
-    ConfirmationComponent
+    MatListModule,
+    MatIconModule
   ],
   templateUrl: './stepper.component.html',
-  styleUrls: ['./stepper.component.css']
+  styleUrls: ['./stepper.component.css'],
+  providers: []
 })
 export class StepperComponent {
-  // Define your form controls here if needed
 }

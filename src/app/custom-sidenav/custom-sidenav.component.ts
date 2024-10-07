@@ -25,7 +25,7 @@ export class CustomSidenavComponent {
   @Input() set collapsed(val: boolean){
     this.sideNavCollapsed.set(val);
   }
-
+  
   menuItems = signal<MenuItem[]>([
     {
       icon: 'home',
@@ -35,7 +35,7 @@ export class CustomSidenavComponent {
     {
       icon: 'assignment',
       label: 'Enrollment',
-      route: 'enrollment-page'
+      route: 'enrollment-page',
     },
     {
       icon: 'table',

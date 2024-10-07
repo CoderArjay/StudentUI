@@ -1,48 +1,64 @@
-<div class="container">
-    <blockquote class="blockquote mb-4 d-flex gap-3" style="border-bottom: 2px solid; border-bottom-color: black;">
-      <strong>
-        <h3>Attendance Report</h3>
-      </strong>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav mode="side" opened class="sidenav">
+      <h3>Subjects</h3>
+      <mat-list>
+        <mat-list-item (click)="selectSubject('Mathematics')">Mathematics</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item (click)="selectSubject('English')">English</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item (click)="selectSubject('MAPEH')">MAPEH</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item (click)="selectSubject('Filipino')">Filipino</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item (click)="selectSubject('Science')">Science</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item (click)="selectSubject('TLE')">TLE</mat-list-item>
+      </mat-list>
+    </mat-sidenav>
 
-      <div class="subject-selector d-flex gap-2">
-        <mat-form-field appearance="fill">
-          <mat-label>Subject</mat-label>
-          <mat-select [(value)]="selectedSubject" (selectionChange)="onSubjectChange()">
-            <mat-option *ngFor="let subject of subjects" [value]="subject">{{ subject.name }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-            <mat-label>Month</mat-label>
-            <mat-select [(value)]="selectedMonth" (selectionChange)="onMonthChange()">
-              <mat-option *ngFor="let month of months" [value]="month">{{ month.viewValue }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-      </div>
-    </blockquote>
+    
+    <!-- Navbar for smaller screens -->
+    <div class="navbar">
+      <a (click)="selectSubject('Mathematics')">Mathematics</a>
+      <a (click)="selectSubject('English')">English</a>
+      <a (click)="selectSubject('MAPEH')">MAPEH</a>
+      <a (click)="selectSubject('Filipino')">Filipino</a>
+      <a (click)="selectSubject('Science')">Science</a>
+      <a (click)="selectSubject('TLE')">TLE</a>
+    </div>
   
-    <div class="row">
-      <div class="col-md-12">
-        <mat-card class="attendance-card">
-          <mat-card-header class="d-flex">
-           
-          </mat-card-header>
-          <mat-card-content>
-            <div class="calendar">
-              <div class="calendar-header">
-                <div *ngFor="let day of days" class="calendar-day">{{ day }}</div>
+    <mat-sidenav-content>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-card class="attendance-card">
+              <mat-card-header class="d-flex">
+                
+                <h4>Attendance Report for <span class="text-primary">{{ selectedSubject.name }}</span></h4>
+              </mat-card-header>
+              <div class="ms-3">
+                <p>Current Date: {{ currentDate | date:'fullDate' }}</p> 
               </div>
-              <div class="calendar-body">
-                <div *ngFor="let date of getCalendarDates()" class="calendar-cell">
-                  <div class="date">{{ date | date: 'd' }}</div>
-                  <div class="status" [ngClass]="getStatusClass(date)">
-                    {{ getStatus(date) }}
+              <mat-card-content>
+                <div class="calendar">
+                  <div class="calendar-header">
+                    <div *ngFor="let day of days" class="calendar-day">{{ day }}</div>
+                  </div>
+                  <div class="calendar-body">
+                    <div *ngFor="let date of getCalendarDates()" class="calendar-cell">
+                      <div class="date">{{ date | date:'d' }}</div>
+                      <div class="status" [ngClass]="getStatusClass(date)">
+                        {{ getStatus(date) }}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </mat-card-content>
-        </mat-card>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  
+  

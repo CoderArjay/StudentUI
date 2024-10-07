@@ -197,3 +197,24 @@
   border-bottom: none; /* Remove border for the last item */
 }
 
+.table {
+  width: 100%; /* Full width for the table */
+  margin-top: 10px; /* Space above the table */
+}
+
+.table th,
+.table td {
+  text-align: left; /* Align text to the left */
+}
+
+.table th {
+  background-color: #f8f9fa; /* Light background for header */
+}
+
+mat-tab-group{
+  width: 100%;
+}
+
+.announcement{
+  margin-left: 50px;
+}

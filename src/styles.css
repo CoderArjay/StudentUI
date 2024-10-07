@@ -1,3 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 html, body { height: 100%; }
-body { margin: 0; font-family: 'Roboto Slab', serif;}
+body { 
+  margin: 0; 
+  font-family: 'Roboto Slab', serif;
+  /* background-color: rgb(15, 111, 220); */
+}
+:root{
+    --primary-gradient: linear-gradient(to right, #4e4376, #2b5876);
+    --mango-gradient : linear-gradient(to right, #ffa751, #ffe259);
+    --text-color: #F7F9F9;
+    --Montserrat: "Montserrat", cursive;
+    --Lobster: "Lobster", cursive;
+    --primary-shadow: 3px 4px 7px rgba(27, 27, 27, 0.534);
+    --border-color: rgba(0,0,0,0.329);
+  }

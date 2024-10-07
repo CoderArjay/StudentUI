@@ -57,7 +57,7 @@ matTooltipPosition="right" [matMenuTriggerFor]="messageMenu" aria-label="Message
         <mat-icon>settings</mat-icon>
         <span>Account Settings</span>
     </button>
-    <button mat-menu-item [routerLink]="['/login']">
+    <button mat-menu-item (click)="onLogout()">
         <mat-icon>exit_to_app</mat-icon>
         <span>Logout</span>
     </button>

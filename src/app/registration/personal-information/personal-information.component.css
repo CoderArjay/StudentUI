@@ -1,0 +1,27 @@
+.blockquote{
+    font-size: 20px;
+}
+
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
+    margin-left: 16px;
+  }
+
+  .form-col{
+    border-radius: .5rem;
+    background-color: #d9d9d9;
+  }
+
+  .card-body{
+    border-radius: .5rem;
+    background-color: #d9d9d9;
+  }
+
+  @media (max-width: 576px){
+    .container{
+        margin: 0;
+        padding: 0;
+    }
+    .image{
+      display: none;
+    }
+  }

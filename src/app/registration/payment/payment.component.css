@@ -1,0 +1,86 @@
+.blockquote{
+    font-size: 20px;
+}
+
+table {
+    width: 100%;
+  }
+
+  .tuition-table {
+    width: 100%; /* Optional: make table full width */
+    border-collapse: collapse; /* Optional: remove space between cells */
+  }
+
+  .tuition-table th, .tuition-table td {
+    padding: 2px; /* Optional: add padding for better spacing */
+    text-align: left; /* Default alignment for th */
+  }
+
+mat-card-content{
+    font-weight: bold;
+}
+
+.form-col{
+    border-radius: .5rem;
+    background-color: #d9d9d9;
+  }
+
+  .enrollment_proccess{
+    border-radius: .5rem;
+    background-color: #d9d9d9;
+  }
+
+.title{
+    font-weight:bold;
+    
+}
+
+.card-footer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-footer .col-md {
+    margin-bottom: 1rem;
+  }
+
+  .card-footer .card {
+    margin-bottom: 0;
+  }
+
+@media (max-width: 768px) {
+    .blockquote {
+        font-size: 1rem;
+    }
+
+    .title, .text-end {
+        font-size: 0.8rem;
+    }
+
+    .row {
+        flex-direction: column;
+    }
+}
+
+@media(max-width: 576px){
+    mat-card{
+        font-size: 14px;
+    }
+
+    .table th,
+    .table td {
+        font-size: 10px;
+    }
+    .container-fluid{
+        margin: 0;
+        padding: 0;
+    }
+
+    .tuition-table th, .tuition-table td {
+        font-size: 12px; /* Smaller font size */
+      }
+
+      .card-header, .card-body, .card-footer{
+        font-size: 12px;
+      }
+}
