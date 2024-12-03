@@ -1,4 +1,4 @@
-<mat-toolbar class="mat-elevation-z3">
+<mat-toolbar class="mat-elevation-z3 mb-2">
   <button mat-icon-button class="toggle-button" (click)="collapsed.set(!collapsed())">
     <mat-icon><i class="bi bi-list-task text-light"></i></mat-icon>
   </button>
@@ -48,7 +48,7 @@ matTooltipPosition="right" [matMenuTriggerFor]="messageMenu" aria-label="Message
 
 <!-- Profile Button with Dropdown -->
 <button mat-icon-button class="example-icon circle-btn ms-2" [matMenuTriggerFor]="profileMenu">
-    <img src="Zeni.jfif" class="prof-image" />
+    <img [src]="profileImage" class="prof-image" />
 </button>
 
 <!-- Profile Dropdown Menu -->

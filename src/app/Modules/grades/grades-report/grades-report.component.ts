@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+import { ConnectService } from '../../../connect.service';
+import { HttpClient } from '@angular/common/http';
 
 interface Grades {
   [subject: string]: {
@@ -18,40 +20,67 @@ interface Grades {
   templateUrl: './grades-report.component.html',
   styleUrls: ['./grades-report.component.css']
 })
-export class GradesReportComponent {
-  student = {
-    name: 'John Doe',
-    grade: 7, // Change this value to test different grades
-    grades: {
-      Mathematics: { Semester1: 'A', Semester2: 'B+', Q1: 'A', Q2: 'B+' },
-      Science: { Semester1: 'B', Semester2: 'A', Q1: 'B+', Q2: 'A-' },
-      History: { Semester1: 'A-', Semester2: 'B', Q1: 'A', Q2: 'B+' },
-    } as Grades
-  };
+export class GradesReportComponent implements OnInit{
+  student: any = {};
+  studentSubjects: any[] = [];
+  fname: string = '';
+  lname: string = '';
+  contact_no: string = '';
+  grade_level: string = '';
+  LRN: string = '';
+  studentSection: string = ''
+  currentDate: Date = new Date();
 
-  quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
-  semesters = ['Semester1', 'Semester2'];
+  constructor(private conn: ConnectService, private http: HttpClient) {}
 
-  // Define colors for each subject
-  subjectColors: { [key: string]: string } = {
-    Mathematics: '#FF5733', // Red
-    Science: '#33FF57',      // Green
-    History: '#3357FF',      // Blue
-  };
-
-
-  constructor() {}
-
-  get periods(): string[] {
-    // Show quarters for grades 7-10, semesters for grades 11-12
-    return this.student.grade >= 7 && this.student.grade <= 10 ? this.quarters : this.semesters;
+  ngOnInit(): void {
+    this.retrieveStudentData();
+    if (this.LRN) {
+      this.fetchStudentReport(this.LRN);
+    }
   }
 
-  get subjects(): string[] {
-    return Object.keys(this.student.grades);
+  retrieveStudentData(): void {
+    const student = JSON.parse(localStorage.getItem('student') || '{}');
+
+    if (student) {
+      this.fname = student.fname || '';
+      this.lname = student.lname || '';
+      this.contact_no = student.contact_no || ''; // Assuming contact_no is stored
+      this.grade_level = student.grade_level || '';
+      this.LRN = student.LRN || ''; // Assuming LRN is stored
+    } else {
+      console.error('No student data found.');
+    }
   }
 
-  getGrade(subject: string, period: string): string {
-    return this.student.grades[subject][period] || 'N/A';
-  }
+  fetchStudentReport(lrn: string): void {
+    this.http.get<any>(`http://localhost:8000/api/student-report/${lrn}`).subscribe(
+        data => {
+            console.log('Fetched data:', data); // Log the fetched data
+            if (Object.keys(data).length > 0) {
+                this.studentSection = data.section_name;
+
+                // Check if subjects are present
+                console.log('Subjects:', Object.keys(data)); // Log subjects
+
+                this.studentSubjects = Object.keys(data).map(subject => ({
+                    subject_name: subject,
+                    grades: [
+                        Number(data[subject]['1st Quarter']?.grade) || 0,
+                        Number(data[subject]['2nd Quarter']?.grade) || 0,
+                        Number(data[subject]['3rd Quarter']?.grade) || 0,
+                        Number(data[subject]['4th Quarter']?.grade) || 0,
+                    ],
+                }));
+                this.student.LRN = lrn; // Update LRN in student object
+            } else {
+                console.warn('No records found for the given LRN.');
+            }
+        },
+        error => {
+            console.error('Error fetching student report:', error);
+        }
+    );
+}
 }

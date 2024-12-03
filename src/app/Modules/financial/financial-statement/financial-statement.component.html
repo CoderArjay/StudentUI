@@ -1,55 +1,67 @@
-<div class="container mt-2">
-    <div class="card">
-      <div class="card-header">
-        <table class="table table-borderless">
-          <tbody>
-            <tr>
-              <td><strong>LRN:</strong> 87234954</td>
-              <td class="text-end"><strong>Contact Number:</strong> 0930-440-3790</td>
-            </tr>
-            <tr>
-              <td><strong>Name:</strong> Arjay Subido</td>
-              <td class="text-end"><strong>Grade:</strong> 12</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="card-body">
-        <span>Statement of Account as of Date: <strong>2024/08/25</strong></span>
-        <table class="table table-striped">
-          <thead>
+<div class="container mt-4">
+  <div class="card shadow-lg rounded">
+    <div class="card-header bg-primary text-white text-center">
+      <h5 class="mb-0">Student Financial Statement</h5>
+    </div>
+    <div class="card-body">
+      <!-- Personal Information Section -->
+      <h6 class="text-primary">Personal Information</h6>
+      <table class="table table-borderless">
+        <tbody>
+          <tr>
+            <td><strong>Name:</strong> {{ fname }} {{ lname }}</td>
+            <td class="text-end"><strong>Current Date:</strong> {{ currentDate | date:'fullDate' }}</td>
+          </tr>
+          <tr>
+            <td><strong>Grade:</strong> {{ grade_level }}</td>
+            <td class="text-end"><strong>Section:</strong> Emerald</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Payment History Section -->
+      <h6 class="text-primary">Payment History</h6>
+      <div class="table-responsive">
+        <table class="table table-striped table-hover mt-2">
+          <thead class="thead-light">
             <tr>
               <th scope="col">Date</th>
               <th scope="col">Description</th>
-              <th scope="col">Charges/OR</th>
-              <th scope="col">Payments/CR</th>
-              <th scope="col">Balance</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Status</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">2024/08/24</th>
-              <td>85324-1 Acc Payment</td>
-              <td></td>
-              <td>5,000.00</td>
-              <td>0.00</td>
-            </tr>
-            <tr>
-              <th scope="row">2024/09/24</th>
-              <td>89624-1 Acc Payment</td>
-              <td>3,953.00</td>
-              <td>5,000.00</td>
-              <td>0.00</td>
-            </tr>
-            <tr>
-              <th scope="row">2024/10/24</th>
-              <td>62534-1 Acc Payment</td>
-              <td>5,000.00</td>
-              <td>0.00</td>
-              <td>0.00</td>
+            <tr *ngFor="let payment of payments">
+              <td>{{ payment.created_at | date:'mediumDate' }}</td>
+              <td>{{ payment.description }}</td>
+              <td>{{ payment.amount_paid | currency }}</td>
+              <td><span class="badge bg-success">Completed</span></td>
             </tr>
           </tbody>
         </table>
       </div>
-    </div>
-  </div>
+
+      <!-- Uploaded Documents Section -->
+      <h6 class="text-primary">Uploaded Documents by DSF</h6>
+      <div class="row mt-2">
+        <div *ngFor="let document of documents" class="col-md-4 mb-3">
+          <div class="card">
+            <img [src]="document.filename" class="card-img-top" alt="{{ document.filename }}">
+            <div class="card-body text-center">
+              <h6 class="card-title">Statement of Account</h6>
+              <p class="card-text">Uploaded on: {{ document.date_uploaded | date:'medium' }}</p>
+              <a [href]="document.filename" target="_blank" class="btn btn-outline-primary btn-sm">View Document</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Optional Footer or Notes Section -->
+      <div class="mt-4 text-muted text-center">
+        * Please ensure all documents are correctly uploaded.<br />
+        * For any queries, contact the Student Financing Office.
+      </div>
+    </div> <!-- End of card-body -->
+  </div> <!-- End of card -->
+</div> <!-- End of container -->

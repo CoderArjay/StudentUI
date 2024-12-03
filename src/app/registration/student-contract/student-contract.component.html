@@ -10,9 +10,6 @@
           </ol>
         </nav>
         
-        
-        
-            
         <div class="col-md image">
           <div class="card header">
             <img src="/nlac1.jpg" 
@@ -24,42 +21,76 @@
               <h6 class="card-text text-white">The School that Prepares for Life</h6>
             </div>
           </div>
-          <div class="col-md ">
+          <div class="col-md mb-3">
           <div class="card-body enrollment_proccess">
               <blockquote class="blockquote m-3" style="border-bottom: 2px solid; border-bottom-color: black;">
                 <strong>Enrollment Process</strong>
               </blockquote>
               
-              <ul class="list-group">
-                <li class="list-group-item disabled" aria-disabled="true"><i class="bi bi-check-circle-fill h3 text-success mx-2" style="float: left;"></i><strong  class="text-secondary"> Personal Information</strong>: Explore available programs and courses.</li>
-                <li class="list-group-item"><i class="bi bi-check-circle-fill h3 text-success mx-2" style="float: left;"></i><strong> Payment</strong>: Gather necessary documents like transcripts and ID.</li>
-                <li class="list-group-item"><i class="bi bi-check-circle-fill h3 text-success mx-2" style="float: left;"></i><strong> DSF Approval</strong>: Fill out the application form accurately.</li>
-                <li class="list-group-item"><i class="bi bi-4-circle-fill h3 mx-2" style="float: left;"></i><strong> Student Contract</strong>: Send your application along with required fees.</li>
-                <li class="list-group-item"><i class="bi bi-5-circle-fill h3 mx-2" style="float: left;"></i><strong class="text-secondary"> Official Registration</strong>: for the admission decision and follow up as needed.</li>
-              </ul>
+              <div class="list-group">
+                <a class="list-group-item list-group-item-action">
+                  <i class="bi bi-check-circle-fill text-success h3 mx-2" style="float: left;"></i>
+                  <strong class="text-secondary">Personal Information</strong>: Fill up the required fields in the Personal Information form, including your full name, date of birth, gender, address, and contact information. Ensure all details are accurate to avoid issues later.
+                </a>
+                
+                <a class="list-group-item list-group-item-action">
+                  <i class="bi bi-check-circle-fill text-success h3 mx-2" style="float: left;"></i>
+                  <strong class="text-secondary">Enrollment Details</strong>: Provide your enrollment details such as the grade level you are applying for, the strand (if applicable), and any previous school information. This helps us understand your academic background.
+                </a>
+                
+                <a class="list-group-item list-group-item-action">
+                  <i class="bi bi-check-circle-fill text-success h3 mx-2" style="float: left;"></i>
+                  <strong>Payment</strong>: Review the tuition fees and payment options available. Make sure to complete the payment process by the specified deadline to secure your enrollment.
+                </a>
+                
+                <a class="list-group-item list-group-item-action">
+                  <i class="bi bi-check-circle-fill text-success h3 mx-2" style="float: left;"></i>
+                  <strong >DSF Approval</strong>: Await approval from the Department of Student Affairs (DSF). You may need to provide additional documents or information if requested. Check your email regularly for updates on your application status.
+                </a>
+                
+                <a class="list-group-item list-group-item-action">
+                  <i class="bi bi-5-circle-fill text-warning h3 mx-2" style="float: left;"></i>
+                  <strong >Student Contract</strong>: Review and sign the student contract, which outlines the terms and conditions of enrollment. Make sure you understand all clauses before signing.
+                </a>
+                
+                <a class="list-group-item list-group-item-action">
+                  <i class="bi bi-6-circle-fill text-warning h3 mx-2" style="float: left;"></i>
+                  <strong class="text-secondary">Official Registration</strong>: Wait for the registration decision from the school administration. Follow up as needed to ensure your application is processed in a timely manner. Once approved, you will receive confirmation and further instructions.
+                </a>
+              </div>
             </div>
           </div>
         </div>
 
         <div class="col-md mb-3 form-col">
-          <div class="card-header text-dark">
-            <div class="student_name mt-2">
-                <h6><strong>Subido Arjay C. </strong> <span class="badge text-bg-primary">Grade 8</span></h6> 
+          <div class="card border-success mb-3">
+              <div class="card-header text-primary">
+                  <i class="bi bi-exclamation-octagon text-danger"></i> 
+                  Note: This is needed before the VP Student Services will approve your enrollment.
               </div>
-        </div>
-             <div class="col-md">
-                  <div class="card border-success mb-3" >
-                      <div class="card-header text-primary"><i class="bi bi-exclamation-octagon text-danger"></i> 
-                          Note: This is needed before the VP Student Services will approve your enrolment.</div>
-                      <div class="card-body" style="background:transparent;">
-                          <h6 class="card-title" style="font-size: large;">Download the file of student contract applicable to you and send the accomplished form to: <br>
-                          <a href="" class="text-success"><span>nlacstudentservicesgmail.com</span></a><br>
-                         </h6>
-                      </div>
-                      </div>
-                  <button class="btn btn-success" style="float:right;" type="submit">Next</button>
+              <div class="card-body">
+                  <div class="student_name mt-2">
+                      <h6><strong>Subido Arjay C.</strong> <span class="badge text-bg-primary">Grade 11</span></h6> 
+                  </div>
+                  <h6 class="card-title" style="font-size: large;">
+                      Download the file of the student contract applicable to you and send the accomplished form to:
+                  </h6>
+                  <div class="mb-3">
+                      <a href="mailto:nlacstudentservices@gmail.com" class="text-success">
+                          <i class="bi bi-envelope-fill"></i> nlacstudentservicesgmail.com
+                      </a>
+                  </div>
+                  <div class="mb-3">
+                      <a href="path/to/student-contract.pdf" class="btn btn-primary" download>
+                          <i class="bi bi-download"></i> Download Student Contract
+                      </a>
+                  </div>
+              </div>
+              <div class="card-footer text-end">
+                  <button class="btn btn-success" routerLink="/register/confirmation" type="submit">Next</button>
               </div>
           </div>
+      </div>
     </div>
 </div>
 </section>

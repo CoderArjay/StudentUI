@@ -1,220 +1,104 @@
-/* Existing CSS */
-.container-fluid {
-  display: flex;
-  justify-content: center;
-  align-items: center; /* Align items at the start for better spacing */
-  flex-direction: column;
-  padding: 10px; /* Add some padding to the container */
-  height: 100hv; /* Allow height to adjust based on content */
+.card {
+  border-radius: 10px;
 }
 
-/* Event Card Styles */
-.event-card {
-  margin-top: 20px; /* Space above the card */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+.card-title {
+  font-weight: bold;
+  font-size: 1.5rem;
 }
 
-
-/* Image Styles */
-.event-image {
-  
-  border-radius: 2rem;
-  width: 200px; /* Set desired width */
-  height: auto; /* Maintain aspect ratio */
-  margin: 10px 0; /* Space above and below the image */
+.list-group {
+  max-height: 400px; /* Set a maximum height */
+  overflow-y: auto;  /* Enable vertical scrolling */
+  overflow-x: hidden; /* Hide horizontal scrolling */
+  border: 1px solid #dee2e6; /* Optional: Add a border for better visibility */
+  border-radius: 0.25rem; /* Optional: Round the corners */
 }
 
-/* Event List Styles */
-.event-list {
-
-  margin-top: 15px; /* Space above the event list */
+/* Optional: Customize scrollbar appearance for WebKit browsers (Chrome, Safari) */
+.list-group::-webkit-scrollbar {
+  width: 8px;
+  margin: 10px; /* Width of the scrollbar */
 }
 
-.event-item {
-  padding: 10px; /* Padding for each event item */
+.list-group::-webkit-scrollbar-thumb {
+  background-color: #007bff; /* Color of the scrollbar thumb */
+  border-radius: 4px; /* Round the corners of the scrollbar thumb */
+}
+
+.list-group::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Background color of the scrollbar track */
+}
+
+.list-group-item {
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.list-group-item:hover {
+  background-color: #f8f9fa;
+}
+
+.announcement-item {
+  border-left: 4px solid #007bff; 
+  font-size: 0.85rem;
+}
+
+.announcement-box {
+  background-color: #f1f1f1; 
+  overflow-y: auto; /* Allows scrolling if content overflows */
+  max-height: 400px;
+  padding-right: 10px; 
+}
+
+.announcement-list {
+  font-weight: bold;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.text-muted {
+  font-size: 0.8rem;
+}
+
+.announcement-item p {
+  font-size: 0.85rem;
+}
+
+.announcement {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  max-height: 570px; 
+  padding-right: 10px; 
+}
+
+.list-group-item.active {
+  background-color: #007bff; /* Highlight selected announcement */
+  color: white; /* Text color for active item */
+}
+
+.card-header {
+  background-color: #007bff; /* Header background */
+  color: white; /* Header text color */
+}
+
+.card-header h5 {
+  margin: 0; /* Remove default margin */
+}
+
+.card-body {
+  background-color: #f9f9f9; /* Card body background */
+}
+
+.subss-item {
+  border: 1px solid #e0e0e0; /* Light border for each message */
   border-radius: 5px; /* Rounded corners */
-  margin-bottom: 10px; /* Space between items */
-  color: #333; /* Dark text color */
-  transition: transform 0.2s; /* Smooth transition for hover effect */
+  padding: 10px; /* Padding inside each message */
+  margin-bottom: 10px; /* Space between messages */
 }
 
-.event-item:hover {
-  transform: scale(1.02); /* Slightly enlarge on hover */
-}
-
-.row {
-  width: 100%; /* Set the width of the row to 100% */
-}
-
-.example-card {
-  max-width: 100%; /* Set a smaller max width for cards */
-  border-width: thin;
-  height: auto; /* Allow height to adjust based on content */
-  margin: 10px auto; /* Center cards with some margin */
-}
-
-.mat-card-header {
-  display: flex; /* Use flexbox for header layout */
-  align-items: center; /* Center align items vertically */
-}
-
-.responsive-title {
-  font-size: 1.1rem; /* Adjust title size for mobile */
-}
-
-
-.example-header-image1,
-.example-header-image2,
-.example-header-image3,
-.example-header-image4 {
-  height: 40px; /* Set avatar height */
-  width: 40px; /* Set avatar width */
-  border-radius: 50%; /* Make avatars circular */
-  background-size: cover; /* Ensure background image covers the area */
-}
-
-.ml-3 {
-  margin-left: 1rem; /* Add margin to the left of the text container */
-}
-
-.mat-card-image {
-  width: 100%;
-  height: auto;
-}
-
-.example-header-image1 {
-  background-image: url('/samplePic/download1.jfif');
-}
-
-.example-header-image2 {
-  background-image: url('/samplePic/download2.jfif');
-}
-
-.example-header-image3 {
-  background-image: url('/samplePic/download.jfif');
-}
-
-.example-header-image4 {
-  background-image: url('/samplePic/Yoriichi Tsugikuni.jfif');
-}
-
-/* New interactive styles */
-.interactive-card {
-  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition for hover effects */
-}
-
-.interactive-card:hover {
-  transform: scale(1.05); /* Slightly enlarge the card on hover */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
-}
-
-@media (max-width: 768px) {
-  .container-fluid {
-    flex-direction: column; /* Stack columns vertically on mobile */
-    align-items: center; /* Center align items */
-  }
-
-  .example-card {
-    width: 90%; /* Set card width to 90% on mobile for better visibility */
-    margin: 10px 0; /* Add vertical margin between cards */
-  }
-
-  .announcement-card {
-    width: 90%; /* Set announcement card width to 90% on mobile */
-  }
-
-  .example-header-image1,
-  .example-header-image2,
-  .example-header-image3,
-  .example-header-image4 {
-    height: 30px; /* Smaller avatar height for mobile */
-    width: 30px; /* Set avatar width to match height */
-  }
-
-  .responsive-title {
-    font-size: 1.1rem; /* Adjust title size for mobile */
-  }
-
-  .card-text {
-    font-size: 0.9rem; /* Adjust text size for mobile */
-    line-height: 1.4; /* Improve text readability */
-  }
-}
-
-/* Other existing styles */
-.card-text {
-  line-height: 1.5; /* Improve text readability */
-}
-
-/* Additional styles for announcements */
-.announcement-card {
-  max-width: 90%; /* Set a smaller max width for announcement cards */
-  margin-bottom: 8px;
-}
-
-/* Joined Clubs Card Styles */
-.joined-clubs-card {
-  margin-top: 20px; /* Space above the card */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-}
-
-.mat-card-header {
-  background-color: #007bff; /* Blue background for header */
-  color: white; /* White text in header */
-}
-
-.mat-card-title {
-  font-weight: bold; /* Bold title */
-}
-
-/* Clubs List Styles */
-.clubs-list {
-  margin-top: 15px; /* Space above the event list */
-  list-style-type: none; /* Remove default list styling */
-  padding: 0; /* Remove padding */
-}
-
-.clubs-item {
-  padding: 10px; /* Padding for each event item */
-  border-radius: 5px; /* Rounded corners */
-  margin-bottom: 10px; /* Space between items */
-  color: #333; /* Dark text color */
-  transition: transform 0.2s; /* Smooth transition for hover effect */
-}
-
-.clubs-item:hover {
-  transform: scale(1.02); /* Slightly enlarge on hover */
-}
-
-.clubs-list li {
-  padding: 10px; /* Padding for each item */
-  border-bottom: 1px solid #e0e0e0; /* Light gray border between items */
-}
-
-.clubs-list li:last-child {
-  border-bottom: none; /* Remove border for the last item */
-}
-
-.table {
-  width: 100%; /* Full width for the table */
-  margin-top: 10px; /* Space above the table */
-}
-
-.table th,
-.table td {
-  text-align: left; /* Align text to the left */
-}
-
-.table th {
-  background-color: #f8f9fa; /* Light background for header */
-}
-
-mat-tab-group{
-  width: 100%;
-}
-
-.announcement{
-  margin-left: 50px;
+.subss-item:hover {
+  background-color: #f8f9fa; /* Light gray background on hover */
 }

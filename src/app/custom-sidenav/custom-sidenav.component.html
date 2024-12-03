@@ -1,7 +1,7 @@
 <div class="sidenav-header">
-    <img [width]="profilePicSize()" [height]="profilePicSize()" src="Zeni.jfif" alt=""> 
+    <img [width]="profilePicSize()" [height]="profilePicSize()" [src]="profileImage" alt=""> 
       <div class="header-text" [class.hide-header-text]="sideNavCollapsed()">
-        <a routerLink="/main/account-page" class="nav-link">Subido Arjay</a> 
+        <a routerLink="/main/account-page" class="nav-link">{{lname}} {{fname}}</a> 
       </div>  
   </div>
   <mat-nav-list>

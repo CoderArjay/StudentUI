@@ -1,0 +1,20 @@
+.image-wrapper {
+    margin-bottom: 15px; /* Space below the image */
+}
+
+.profile-image {
+    width: 100px; 
+    height: 100px; 
+    border: 2px solid #28a745; /* Green border */
+}
+
+.placeholder {
+    width: 100px; 
+    height: 100px; 
+    border-radius: 50%; /* Circular placeholder */
+    background-color: #e9ecef; /* Placeholder background */
+}
+
+.mat-dialog-content {
+    padding: 20px; /* Add padding to the dialog content */
+}

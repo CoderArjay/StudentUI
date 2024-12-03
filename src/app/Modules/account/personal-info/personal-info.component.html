@@ -1,24 +1,32 @@
 <div class="container">
     <mat-toolbar style="background-color: transparent; border-bottom: 1px solid;">
         <mat-toolbar-row>
-            <span>Subido Arjay</span>
+            <span> <strong>{{ lname }} {{ fname }} </strong></span>
             <span class="example-spacer"></span>
-            <!-- <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon">verified_user</mat-icon> -->
-             <a class="btn btn-warning" style="border-radius: 1.5rem ;" routerLink="/login">Sign out</a>
+            <a class="btn btn-warning" style="border-radius: 1.5rem;" routerLink="/login">Sign out</a>
         </mat-toolbar-row>
     </mat-toolbar>
 
     <div class="row mt-3">
-        <div class="col-md-3 text-center">
-            <img src="Zeni.jfif" alt="" style="width: 100px; height: auto; border-radius: 75%;"> <br>
-            <div class="mt-2 mb-2">
-                <a class="btn btn-secondary">Upload Profile</a>
+        <div class="col-md-3 text-center profile-container">
+            <div class="image-wrapper">
+                <img *ngIf="profileImage" [src]="profileImage" alt="Profile Image" class="img-fluid rounded-circle profile-image">
+                <div *ngIf="!profileImage" class="placeholder d-flex justify-content-center align-items-center">
+                    <span class="text-muted">No Image</span>
+                </div>
             </div>
-            <span class="mt-5 mb-2">arjaysubidogmail.com</span>
+        
+            <button class="btn btn-success mt-3" (click)="openUploadImageDialog()">
+                Upload Image
+            </button>
+        
+            <div class="email-display mt-4">
+                <span class="text-muted">{{ email }}</span> 
+            </div>
         </div>
         <div class="col-md-9">
             <h5><strong>Personal Information</strong></h5>
-            <p>You can't edit your personal informations, but you can update your password.</p>
+            <p>You can't edit your personal information, but you can update your password.</p>
 
             <div class="container mt-5">
                 <div class="row">
@@ -29,7 +37,7 @@
                                     <span class="card-title h5"><strong>Name</strong></span>
                                     <span class="text-danger h4"><i class="bi bi-person-circle"></i></span>
                                 </div>
-                                <p class="card-text mt-2">Zenitsu</p>
+                                <p class="card-text mt-2">{{ fname }} {{ mname }} {{ lname }}</p> 
                             </div>
                         </div>
                     </div>
@@ -40,51 +48,39 @@
                                     <span class="card-title h5"><strong>Contact Number</strong></span>
                                     <span class="text-danger h4"><i class="bi bi-wechat"></i></span>
                                 </div>
-                                <p class="card-text mt-2">09123456789</p>
+                                <p class="card-text mt-2">{{ contact_no }}</p> <!-- Display contact number -->
                             </div>
                         </div>
                     </div>
-                   
+
+                    <!-- Password Update Section -->
+                    <form (ngSubmit)="onSubmit()" #passwordForm="ngForm">
                         <div class="row g-2">
-                            <div class="col-md-5">
-                                <mat-form-field>
-                                    <mat-label>Enter your password</mat-label>
-                                    <input matInput [type]="hide1() ? 'password' : 'text'" />
-                                    <button
-                                      mat-icon-button
-                                      matSuffix
-                                      (click)="clickEvent($event)"
-                                      [attr.aria-label]="'Hide password'"
-                                      [attr.aria-pressed]="hide1()"
-                                    >
-                                      <mat-icon>{{hide1() ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                    </button>
-                                  </mat-form-field>
-                            </div>
-                            <div class="col-md-5">
-                                <mat-form-field>
-                                    <mat-label>Enter your password</mat-label>
-                                    <input matInput [type]="hide2() ? 'password' : 'text'" />
-                                    <button
-                                      mat-icon-button
-                                      matSuffix
-                                      (click)="clickEvent2($event)"
-                                      [attr.aria-label]="'Hide password'"
-                                      [attr.aria-pressed]="hide2()"
-                                    >
-                                      <mat-icon>{{hide2() ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                    </button>
-                                  </mat-form-field>
+                            <div class="col-md-6">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" name="password" id="password" class="form-control" [(ngModel)]="password" required>
                             </div>
                         </div>
-                </div>
-                <div class="mt-3">
-                    <a class="btn btn-success" type="submit">Update</a>
+                    
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <label for="confirm-password" class="form-label">Confirm Password</label>
+                                <input type="password" name="passwordConfirmation" id="confirm-password" class="form-control" [(ngModel)]="passwordConfirmation" required>
+                            </div>
+                        </div>
+                    
+                        <div class="row g-2">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary mt-3">Update Password</button>
+                            </div>
+                        </div>
+                    
+                        <div *ngIf="message" class="alert" [ngClass]="{'alert-success': success, 'alert-danger': !success}">
+                            {{ message }}
+                        </div>
+                    </form>
                 </div>
             </div>
-           
-            
         </div>
-        
     </div>
 </div>

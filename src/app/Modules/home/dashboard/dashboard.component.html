@@ -1,68 +1,140 @@
-<div class="container-fluid mt-3">
-  <mat-tab-group>
-    <mat-tab label="Subjects">
-      
-      <span class="h4">Current Subjects</span>
-      <mat-card class="joined-clubs-card mt-3 mb-2">
-        <mat-card-content>
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Subject Name</th>
-                <th>Teacher</th>
-                <th>Class Schedule</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let subs of Subjects">
-                <td>{{ subs.name }}</td>
-                <td>{{ subs.teacher }}</td>
-                <td>{{ subs.class_sched }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </mat-card-content>
-      </mat-card>
-    </mat-tab>
+<div class="container-fluid mt-4">
+  <div class="row g-3">
+    <div class="col-lg-9">
+      <mat-tab-group backgroundColor="primary">
+        <!-- Subjects Tab -->
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <div class="d-flex justify-content-between align-items-center">
+              <img class="img-fluid m-2" style="width: 30px; height: 30px;" src="text-books.png" alt="">
+              <span class="h5">Subjects</span>
+            </div>
+          </ng-template>
+          <div class="p-3">
+            <span class="h4">Current Subjects</span>
+            <mat-card class="joined-clubs-card mt-3 mb-2 shadow-lg">
+              <mat-card-content>
+                <table class="table table-striped table-hover">
+                  <thead class="table-primary">
+                    <tr>
+                      <th>Room</th>
+                      <th>Subject</th>
+                      <th>Teacher</th>
+                      <th>Time</th>
+                      <th>Schedule</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let klass of classes">
+                      <td>{{ klass.room }}</td>
+                      <td>{{ klass.subject_name }}</td>
+                      <td>{{ klass.lname }} {{ klass.fname }}</td>
+                      <td>{{ klass.time }}</td>
+                      <td>{{ klass.schedule }}</td>
+                    </tr>
+                  </tbody>
+                </table> 
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </mat-tab>
+    
+        <!-- Announcements Tab -->
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <div class="d-flex justify-content-between align-items-center">
+              <img class="img-fluid m-2" style="width: 30px; height: 30px;" src="megaphone.png" alt="">
+              <span class="h5">Announcements</span>
+            </div>
+          </ng-template>
+        
+          <div class="container-fluid mt-3 announcement">
+            <div class="row">
+              <!-- Search Bar Section -->
+              <div class="col-md-4">
+                <div class="card shadow-sm mb-3">
+                  <div class="card-body">
+                    <h4 class="card-title">Recent Announcements</h4>
+                    <!-- <input type="text" placeholder="Search announcements..." class="form-control mb-3" (input)="announcements($event.target.value)"> -->
+                    <ul class="list-group">
+                      <li *ngFor="let announcement of announcements" 
+                          class="list-group-item list-group-item-action" 
+                          (click)="selectAnnouncement(announcement)"
+                          [class.active]="selectedAnnouncement === announcement">
+                        <span>{{ announcement.title }}</span> <br>
+                        <small class="text-muted">{{ announcement.created_at | date:'short' }}</small>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+        
+              <div class="col-md">
+                <div class="row">
+                  <!-- Announcement Display Section -->
+                  <div class="col-md-12">
+                    <div class="announcement-box card shadow-sm border-0 rounded-lg mb-3">
+                      <div class="card-header">
+                        <h5>
+                          <img [src]="profileImages[selectedAnnouncement?.admin?.admin_pic] || 'default-image.jpg'" alt="Admin" class="rounded-circle me-1" width="40" height="40">
+                          {{ selectedAnnouncement?.admin?.fname }} {{ selectedAnnouncement?.admin?.lname }}
+                        </h5>
+                      </div>
+                      <div class="card-body">
+                        <!-- Display Selected Announcement -->
+                        <div *ngIf="selectedAnnouncement" class="announcement-item p-3 border rounded bg-light">
+                          <h6>{{ selectedAnnouncement.title }}</h6>
+                          <p>{{ selectedAnnouncement.announcement }}</p>
+                          <small class="text-success">{{ selectedAnnouncement.created_at | date:'short' }}</small>
+                        </div>
+                        
+                        <!-- Default Message if No Announcement Selected -->
+                        <div *ngIf="!selectedAnnouncement" class="text-muted text-center mt-5">
+                          Click an announcement to view details.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> <!-- End of Row -->
+              </div>      
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group> 
+    </div>
 
-    <mat-tab label="Announcements" > 
-      <div class="col-md  announcement">
-        <span class="h4" matBadgeColor="accent" matBadge="2">Announcements</span>
-        <mat-accordion >
-          <mat-expansion-panel hideToggle>
-            <mat-expansion-panel-header>
-              <mat-panel-title> This is the expansion title </mat-panel-title>
-              <mat-panel-description> This is a summary of the content </mat-panel-description>
-            </mat-expansion-panel-header>
-            <p>This is the primary content of the panel.</p>
-          </mat-expansion-panel>
-
-          <mat-expansion-panel hideToggle>
-            <mat-expansion-panel-header>
-              <mat-panel-title> This is the expansion title </mat-panel-title>
-              <mat-panel-description> This is a summary of the content </mat-panel-description>
-            </mat-expansion-panel-header>
-            <p>This is the primary content of the panel.</p>
-          </mat-expansion-panel>
-        </mat-accordion>
+    <div class="col-lg-3">
+      <!-- latest-messages.component.html -->
+      <div class="card" style="width: 19rem;">
+        <div class="card-header">
+            <h6>Latest Messages</h6>
+        </div>
+        <ul class="list-group list-group-flush">
+              @if(keyword || inputClicked){
+                @for(sp of stupar | searchFilter: keyword; track sp){
+                    <div class="user-list-item" [routerLink]="['/main/message-page/message-page/messages/view/' + sp.account_id]" routerLinkActive="active-link">
+                        <img src="/assets/mik.jpg" alt="User" class="rounded-circle me-1" width="40" height="40">
+                        <span>{{sp.account_name}}<br></span>
+                    </div>
+                }
+            } @else if(messages && inputClicked == false) {
+                @for(msg of messages; track msg.message_id){
+                    <div class="user-list-item" [routerLink]="['/main/message-page/message-page/messages/view/' + msg.message_sender]" routerLinkActive="active-link">
+                        <img src="/assets/mik.jpg" alt="User " class="rounded-circle me-1" width="40" height="40">
+                        <div class="content">
+                            <span>{{msg.sender_name}}</span>
+                            <h6>{{ msg.message.length > 30 ? (msg.message | slice:0:30) + '...' : msg.message }}</h6>
+                            <!-- <h6>{{msg.message}}</h6> -->
+                        </div>
+                    </div>
+                }
+            }
+            <!-- Display message when there are no messages -->
+              <div #noMessages>
+                <li class="list-group-item text-center">No latest messages</li>
+            </div>
+        </ul>
       </div>
-    </mat-tab>
-    <mat-tab label="Messages"> 
-      <div class="col-md">
-        <span class="h4">Messages</span>
-        <mat-card class="joined-clubs-card mt-3 mb-2">
-          <mat-card-header>
-          </mat-card-header>
-          <mat-card-content>
-            <ul class="clubs-list m-2">
-              <li *ngFor="let subs of Subjects" class="subss-item">
-                <strong>{{ subs.name }} | {{subs.teacher}}</strong>
-                <br>{{ subs.class_sched }} 
-              </li>
-            </ul>
-          </mat-card-content>
-        </mat-card>
-      </div>
-       </mat-tab>
-  </mat-tab-group>
-</div>
+    </div>
+  </div>
+</div> 

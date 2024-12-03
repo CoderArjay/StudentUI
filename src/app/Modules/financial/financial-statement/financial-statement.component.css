@@ -1,20 +1,58 @@
-/* Media query for screens 430px or smaller */
-@media (max-width: 576px) {
-    .table th, .table td {
-      font-size: 10px; /* Smaller font size */
-    }
+.custom-table {
+  border-radius: 10px;
+  overflow: hidden;
+}
 
-    .card-header td{
-        font-size: 10.5px;
-    }
+.custom-table th {
+  background-color: #007bff; /* Bootstrap primary color */
+  color: white;
+  font-weight: bold;
+}
 
-    span{
-        font-size: 16px;
-    }
+.custom-table td {
+  background-color: #f8f9fa; /* Light gray background */
+  transition: background-color 0.3s ease;
+}
 
-    .table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-      }
+.custom-table tr:hover td {
+  background-color: #e2e6ea; /* Slightly darker gray on hover */
+}
+
+.card {
+  border: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+  padding: 1rem;
+}
+
+.text-muted small {
+  font-style: italic;
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Badge styles */
+.badge {
+  font-size: 0.9rem; /* Adjust badge size */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+      padding-left: 15px;
+      padding-right: 15px;
   }
+  
+  .card-header h5 {
+      font-size: 1.25rem; /* Adjust header size for smaller screens */
+  }
+  
+  .table th, .table td {
+      font-size: 0.9rem; /* Adjust table font size for smaller screens */
+  }
+}

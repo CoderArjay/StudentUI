@@ -14,3 +14,44 @@
     max-width: 400px;
     margin: auto;
   }
+
+  .placeholder {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-container {
+  background-color: #f8f9fa; /* Light background */
+  padding: 20px;
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.image-wrapper {
+  margin-bottom: 15px; /* Space below the image */
+}
+
+.profile-image {
+  width: 100px; 
+  height: 100px; 
+  border: 2px solid #28a745; /* Green border */
+}
+
+.placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px; 
+  height: 100px; 
+  border-radius: 50%; /* Circular placeholder */
+  background-color: #e9ecef; /* Placeholder background */
+}
+
+.email-display {
+  font-size: 1.1em; /* Slightly larger font for email */
+}

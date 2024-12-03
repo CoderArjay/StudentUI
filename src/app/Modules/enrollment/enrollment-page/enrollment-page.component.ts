@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-enrollment-page',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterOutlet],
   templateUrl: './enrollment-page.component.html',
   styleUrl: './enrollment-page.component.css'
 })

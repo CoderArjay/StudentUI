@@ -1,22 +1,88 @@
 <section>
-    <div class="container ">
-        <blockquote class="blockquote mb-4" style="border-bottom: 2px solid; border-bottom-color: black;">
-            <strong>Confirmation of Official Registration</strong>
-        </blockquote>
-
-        <div class="row g-2">
-            <div class="col-md-12">
-                <div class="card border-info mb-3" >
-                  <div class="card-header text-primary"><i class="bi bi-exclamation-octagon text-danger"></i>
-                    Wait for the confirmation of your registration and Voila! You are now officially Enrolled!</div>
-                  <div class="card-body">
-                    <h6 class="card-title text-success text-center"><strong>You are now Officially Enrolled!</strong></h6>
-                      
-                  </div>
-                </div>
-                <a class="btn btn-success" type="submit" routerLink="/login" >Proceed to Log In</a>
-              </div>
+    <div class="container mt-3">
+      <div class="row">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb ">
+            <li class="breadcrumb-item ">
+              <a class="text-primary" routerLink="/register/dsf-approval">DSF Approval</a>
+            </li>
+            <li class="breadcrumb-item active text-dark" aria-current="page">Student Contract</li>
+          </ol>
+        </nav> 
+        <div class="col-md image">
+          <div class="card header">
+            <img src="/nlac1.jpg" 
+                 class="card-img" 
+                 alt="Northern Luzon Adventist College Academy" 
+                 style="object-fit: cover; height: 30vh;">
+            <div class="card-img-overlay d-flex flex-column justify-content-center align-items-center">
+              <h5 class="card-title text-white"><strong>Northern Luzon Adventist College Academy</strong></h5>
+              <h6 class="card-text text-white">The School that Prepares for Life</h6>
+            </div>
+          </div>
+          <div class="col-md mb-3">
+          <div class="card-body enrollment_proccess">
+              <blockquote class="blockquote m-3" style="border-bottom: 2px solid; border-bottom-color: black;">
+                <strong>Enrollment Process</strong>
+              </blockquote>
               
+              <div class="list-group">
+                <a class="list-group-item list-group-item-action">
+                  <i class="bi bi-check-circle-fill text-success h3 mx-2" style="float: left;"></i>
+                  <strong class="text-secondary">Personal Information</strong>: Fill up the required fields in the Personal Information form, including your full name, date of birth, gender, address, and contact information. Ensure all details are accurate to avoid issues later.
+                </a>
+                
+                <a class="list-group-item list-group-item-action">
+                  <i class="bi bi-check-circle-fill text-success h3 mx-2" style="float: left;"></i>
+                  <strong class="text-secondary">Enrollment Details</strong>: Provide your enrollment details such as the grade level you are applying for, the strand (if applicable), and any previous school information. This helps us understand your academic background.
+                </a>
+                
+                <a class="list-group-item list-group-item-action">
+                  <i class="bi bi-check-circle-fill text-success h3 mx-2" style="float: left;"></i>
+                  <strong>Payment</strong>: Review the tuition fees and payment options available. Make sure to complete the payment process by the specified deadline to secure your enrollment.
+                </a>
+                
+                <a class="list-group-item list-group-item-action">
+                  <i class="bi bi-check-circle-fill text-success h3 mx-2" style="float: left;"></i>
+                  <strong >DSF Approval</strong>: Await approval from the Department of Student Affairs (DSF). You may need to provide additional documents or information if requested. Check your email regularly for updates on your application status.
+                </a>
+                
+                <a class="list-group-item list-group-item-action">
+                  <i class="bi bi-check-circle-fill text-success h3 mx-2" style="float: left;"></i>
+                  <strong >Student Contract</strong>: Review and sign the student contract, which outlines the terms and conditions of enrollment. Make sure you understand all clauses before signing.
+                </a>
+                
+                <a class="list-group-item list-group-item-action">
+                  <i class="bi bi-6-circle-fill text-warning h3 mx-2" style="float: left;"></i>
+                  <strong class="text-dark">Official Registration</strong>: Wait for the registration decision from the school administration. Follow up as needed to ensure your application is processed in a timely manner. Once approved, you will receive confirmation and further instructions.
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <div class="col-md mb-3 form-col">
+          <div class="col-md-12">
+              <div class="card border-info mb-3">
+                  <div class="card-header text-primary d-flex align-items-center">
+                      <i class="bi bi-exclamation-octagon text-danger me-2" style="font-size: 1rem;"></i>
+                      <span class="h5">Wait for the confirmation of your registration and Voila! You are now officially Enrolled!</span>
+                  </div>
+                  <div class="card-body text-center">
+                      <h6 class="card-title text-success"><strong>You are now Officially Enrolled!</strong></h6>
+                      <div class="mt-3">
+                          <i class="bi bi-check-circle text-success" style="font-size: 3rem;"></i>
+                      </div>
+                      <p class="mt-2">Congratulations on completing your registration! You can now access all the resources available to you.</p>
+                  </div>
+                  <div class="card-footer text-center">
+                      <a class="btn btn-success" routerLink="/main">
+                          <i class="bi bi-arrow-right-circle"></i> Proceed to Portal
+                      </a>
+                  </div>
+              </div>
+          </div>
+      </div>
     </div>
+</div>
 </section>

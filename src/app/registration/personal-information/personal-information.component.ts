@@ -6,11 +6,12 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatRadioModule} from '@angular/material/radio';
-import { HttpErrorResponse } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 import { ConnectService } from '../../connect.service';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
+import { EnrollmentStateService } from '../../enrollment-state.service';
 
 @Component({
   selector: 'app-personal-information',
@@ -34,39 +35,72 @@ import { CommonModule } from '@angular/common';
   templateUrl: './personal-information.component.html',
   styleUrl: './personal-information.component.css'
 })
-export class PersonalInformationComponent implements OnInit{
-  @Output() submitted = new EventEmitter<void>(); 
+export class PersonalInformationComponent implements OnInit {
+  @Output() submitted = new EventEmitter<boolean>();
 
   student: any = {
+    LRN: '',
+    fname: '',
+    lname: '',
+    mname: '',
     suffix: '',
+    bdate: '',
     bplace: '',
     gender: '',
     religion: '',
-    pnumber: '',
     address: '',
-    email: ''
+    contact_no: ''
   };
 
-  constructor(private conn: ConnectService, private router: Router) {}
+  constructor(
+    private conn: ConnectService,
+    private router: Router,
+    private enrollmentStateService: EnrollmentStateService // Inject your state service
+  ) {}
 
   ngOnInit(): void {
+    // Retrieve student information from local storage
+    const studentData = localStorage.getItem('student');
     
+    if (studentData) {
+      this.student = JSON.parse(studentData); // Parse and assign the student data
+      console.log('Student data retrieved from local storage:', this.student);
+    } else {
+      console.error('No student data found in local storage.');
+      // Optionally, you can navigate away or show an error message
+      this.router.navigate(['/error']); // Example navigation on error
+    }
   }
 
-  onSubmit() {
-    if (this.student.bdate) {
-      const date = new Date(this.student.bdate);
-      this.student.bdate = date.toISOString().split('T')[0];
-    }
+  onSubmit(form: NgForm) {
+    if (form.valid) {
+      const formattedBdate = this.formatDate(this.student.bdate);
 
-    this.conn.createStudent(this.student).subscribe(
-      response => {
-        console.log('Student created:', response);
-        this.router.navigate(['/register/payment']);
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Error creating student:', error);
-      }
-    );
+      // Prepare data for update
+      const studentData = {
+        ...this.student, // Spread operator to include all properties from this.student
+        bdate: formattedBdate,
+      };
+
+      // Call the update method in the service
+      this.conn.update(studentData).subscribe(
+        response => {
+          console.log('Student updated successfully:', response);
+          this.enrollmentStateService.personalInfoSubmitted = true; // Update state in service
+          this.submitted.emit(true); // Emit event for parent component
+          this.router.navigate(['/register/enrollment-details', { LRN: studentData.LRN }]); // Navigate after successful update
+        },
+        error => {
+          console.error('Error updating student:', error);
+          // Optionally handle error (e.g., show a notification)
+        }
+      );
+    }
+  }
+
+  // Helper method to format date
+  private formatDate(dateString: string): string | null {
+    const bdate = new Date(dateString);
+    return isNaN(bdate.getTime()) ? null : bdate.toISOString().split('T')[0];
   }
 }

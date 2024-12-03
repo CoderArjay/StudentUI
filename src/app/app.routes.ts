@@ -12,20 +12,20 @@ import { authGuard } from './auth.guard';
 import { MainPageComponent } from './main-page/main-page.component';
 import { RegistrationPageComponent } from './registration/registration-page/registration-page.component';
 import { ConfirmationComponent } from './registration/confirmation/confirmation.component';
-import { IDPhotoComponent } from './registration/id-photo/id-photo.component';
 import { PaymentApprovalComponent } from './registration/payment-approval/payment-approval.component';
 import { PaymentComponent } from './registration/payment/payment.component';
 import { PersonalInformationComponent } from './registration/personal-information/personal-information.component';
 import { StudentContractComponent } from './registration/student-contract/student-contract.component';
-import { SubmissionVerificationComponent } from './registration/submission-verification/submission-verification.component';
 import { AdmissionComponent } from './registration/admission/admission.component';
 import { EnrollmentPageComponent } from './Modules/enrollment/enrollment-page/enrollment-page.component';
 import { StepperComponent } from './Modules/enrollment/stepper/stepper.component';
+import { EnrollmentDetailsComponent } from './registration/enrollment-details/enrollment-details.component';
+import { EnrollLoginComponent } from './enroll-login/enroll-login.component';
 
 // export const loginGuard: CanActivateFn = (route, state) => {
 //   const localData = localStorage.getItem('token');
 //   if (localData != null){
-//     inject(Router).navigateByUrl('/main');
+//     inject(Router).navigateByUrl('/login');
 //     return false;
 //   }
 //   return true;
@@ -40,15 +40,17 @@ export const routes: Routes = [
       children: [
         {path: 'admission', component: AdmissionComponent},
         { path: 'personal-information', component: PersonalInformationComponent },
+        { path: 'enrollment-details', component:EnrollmentDetailsComponent},
         { path: 'payment', component: PaymentComponent },
         { path: 'dsf-approval', component: PaymentApprovalComponent },
         { path: 'student-contract', component: StudentContractComponent },
-        { path: 'id-photo', component: IDPhotoComponent },
-        { path: 'sub-verify', component: SubmissionVerificationComponent },
         { path: 'confirmation', component: ConfirmationComponent },
         { path: '', redirectTo: 'admission', pathMatch: 'full' },
       ],
     },
+    { path: 'enroll-login', component: EnrollLoginComponent,
+      //  canActivate: [loginGuard]
+      },
     { path: 'login', component: LoginComponent,
       //  canActivate: [loginGuard]
       },
@@ -59,7 +61,7 @@ export const routes: Routes = [
               path: 'home-page',
               loadChildren: () =>
                 import('./Modules/home/home.routes').then((r) => homeRoutes),
-                // canActivate: [authGuard]
+                canActivate: [authGuard]
             },
             { path: 'enrollment-page', component: EnrollmentPageComponent,
               children: [
@@ -71,31 +73,31 @@ export const routes: Routes = [
               path: 'attendance-page',
               loadChildren: () =>
                 import('./Modules/attendance/attendance.routes').then((r) => attendanceRoutes),
-              // canActivate: [authGuard]
+              canActivate: [authGuard]
             },
             {
               path: 'grades-page',
               loadChildren: () =>
                 import('./Modules/grades/grades.routes').then((r) => gradesRoutes),
-              // canActivate: [authGuard]
+              canActivate: [authGuard]
             },
             {
               path: 'financial-page',
               loadChildren: () =>
                 import('./Modules/financial/financial.routes').then((r) => financialRoutes),
-              // canActivate: [authGuard]
+              canActivate: [authGuard]
             },
             {
               path: 'message-page',
               loadChildren: () =>
                 import('./Modules/message/message.routes').then((r) => messageRoutes),
-              // canActivate: [authGuard]
+              canActivate: [authGuard]
             },
             {
               path: 'account-page',
               loadChildren: () =>
                 import('./Modules/account/account.routes').then((r) => accountRoutes),
-              // canActivate: [authGuard]
+              canActivate: [authGuard]
             },
             { path: '', redirectTo: 'home-page', pathMatch: 'full' },
         ],

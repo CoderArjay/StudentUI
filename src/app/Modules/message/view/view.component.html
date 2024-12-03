@@ -1,0 +1,39 @@
+<div class="container-fluid">
+    <!-- Chat Header -->
+    <div class="chat-header d-flex align-items-center">
+        <img src="mik.jpg" alt="User" class="rounded-circle" width="40" height="40" />
+        <span class="ms-2" style="font-weight: 500">{{
+      convo?.user?.account_name
+    }}</span>
+    </div>
+
+    <!-- Chat Area -->
+    <div class="chat-area" #chatArea>
+        @for(cnv of convo?.conversation; track cnv.message_id){ @if(cnv.me == null){
+        <div class="message received">
+            <img src="default-image" alt="User" class="rounded-circle" width="40" height="40" />
+            <div class="message-content ms-2">
+                {{ cnv.message }}
+                <span class="hover-time">{{ cnv.created_at | date: 'short' }}</span>
+            </div>
+        </div>
+        } @else {
+        <div class="message sent">
+            <div class="message-content">
+                {{ cnv.message }}
+                <span class="hover-time">{{ cnv.created_at | date: 'short' }}</span>
+            </div>
+        </div>
+        } }
+    </div>
+
+    <form [formGroup]="msgForm" (ngSubmit)="sendMessage()" class="chat-footer">
+        <input type="hidden" formControlName="message_sender" class="form-control" placeholder="Sender ID" />
+        <input type="hidden" formControlName="message_reciever" class="form-control" placeholder="Receiver ID" required />
+        <textarea #messageInput formControlName="message" class="form-control" placeholder="Type a message..."
+            (input)="adjustInputHeight(messageInput)" required></textarea>
+        <button class="btn btn-primary" type="submit">
+            <i class="bi bi-send-fill"></i>
+        </button>
+    </form>
+</div>

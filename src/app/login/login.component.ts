@@ -1,5 +1,5 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ConnectService } from '../connect.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,14 +18,38 @@ import { EnrollmentProceduresComponent } from '../enrollment-procedures/enrollme
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent{
+  constructor(
+    private conn: ConnectService,
+    private router: Router,
+    private dialog: MatDialog
+  ) {}
+
+
+  loginform = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl('')
+  });
+
+  login() {
+    if (this.loginform.valid) {
+      this.conn.login(this.loginform.value).subscribe((result: any) => {
+        if (result.token != null) {
+          // Save the token in local storage
+          localStorage.setItem('token', result.token); 
+          localStorage.setItem('student', JSON.stringify(result.student));
+          localStorage.setItem('LRN', result.student.LRN);
   
-
-  ngOnInit(): void {
+          // Navigate to personal information page
+          this.router.navigate(['/main']);
+        }
+        console.log(result);
+      }, (error) => {
+        console.error('Login failed', error); // Handle login errors
+      });
+    }
   }
-
-  constructor(private dialog: MatDialog) {}
-
+  
   openAdmissionRequirementsDialog(): void {
     this.dialog.open(AdmissionRequirementsComponent);
   }

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IDPhotoComponent } from './id-photo.component';
+import { SendComponent } from './send.component';
 
-describe('IDPhotoComponent', () => {
-  let component: IDPhotoComponent;
-  let fixture: ComponentFixture<IDPhotoComponent>;
+describe('SendComponent', () => {
+  let component: SendComponent;
+  let fixture: ComponentFixture<SendComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [IDPhotoComponent]
+      imports: [SendComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(IDPhotoComponent);
+    fixture = TestBed.createComponent(SendComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

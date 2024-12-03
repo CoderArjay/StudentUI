@@ -25,18 +25,18 @@
                       <div class="text-center">
                         <img class="img-fluid" style="width: 150px; height: 150px;" src="images.png" alt="">
                         <div class="titles mb-4">
-                          <h6 class="t1">Welcome Student</h6>
-                          <h3 class="t2">Ready to Login</h3>
+                          <h6 class="t1">Ready to Login</h6>
+                          <h3 class="t2">Student Portal</h3>
                         </div>
                     </div>
                   </div>
                 </div>
-                <form >
+                <form [formGroup]="loginform" (ngSubmit)="login()">
                   <div class="row gy-3 overflow-hidden">
                     <div class="col-12">
                       <div class="form-floating">
-                        <input type="text" class="form-control custom-input" formControlName="lrn" id="LRN" placeholder="123456789" required>
-                        <label for="lrn" class="form-label">LRN</label>
+                        <input type="email" class="form-control custom-input" formControlName="email" id="email" placeholder="name@example.com" required>
+                        <label for="email" class="form-label">Email</label>
                       </div>
                     </div>
                     <div class="col-12">
@@ -47,7 +47,7 @@
                     </div>
                     <div class="col-12">
                       <div class="d-grid">
-                        <button type="submit" class="text-center btn btn-primary custom-btn">Sign In</button>
+                        <button type="submit" class="text-center btn btn-primary custom-btn">Login</button>
                       </div>
                     </div>
                   </div>

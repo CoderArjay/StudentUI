@@ -1,10 +1,10 @@
 <section style="width: 100%;">
   <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center  p-md-4 p-xl-5">
     <div class="row justify-content-center">
-      <div class="col-12 col-md-8 col-lg-9">
+      <div class="col-12 col-md-10 col-lg-9">
         <div class="card border-light shadow-lg">
           <div class="row g-0">
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-5">
               <div class="card">
                 <img class=" rounded-start" loading="lazy" src="nlac1.jpg" alt="" style="object-fit: cover; height: 90vh; width:100%">
                 <div class="card-img-overlay d-flex flex-column justify-content-center align-items-center text-center">
@@ -16,7 +16,8 @@
                 </div>
               </div>
             </div>
-            <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
+
+            <div class="col-12 col-md-7 d-flex align-items-center justify-content-center">
               <div class="col-12 col-lg-11 col-xl-10">
                 <div class="card-body p-2 p-md-4 p-xl-5">
                   <div class="row">
@@ -24,70 +25,64 @@
                       <h3><strong>Sign Up Form</strong></h3>
                       <span>Hello Student, please sign up first</span>
                     </div>
-                  <form (ngSubmit)="register(admissionForm)" #admissionForm="ngForm">          
-                    <div class="form-floating mb-2">
-                      <input type="email" name="lrn" [(ngModel)]="student.lrn" class="form-control" id="floatingInput" placeholder="123456789" required>
-                      <label for="floatingInput"><i class="bi bi-123"></i> LRN</label>
-                    </div>
-          
-                   
-                    <div class="form-floating mb-2">
-                      <input type="text" name="firstname" [(ngModel)]="student.fname" class="form-control" id="floatingFirstname" placeholder="Firstname" required>
-                      <label for="floatingFirstname">Firstname</label>
-                    </div>
-          
-                   
-                    <div class="form-floating mb-2">
-                      <input type="text" name="lastname" [(ngModel)]="student.lname" class="form-control" id="floatingLastname" placeholder="Lastname" required>
-                      <label for="floatingLastname">Lastname</label>
-                    </div>
 
-                    <div class="form-floating mb-2">
-                      <input type="text" name="lastname" [(ngModel)]="student.mname" class="form-control" id="floatingLastname" placeholder="Lastname" required>
-                      <label for="floatingLastname">Middlename</label>
-                    </div>
-
+                  <form (ngSubmit)="register(admissionForm)" #admissionForm="ngForm">
+                  <div class="row">
                     <div class="col-md">
-                      <mat-form-field class="w-100">
-                        <mat-label>Birth Date</mat-label>
-                        <input matInput [matDatepicker]="picker" id="bdate" [(ngModel)]="student.bdate" name="bdate" required>
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                      </mat-form-field>
-                    </div>
-
-                    <div class="col-md">
-                      <div class="row d-flex">
-                        <div class="col-md">
-                        <!-- Grade Level -->
-                        <mat-form-field>
-                          <mat-label>Grade Level</mat-label>
-                          <mat-select id="glevel" [(ngModel)]="student.glevel" name="glevel" required>
-                              <mat-option value="7">Grade 7</mat-option>
-                              <mat-option value="8">Grade 8</mat-option>
-                              <mat-option value="9">Grade 9</mat-option>
-                              <mat-option value="10">Grade 10</mat-option>
-                              <mat-option value="11">Grade 11</mat-option>
-                              <mat-option value="12">Grade 12</mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                        </div>
-                        <div class="col-md">
-                        <!-- Strand Selection -->
-                        <div *ngIf="student.glevel === '11' || student.glevel === '12'">
-                          <mat-form-field>
-                              <mat-label>Strand</mat-label>
-                              <mat-select id="strand" [(ngModel)]="student.strand" name="strand">
-                                  <mat-option value="academic">Academic</mat-option>
-                                  <mat-option value="technical-vocational">Technical-Vocational</mat-option>
-                                  <mat-option value="sports">Sports</mat-option>
-                                  <mat-option value="arts-and-design">Arts and Design</mat-option>
-                              </mat-select>
-                          </mat-form-field>
-                        </div>
-                        </div>
+                      <div class="form-floating mb-2">
+                        <input type="text" name="LRN" [(ngModel)]="student.LRN" class="form-control" id="floatingInput" placeholder="123456789" required>
+                        <label for="floatingInput"><i class="bi bi-123"></i> LRN</label>
                       </div>
+                    </div>
+                   
+                </div>
+                  <div class="row g-2">
+                    <div class="col-md">
+                      <div class="form-floating mb-2">
+                        <input type="text" name="lastname" [(ngModel)]="student.lname" class="form-control" id="floatingLastname" placeholder="Lastname" required>
+                        <label for="floatingLastname">Lastname</label>
+                      </div>
+                    </div>
+
+                    <div class="col-md">
+                      <div class="form-floating mb-2">
+                        <input type="text" name="firstname" [(ngModel)]="student.fname" class="form-control" id="floatingFirstname" placeholder="Firstname" required>
+                        <label for="floatingFirstname">Firstname</label>
+                      </div>
+                    </div>
+
+                    <div class="col-md">
+                      <div class="form-floating mb-2">
+                        <input type="text" name="middlename" [(ngModel)]="student.mname" class="form-control" id="floatingMiddlename" placeholder="Middlename" required>
+                        <label for="floatingMiddlename">Middlename</label>
+                      </div>
+                    </div>
                   </div>
+                   
+                  <div class="row g-2">
+                    <div class="col-md">
+                      <div class="form-floating mb-2">
+                        <input type="email" name="email" [(ngModel)]="student.email" class="form-control" id="floatingInput" placeholder="" required>
+                        <label for="floatingInput">Email</label>
+                      </div>
+                    </div>
+                    <div class="col-md">
+                      <div class="form-floating mb-2">
+                        <input type="password" name="password" [(ngModel)]="student.password" class="form-control" id="floatingPassword" placeholder="" required>
+                        <label for="floatingPassword">Password</label>
+                      </div>
+                    </div>
+                  </div>
+                    
+                  <div class="col-md">
+                    <mat-form-field class="w-100">
+                      <mat-label>Birth Date</mat-label>
+                      <input matInput [matDatepicker]="picker" id="bdate" [(ngModel)]="student.bdate" name="bdate" required>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  
                     <button type="submit" class="btn btn-primary btn-login w-100">Register</button>
                   </form>
                 </div>

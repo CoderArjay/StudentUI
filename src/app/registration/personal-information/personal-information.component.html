@@ -28,13 +28,37 @@
             <strong>Enrollment Process</strong>
           </blockquote>
           
-          <mat-list>
-            <mat-list-item><i class="bi bi-1-circle-fill h3 mx-2" style="float: left;"></i><strong> Personal Information</strong>: Explore available programs and courses.</mat-list-item>
-            <mat-list-item><i class="bi bi-2-circle-fill h3 mx-2" style="float: left;"></i><strong class="text-secondary"> Payment</strong>: Gather necessary documents like transcripts and ID.</mat-list-item>
-            <mat-list-item><i class="bi bi-3-circle-fill h3 mx-2" style="float: left;"></i><strong class="text-secondary"> DSF Approval</strong>: Fill out the application form accurately.</mat-list-item>
-            <mat-list-item><i class="bi bi-4-circle-fill h3 mx-2" style="float: left;"></i><strong class="text-secondary"> Student Contract</strong>: Send your application along with required fees.</mat-list-item>
-            <mat-list-item><i class="bi bi-5-circle-fill h3 mx-2" style="float: left;"></i><strong class="text-secondary"> Official Registration</strong>: Wait for the admission decision and follow up as needed.</mat-list-item>
-          </mat-list>
+          <div class="list-group">
+            <a class="list-group-item list-group-item-action">
+              <i class="bi bi-check-circle-fill text-success h3 mx-2" style="float: left;"></i>
+              <strong class="text-secondary">Personal Information</strong>: Fill up the required fields in the Personal Information form, including your full name, date of birth, gender, address, and contact information. Ensure all details are accurate to avoid issues later.
+            </a>
+            
+            <a class="list-group-item list-group-item-action">
+              <i class="bi bi-2-circle-fill text-warning h3 mx-2" style="float: left;"></i>
+              <strong>Enrollment Details</strong>: Provide your enrollment details such as the grade level you are applying for, the strand (if applicable), and any previous school information. This helps us understand your academic background.
+            </a>
+            
+            <a class="list-group-item list-group-item-action">
+              <i class="bi bi-3-circle-fill text-warning h3 mx-2" style="float: left;"></i>
+              <strong class="text-secondary">Payment</strong>: Review the tuition fees and payment options available. Make sure to complete the payment process by the specified deadline to secure your enrollment.
+            </a>
+            
+            <a class="list-group-item list-group-item-action">
+              <i class="bi bi-4-circle-fill text-warning h3 mx-2" style="float: left;"></i>
+              <strong class="text-secondary">DSF Approval</strong>: Await approval from the Department of Student Affairs (DSF). You may need to provide additional documents or information if requested. Check your email regularly for updates on your application status.
+            </a>
+            
+            <a class="list-group-item list-group-item-action">
+              <i class="bi bi-5-circle-fill text-warning h3 mx-2" style="float: left;"></i>
+              <strong class="text-secondary">Student Contract</strong>: Review and sign the student contract, which outlines the terms and conditions of enrollment. Make sure you understand all clauses before signing.
+            </a>
+            
+            <a class="list-group-item list-group-item-action">
+              <i class="bi bi-6-circle-fill text-warning h3 mx-2" style="float: left;"></i>
+              <strong class="text-secondary">Official Registration</strong>: Wait for the registration decision from the school administration. Follow up as needed to ensure your application is processed in a timely manner. Once approved, you will receive confirmation and further instructions.
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -43,31 +67,26 @@
         <strong>Personal Information</strong>
       </blockquote>
 
-        <form (ngSubmit)="onSubmit()" #personalInfoForm="ngForm">
+      <form (ngSubmit)="onSubmit(personalInfoForm)" #personalInfoForm="ngForm">
           <div class="row g-2">
             
             <div class="col-md">
               <mat-form-field class="w-100">
                 <mat-label>LRN</mat-label>
-                <input matInput id="lrn" [(ngModel)]="student.LRN" name="lrn">
+                <input matInput placeholder="LRN" id="lrn" [(ngModel)]="student.LRN" name="lrn">
               </mat-form-field>
           </div>
 
-              <div class="col-md">
-                <mat-radio-group aria-label="Select an option">
-                  <mat-radio-button value="public">Public</mat-radio-button>
-                  <mat-radio-button value="private">Private</mat-radio-button>
-                </mat-radio-group>
-              </div>
+              
           </div>
                 
           <div class="row g-2">
 
             <div class="col-md">
-              <mat-form-field class="w-100">
+              <mat-form-field>
                 <mat-label>Firstname</mat-label>
-                <input matInput id="fname" [(ngModel)]="student.fname" name="fname">
-              </mat-form-field>
+              <input matInput placeholder="First Name" [(ngModel)]="student.fname" name="fname" required>
+            </mat-form-field>
           </div>
           <div class="col-md">
             <mat-form-field class="w-100">
@@ -90,17 +109,15 @@
               </div>
             </div>
         
-              <div class="row g-2">
-                <div class="col-md">
-                  <mat-form-field class="w-100">
-                    <mat-label>Birth Date</mat-label>
-                    <input matInput [matDatepicker]="picker" id="bdate" [(ngModel)]="student.bdate" name="bdate" required>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
-                </div>
-
-               
+            <div class="row g-2">
+              <div class="col-md">
+                <mat-form-field class="w-100">
+                  <mat-label>Birth Date</mat-label>
+                  <input matInput [matDatepicker]="picker" id="bdate" [(ngModel)]="student.bdate" name="bdate" required>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
 
                 <div class="col-md">
                   <mat-form-field class="w-100">
@@ -124,7 +141,7 @@
                 <div class="col-md">
                   <mat-form-field class="w-100">
                     <mat-label>Phone Number</mat-label>
-                    <input matInput type="number" id="pnumber" [(ngModel)]="student.pnumber" name="pnumber" required>
+                    <input matInput type="number" id="contact" [(ngModel)]="student.contact_no" name="contact" required>
                   </mat-form-field>
                 </div>
 
@@ -153,69 +170,6 @@
                   </mat-form-field>
                 </div>
               </div>
-
-              <!-- <blockquote class="blockquote mb-4" style="border-bottom: 2px solid; border-bottom-color: black;">
-                <strong>Parents Information</strong>
-              </blockquote>
-          
-              <div class="row g-2">
-                <div class="col-md">
-                  <mat-form-field class="w-100">
-                    <mat-label>Mother's Maiden Name</mat-label>
-                    <input matInput id="motherMaidenName" name="motherMaidenName">
-                  </mat-form-field>
-                </div>
-          
-                <div class="col-md">
-                  <mat-form-field class="w-100">
-                    <mat-label>Mother's Contact Number</mat-label>
-                    <input matInput type="number" id="motherContact" name="motherContact">
-                  </mat-form-field>
-                </div>
-          
-                <div class="col-md">
-                  <mat-form-field class="w-100">
-                    <mat-label>Mother's Religion</mat-label>
-                    <input matInput id="motherReligion" name="motherReligion">
-                  </mat-form-field>
-                </div>
-              </div>
-          
-              <div class="row g-2">
-                <div class="col-md">
-                  <mat-form-field class="w-100">
-                    <mat-label>Father's Name</mat-label>
-                    <input matInput id="fatherName" name="fatherName">
-                  </mat-form-field>
-                </div>
-          
-                <div class="col-md">
-                  <mat-form-field class="w-100">
-                    <mat-label>Father's Contact Number</mat-label>
-                    <input matInput type="number" id="fatherContact" name="fatherContact">
-                  </mat-form-field>
-                </div>
-          
-                <div class="col-md">
-                  <mat-form-field class="w-100">
-                    <mat-label>Father's Religion</mat-label>
-                    <input matInput id="fatherReligion" name="fatherReligion">
-                  </mat-form-field>
-                </div>
-              </div>
-          
-              <div class="row g-2">
-                <div class="col-md">
-                  <mat-form-field class="w-100">
-                    <mat-label>Dormitory</mat-label>
-                    <mat-select id="dormitory" name="dormitory">
-                      <mat-option value="dormitory">Dormitory</mat-option>
-                      <mat-option value="village">Village</mat-option>
-                      <mat-option value="parentsHome">Parent's Home</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div> -->
            <button mat-raised-button class="btn btn-success mb-2" type="submit" [disabled]="personalInfoForm.invalid" style="float:right;">Submit</button>
   </form>
     </div>

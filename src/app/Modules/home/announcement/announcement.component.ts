@@ -1,21 +1,20 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import {MatBottomSheetModule,MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import { MatListModule } from '@angular/material/list';
-import { MatButtonModule } from '@angular/material/button';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-announcement',
   standalone: true,
-  imports: [MatButtonModule, MatBottomSheetModule, MatListModule],
+  imports: [MatDialogModule,MatFormFieldModule, MatInputModule, MatDatepickerModule, MatCardModule],
+  // providers: [provideNativeDateAdapter()],
   templateUrl: './announcement.component.html',
   styleUrl: './announcement.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnnouncementComponent {
+  constructor(public dialogRef:MatDialogRef<AnnouncementComponent>){}
 
-  constructor(private bottomSheetRef: MatBottomSheetRef<AnnouncementComponent>) {}
-
-  selectOption(option: string) {
-    this.bottomSheetRef.dismiss(option); // Pass the selected option back to the calling component
-  }
 }

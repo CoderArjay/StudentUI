@@ -1,105 +1,126 @@
-@import url('https://fonts.googleapis.com/css?family=Work Sans');
-@import url('https://fonts.googleapis.com/css?family=SUSE');
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
-
-.navbar {
-    margin-bottom: 20px;
-    position: relative;
-    z-index: 5;
-    background-color: transparent;
-    font-family: 'Work Sans';
-}
-
-.navbar-brand {
-    font-size: 1.5rem;
-    font-weight: bold;
-    font-family: "Oswald", sans-serif;
-}
-
-.navbar-brand img {
-    margin-right: 10px;
-}
-
-.nav-link {
-    font-weight: bolder;
-    color: rgb(0, 0, 0) !important;
-    transition: color 0.3s;
-    margin-right: 5px;
-}
-
-.nav-link:hover {
-    color: #002b3f !important;
-}
-
-.header {
-    width: 100%; 
-    max-width: 100%;
-}
-
-.card-title {
-    text-align: center;
-    color: #fff;
-    font-size: 35px;
-    font-weight: bolder;
-    font-family: 'SUSE';
-}
-
-.card-img {
-    filter: contrast(110%);
-}
-
-.contents {
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-    margin-top: 30px;
-    color: #000000;
-    font-family: "Oswald", sans-serif;
-}
-
-h3 {
-    margin-top: 20px;
-    color: #242627;
-    font-family: "Oswald", sans-serif;
-}
-
-p,
-ul,
-ol {
-    margin-bottom: 20px;
-    line-height: 1.6;
-}
-
-footer {
-   background-color: #333; /* Darker footer background */
-   color: #fff; /* White text */
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-   .header {
-       max-width: 100%; /* Allow full width on smaller screens */
-   }
-   
-   .navbar-nav {
-       flex-direction: column; /* Stack nav items vertically on small screens */
-       align-items: center; /* Center align nav items */
-   }
-}
-
-.glow-text {
-    color: #fff; /* White text color */
-    text-shadow: 
-      0 0 5px #0033ff,   /* Red glow */
-      0 0 10px #0033ff,
-      0 0 15px #0033ff,
-      0 0 20px #0033ff,
-      0 0 25px #0033ff; /* Adjust color and intensity as needed */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
   }
-  .form-control {
-    width: auto; /* Adjust the search bar width */
+  
+  .container {
+    max-width: 70vw;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .navbar {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .navbar-brand {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .nav-link {
+    color: #333;
+    transition: color 0.2s ease;
+  }
+  
+  .nav-link:hover {
+    color: #337ab7;
+  }
+  
+  .card {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .card-img {
+    object-fit: cover;
+    height: 50vh;
+    width: 100%;
+  }
+  
+  .card-img-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .card-text {
+    font-size: 18px;
+    color: #fff;
+  }
+  
+  .features-section {
+    background-color: #f7f7f7;
+    padding: 20px;
+  }
+  
+  .features-column {
+    margin-bottom: 20px;
+  }
+  
+  .registration-column {
+    margin-bottom: 20px;
+  }
+  
+  .registration-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .registration-steps li {
+    margin-bottom: 10px;
+  }
+  
+  .registration-steps li strong {
+    font-weight: bold;
+    color: #337ab7;
+  }
+  
+  .benefits-of-registering {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .benefits-of-registering li {
+    margin-bottom: 10px;
+  }
+  
+  .benefits-of-registering li strong {
+    font-weight: bold;
+    color: #337ab7;
+  }
+  
+  footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  footer ul li {
+    margin-bottom: 10px;
+  }
+  
+  footer ul li i {
+    font-size: 18px;
+    margin-right: 10px;
   }

@@ -2,7 +2,10 @@
 html, body { height: 100%; }
 body { 
   margin: 0; 
-  font-family: 'Roboto Slab', serif;
+  /* font-family: 'Roboto Slab', serif; */
+  font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
   /* background-color: rgb(15, 111, 220); */
 }
 :root{

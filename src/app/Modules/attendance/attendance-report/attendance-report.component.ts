@@ -1,17 +1,27 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTableModule } from '@angular/material/table';
+import { ConnectService } from '../../../connect.service';
 
+// Define interfaces for AttendanceRecord, Subject, and AttendanceData
 interface AttendanceRecord {
-  date: Date;
-  status: string;
+  subject_name: string;
+  date: string; // Assuming date is in string format (e.g., 'YYYY-MM-DD')
+  status: string; // Attendance status
 }
 
 interface Subject {
-  name: string;
-  attendanceRecords: AttendanceRecord[];
+  subject_name: string;
+}
+
+interface AttendanceData {
+  subject_name: string;
+  dates: { [key: string]: number }; // Store days (1-31)
+  attendance: { [key: string]: string }; // Attendance status for each day
 }
 
 @Component({
@@ -21,97 +31,91 @@ interface Subject {
     MatCardModule,
     CommonModule,
     MatListModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatTableModule 
   ],
   templateUrl: './attendance-report.component.html',
   styleUrls: ['./attendance-report.component.css']
 })
-export class AttendanceReportComponent {
-  subjects: Subject[] = [
-    {
-      name: 'Mathematics',
-      attendanceRecords: [
-        { date: new Date('2024-08-01'), status: 'Present' },
-        { date: new Date('2024-08-15'), status: 'Absent' },
-      ]
-    },
-    {
-      name: 'English',
-      attendanceRecords: [
-        { date: new Date('2024-08-04'), status: 'Present' },
-        { date: new Date('2024-08-18'), status: 'Absent' },
-      ]
-    },
-    {
-      name: 'Science',
-      attendanceRecords: [
-        { date: new Date('2024-08-02'), status: 'Present' },
-        { date: new Date('2024-08-14'), status: 'Present' },
-      ]
-    },
-    {
-      name: 'MAPEH',
-      attendanceRecords: [
-        { date: new Date('2024-08-03'), status: 'Absent' },
-        { date: new Date('2024-08-16'), status: 'Present' },
-      ]
-    },
-    {
-      name: 'Filipino',
-      attendanceRecords: [
-        { date: new Date('2024-08-05'), status: 'Present' },
-        { date: new Date('2024-08-20'), status: 'Absent' },
-      ]
-    },
-    {
-      name: 'TLE',
-      attendanceRecords: [
-        { date: new Date('2024-08-06'), status: 'Present' },
-        { date: new Date('2024-08-21'), status: 'Absent' },
-      ]
+export class AttendanceReportComponent implements OnInit {
+  LRN: string = ''; 
+  attendanceRecords: AttendanceRecord[] = []; 
+  subjects: Subject[] = []; 
+  calendarData: AttendanceData[] = []; 
+  today: Date; 
+
+  constructor(private conn: ConnectService) {
+    this.today = new Date(); 
+  }
+
+  ngOnInit(): void {
+    const studentData = JSON.parse(localStorage.getItem('student') || '{}');
+    
+    if (studentData?.LRN) {
+      this.LRN = studentData.LRN; 
+      
+      this.conn.getAttendanceReport(this.LRN).subscribe(
+        (response) => {
+          this.attendanceRecords = response.attendanceRecords; 
+          this.subjects = response.subjects; 
+          this.createCalendar(); 
+        },
+        (error) => {
+          console.error('Error fetching attendance data:', error);
+        }
+      );
     }
-  ];
-
-  selectedSubject!: Subject; // Will be set based on user selection
-  days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
-  
-  // Initialize current date
-  currentDate: Date = new Date(); // This will hold the current date
-
-  constructor() {
-    // Initialize with the first subject or any default subject
-    this.selectedSubject = this.subjects[0];
   }
 
-  selectSubject(subjectName: string) {
-    this.selectedSubject = this.subjects.find(subject => subject.name === subjectName)!;
-    // Optionally, you can add logic here to reset or update any other state as needed
+  getCurrentWeekDates(): { start: Date; end: Date } {
+    const startOfWeek = new Date(this.today);
+    startOfWeek.setDate(this.today.getDate() - this.today.getDay() + 1); // Monday
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 4); // Friday
+    return { start: startOfWeek, end: endOfWeek };
   }
 
-  getCalendarDates() {
-    const startOfMonth = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
-    const endOfMonth = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 0);
-    const dates = [];
+  createCalendar(): void {
+    const currentWeekDates: { [key: string]: number } = {}; // Store days (1-31)
+    const attendanceStatus: { [key: string]: string } = {};
+    const { start, end } = this.getCurrentWeekDates(); 
+    const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+    let dayCount = 0;
 
-    // Fill in the days of the month
-    for (let day = startOfMonth.getDate(); day <= endOfMonth.getDate(); day++) {
-      const currentDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), day);
-      // Only add weekdays (Monday to Friday)
-      if (currentDate.getDay() >= 1 && currentDate.getDay() <= 5) {
-        dates.push(currentDate);
-      }
+    // Populate current week dates
+    for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
+        if (dayCount < daysOfWeek.length) {
+            currentWeekDates[daysOfWeek[dayCount]] = date.getDate(); // Store the day of the month (1-31)
+            attendanceStatus[daysOfWeek[dayCount]] = ''; // Default to N/A
+            dayCount++;
+        }
     }
 
-    return dates;
-  }
+    // Initialize calendar data with attendance records
+    this.calendarData = this.subjects.map(subject => {
+        const attendanceForSubject = { ...attendanceStatus }; // Clone the attendance status
 
-  getStatus(date: Date) {
-    const record = this.selectedSubject.attendanceRecords.find(record => record.date.toDateString() === date.toDateString());
-    return record ? record.status : 'N/A'; // Return 'N/A' if no record found
-  }
+        // Check attendance records for this subject
+        this.attendanceRecords.forEach(record => {
+            if (record.subject_name === subject.subject_name) {
+                const dayName = this.getDayNameByDate(record.date); // Get the day name
+                if (dayName) {
+                    attendanceForSubject[dayName] = record.status; // Assign status
+                }
+            }
+        });
 
-  getStatusClass(date: Date) {
-    const record = this.selectedSubject.attendanceRecords.find(record => record.date.toDateString() === date.toDateString());
-    return record ? (record.status === 'Present' ? 'present' : 'absent') : 'no-record'; // Class based on status
-  }
+        return {
+            subject_name: subject.subject_name,
+            dates: currentWeekDates,
+            attendance: attendanceForSubject
+        };
+    });
+}
+
+getDayNameByDate(date: string): string | null {
+  const day = new Date(date).getDay();
+  const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  return dayNames[day] || null; // Return the day name or null if not found
+}
 }

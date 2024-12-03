@@ -27,57 +27,80 @@
                 <strong>Enrollment Process</strong>
               </blockquote>
               
-              <mat-list>
-                <mat-list-item><i class="bi bi-check-circle-fill h3 text-success mx-2" style="float: left;"></i><strong  class="text-secondary"> Personal Information</strong>: Explore available programs and courses.</mat-list-item>
-                <mat-list-item><i class="bi bi-check-circle-fill h3 text-success mx-2" style="float: left;"></i><strong> Payment</strong>: Gather necessary documents like transcripts and ID.</mat-list-item>
-                <mat-list-item><i class="bi bi-3-circle-fill h3 mx-2" style="float: left;"></i><strong> DSF Approval</strong>: Fill out the application form accurately.</mat-list-item>
-                <mat-list-item><i class="bi bi-4-circle-fill h3 mx-2" style="float: left;"></i><strong class="text-secondary"> Student Contract</strong>: Send your application along with required fees.</mat-list-item>
-                <mat-list-item><i class="bi bi-5-circle-fill h3 mx-2" style="float: left;"></i><strong class="text-secondary"> Official Registration</strong>: Wait for the admission decision and follow up as needed.</mat-list-item>
-              </mat-list>
+              <div class="list-group">
+                <a class="list-group-item list-group-item-action">
+                  <i class="bi bi-check-circle-fill text-success h3 mx-2" style="float: left;"></i>
+                  <strong class="text-secondary">Personal Information</strong>: Fill up the required fields in the Personal Information form, including your full name, date of birth, gender, address, and contact information. Ensure all details are accurate to avoid issues later.
+                </a>
+                
+                <a class="list-group-item list-group-item-action">
+                  <i class="bi bi-check-circle-fill text-success h3 mx-2" style="float: left;"></i>
+                  <strong class="text-secondary">Enrollment Details</strong>: Provide your enrollment details such as the grade level you are applying for, the strand (if applicable), and any previous school information. This helps us understand your academic background.
+                </a>
+                
+                <a class="list-group-item list-group-item-action">
+                  <i class="bi bi-check-circle-fill text-success h3 mx-2" style="float: left;"></i>
+                  <strong class="text-dark">Payment</strong>: Review the tuition fees and payment options available. Make sure to complete the payment process by the specified deadline to secure your enrollment.
+                </a>
+                
+                <a class="list-group-item list-group-item-action">
+                  <i class="bi bi-4-circle-fill text-warning h3 mx-2" style="float: left;"></i>
+                  <strong class="text-dark">DSF Approval</strong>: Await approval from the Department of Student Affairs (DSF). You may need to provide additional documents or information if requested. Check your email regularly for updates on your application status.
+                </a>
+                
+                <a class="list-group-item list-group-item-action">
+                  <i class="bi bi-5-circle-fill text-warning h3 mx-2" style="float: left;"></i>
+                  <strong class="text-secondary">Student Contract</strong>: Review and sign the student contract, which outlines the terms and conditions of enrollment. Make sure you understand all clauses before signing.
+                </a>
+                
+                <a class="list-group-item list-group-item-action">
+                  <i class="bi bi-6-circle-fill text-warning h3 mx-2" style="float: left;"></i>
+                  <strong class="text-secondary">Official Registration</strong>: Wait for the registration decision from the school administration. Follow up as needed to ensure your application is processed in a timely manner. Once approved, you will receive confirmation and further instructions.
+                </a>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="col-md mb-3 form-col">
-          <div class="card border-info mb-3" >
+        <div class="col-md mt-2 mb-3 form-col">
+          <div class="card border-info mb-3">
               <div class="card-header text-dark">
                   <div class="student_name mt-2">
-                      <h6><strong>Subido Arjay C. </strong> <span class="badge text-bg-primary">Grade 8</span></h6> 
-                    </div>
+                      <h6><strong>{{ lname }} {{ fname }}</strong> <span class="badge text-bg-primary">Grade {{ grade_level }}</span></h6>
+                  </div>
               </div>
               <div class="card-body">
-              <h6 class="card-title text-success text-center"><strong>The Director of Student Finance has been confirmed your payment. <br> Thank you for the payment you made.</strong></h6>
-                  
+                  <h6 class="card-title text-success text-center">
+                      <strong>The Director of Student Finance has confirmed your payment. <br> Thank you for the payment you made.</strong>
+                  </h6>
               </div>
-              <div class="card-footer d-flex">
-              <div class="col-md">
-                  <div class="card-title">
-                      <p >Please confirm the details that you made in your payment.</p>
-                  </div>
-                  <div class="card mb-2">
-                      <div class="card-body">
-                          <div class="d-flex justify-content-between">
-                              <span class="card-title h5"><strong>Date of Payment</strong></span>
-                              <span class="text-primary h4"><i class="bi bi-calendar-check"></i></span>
+              <div class="card-footer">
+                 
+                  <div class="mt-3">
+                      <div class="card border-info mb-3">
+                          <div class="card-header text-dark">
+                              <h6 class="mb-0">Payment Approval Details</h6>
                           </div>
-                          <p class="card-text mt-2">2024-08-19</p>
+                          <div class="card-body d-flex align-items-center">
+                              <div class="me-3">
+                                  <!-- <img src="default-image.png" alt="Uploaded Image" class="img-fluid rounded" style="max-width: 100px; max-height: 100px; object-fit: cover;"> -->
+                                  <img [src]="paymentImage" alt="Proof of Payment" class="img-thumbnail" style="max-width: 100%; max-height: 100px;">
+                              </div>
+                              <div>
+                                  <p class="card-text"><strong>Payment Approval Date:</strong> {{ paymentDate || 'Loading...' }}</p>
+                                  <p class="card-text"><strong>Amount Paid:</strong> &#8369;{{ amountPaid ? amountPaid.toFixed(2) : 'Loading...' }}</p>
+                              </div>
+                          </div>
                       </div>
                   </div>
-                  <div class="card mb-2">
-                      <div class="card-body">
-                          <div class="d-flex justify-content-between">
-                              <span class="card-title h5"><strong>Amount</strong></span>
-                              <span class="text-warning h4"><i class="bi bi-coin"></i></span>
-                          </div>
-                          <p class="card-text mt-2">&#8369;15,783.00</p>
-                      </div>
-                  </div>
-
-                  <button class="btn btn-success" style="float:right;" type="submit">Next</button><br>
-              </div> 
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <p>Please confirm the details of your payment:</p>
+                    </div>
+                    <button class="btn btn-success" [disabled]="!paymentApproved" routerLink="/register/student-contract" type="submit">Next</button>
+                </div>
               </div>
           </div>
-         
       </div>
     </div>
 </div>

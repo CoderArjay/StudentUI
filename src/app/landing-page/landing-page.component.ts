@@ -1,4 +1,4 @@
-import { Component, computed, signal, HostListener } from '@angular/core';
+import { Component, computed, signal, HostListener, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import {  MatSidenavModule} from '@angular/material/sidenav';
 import { CommonModule } from '@angular/common';
@@ -25,12 +25,18 @@ import { ConnectService } from '../connect.service';
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css'
 })
-export class LandingPageComponent {
-
+export class LandingPageComponent implements OnInit {
+  profileImage: string = '';
   collapsed = signal(false);
   screenWidth = window.innerWidth;
+  lrn: string = '';
 
   constructor(private conn: ConnectService, private router: Router) {} // Use Router instead of RouterModule
+
+  ngOnInit(): void {
+    this.lrn = JSON.parse(localStorage.getItem('student') || '{}').LRN;
+    this.retrieveProfileImage(this.lrn);
+  }
 
   sidenavWidth = computed(() => {
     if (this.screenWidth <= 430) { // Adjust the breakpoint as needed
@@ -55,7 +61,9 @@ onLogout() {
   this.conn.logout().subscribe(
     (response) => {
       console.log('Logout successful:', response);
-      localStorage.removeItem('token'); 
+      localStorage.removeItem('token');
+      localStorage.removeItem('student'); 
+      localStorage.removeItem('LRN'); 
       this.router.navigate(['/login']); 
     },
     (error) => {
@@ -64,5 +72,20 @@ onLogout() {
   );
 }
 
+
+retrieveProfileImage(LRN: string): void {
+  this.conn.getProfileImage(LRN).subscribe(
+    response => {
+      if (response.image_url) {
+        this.profileImage = response.image_url;
+      } else {
+        console.error('No image URL found in response.');
+      }
+    },
+    error => {
+      console.error('Error fetching profile image:', error);
+    }
+  );
+}
 
 }

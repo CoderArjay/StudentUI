@@ -1,87 +1,61 @@
-/* Sidenav Container */
 .sidenav-container {
-  height: 100vh; 
+  background-color: #f8f9fa; /* Light background for the sidenav container */
 }
 
-/* Sidenav Styles */
-.sidenav {
-  width: 250px; 
-  background-color: #f8f9fa; 
-  padding: 10px; 
+.container {
+  max-width: 800px; /* Set a max width for better readability */
+  margin: auto; /* Center the container */
+  border-radius: 10px; /* Rounded corners */
 }
 
-/* Attendance Card Styles */
-.attendance-card {
-  margin: 20px; 
+h2 {
+  font-family: 'Arial', sans-serif; /* Modern font for the title */
+  font-weight: bold;
+  font-size: 2rem; /* Increased font size for title */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
-/* Calendar Styles */
-.calendar {
-  margin-top: 20px; 
+.text-muted {
+  font-style: italic; /* Italic style for the date text */
 }
 
-.calendar-header {
-  display: grid; /* Use grid layout for header */
-  grid-template-columns: repeat(5, 1fr); /* Five columns for weekdays */
-  font-weight: bold; /* Bold text for days */
-  text-align: center; /* Center align text */
+.table {
+  background-color: #ffffff; /* White background for the table */
+  border-radius: 10px; /* Rounded corners for the table */
+  overflow: hidden; /* Prevent overflow for rounded corners */
 }
 
-.calendar-body {
-  display: grid; /* Use grid layout for calendar cells */
-  grid-template-columns: repeat(5, 1fr); /* Five columns for weekdays */
+.table th {
+  background-color: #007bff; /* Bootstrap primary color */
+  color: white; /* White text for headers */
+  font-weight: bold;
 }
 
-.calendar-cell {
-  border: 1px solid #dee2e6; /* Border around each cell */
-  padding: 10px; /* Padding inside each cell */
-  text-align: center; /* Center text in cells */
+.table td {
+  vertical-align: middle; /* Center the text vertically */
 }
 
-/* Status styles */
+.subject-name {
+  font-weight: bold; /* Bold subject names */
+  color: #343a40; /* Darker color for subject names */
+}
+
+.attendance-status {
+  display: inline-block; /* Inline block for spacing */
+  margin-right: 5px; /* Space between date and attendance indicator */
+  font-weight: bold; /* Bold for emphasis */
+}
+
+.attendance-indicator {
+  padding: 5px 10px; /* Padding for the attendance indicator */
+  border-radius: 5px; /* Rounded corners for indicators */
+  color: white; /* White text for indicators */
+}
+
 .present {
-  color: green; 
+  background-color: #28a745; /* Green for present */
 }
 
 .absent {
-  color: red; 
-}
-
-.no-record {
-  color: gray; 
-}
-
-mat-list-item:hover{
-  background-color:darkgrey ;
-}
-/* Responsive Styles */
-@media (max-width: 768px) {
-  
-  .sidenav-container {
-    height: auto; /* Allow auto height on smaller screens */
-    overflow-y: auto; /* Enable scrolling if content overflows */
-  }
-
-  .sidenav {
-    width: 100%; /* Full width on small screens */
-    position: relative; /* Position relative to allow stacking with content */
-    padding-bottom: 20px; /* Add some padding at the bottom */
-    box-shadow: none; /* Remove shadow on small screens if needed */
-    margin-bottom: 20px; /* Add margin below sidenav for spacing */
-  }
-
-  .attendance-card {
-    margin: 10px; /* Reduce margin on smaller screens for better spacing */
-    width: auto;
-    max-width: none; /* Allow full width on smaller screens */
-    padding: 10px; /* Add padding for better touch targets */
-    box-shadow: none; /* Remove shadow if needed for mobile view */
-  }
-
-  .calendar-header,
-  .calendar-body {
-    grid-template-columns: repeat(3, 1fr); /* Three columns on small screens */
-    font-size: smaller; /* Adjust font size for better readability on small screens */
-  }
-
+  background-color: #dc3545; /* Red for absent */
 }
