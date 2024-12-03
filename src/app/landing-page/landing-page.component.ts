@@ -12,6 +12,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ConnectService } from '../connect.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-landing-page',
@@ -26,34 +27,52 @@ import { ConnectService } from '../connect.service';
   styleUrl: './landing-page.component.css'
 })
 export class LandingPageComponent implements OnInit {
-  profileImage: string = '';
   collapsed = signal(false);
-  screenWidth = window.innerWidth;
-  lrn: string = '';
 
-  constructor(private conn: ConnectService, private router: Router) {} // Use Router instead of RouterModule
+  // Dynamically calculate sidenav width based on state
+  sidenavWidth = computed(() => (this.collapsed() ? '65px' : '250px'));
+
+  
+  lname = '';
+  fname = '';
+  mname = '';
+  profileImage: string | null = null;
+
+  isSmallScreen = false; // To track if the screen is small
+
+  constructor(private conn: ConnectService, private router: Router, private breakpointObserver: BreakpointObserver) {} // Use Router instead of RouterModule
 
   ngOnInit(): void {
-    this.lrn = JSON.parse(localStorage.getItem('student') || '{}').LRN;
-    this.retrieveProfileImage(this.lrn);
+    this.loadUserData();
+    
+    this.breakpointObserver.observe([Breakpoints.Small, Breakpoints.XSmall]).subscribe((result) => {
+      this.isSmallScreen = result.matches; // Update isSmallScreen based on match
+      if (this.isSmallScreen) {
+        this.collapsed.set(true); // Collapse sidenav on small screens
+      }
+    });
+
+    this.conn.studentPic$.subscribe((newImageUrl) => {
+      if (newImageUrl) {
+        this.profileImage = newImageUrl; // Update the component's admin picture
+      }
+    });
+
+    // Optionally, initialize with the image from localStorage
+    const user = JSON.parse(localStorage.getItem('student') || '{}');
+    if (user && user.student_pic) {
+      this.profileImage = user.student_pic;
+    }
   }
 
-  sidenavWidth = computed(() => {
-    if (this.screenWidth <= 430) { // Adjust the breakpoint as needed
-      return '65px';
-    } else {
-      return this.collapsed() ? '65px' : '250px';
+  loadUserData() {
+    const userData = localStorage.getItem('student');
+    if (userData) {
+      const parsedData = JSON.parse(userData);
+      // this.role = parsedData.role || '';
+      this.lname = parsedData.lname || '';
+      this.fname = parsedData.fname || '';
     }
-  });
-
-  @HostListener('window:resize', ['$event'])
-onResize(event: UIEvent) {
-  this.screenWidth = (event.target as Window).innerWidth;
-}
-
-
-  toggleCollapse() {
-    this.collapsed.set(!this.collapsed());
   }
 
 // Method to handle logout
@@ -72,20 +91,5 @@ onLogout() {
   );
 }
 
-
-retrieveProfileImage(LRN: string): void {
-  this.conn.getProfileImage(LRN).subscribe(
-    response => {
-      if (response.image_url) {
-        this.profileImage = response.image_url;
-      } else {
-        console.error('No image URL found in response.');
-      }
-    },
-    error => {
-      console.error('Error fetching profile image:', error);
-    }
-  );
-}
 
 }

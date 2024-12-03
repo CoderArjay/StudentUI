@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,9 @@ export class ConnectService {
   url = "http://localhost:8000/api/";
   token = localStorage.getItem('token');
   getCookie: any;
+
+  private StudentsImages = new BehaviorSubject<string | null>(null); // This will store the admin image URL
+  studentPic$ = this.StudentsImages.asObservable();
 
   constructor(private http: HttpClient ) { }
 
@@ -35,10 +38,13 @@ export class ConnectService {
     return this.http.get<any[]>('http://localhost:8000/api/announcement');
   }
 
-  getClass(LRN: number): Observable<any[]> {
-    return this.http.get<any[]>(`http://localhost:8000/api/student/classes/${LRN}`);
+  getClass(lrn: string): Observable<any> {
+    return this.http.get<any>(`${this.url}classes/${lrn}`); // Assuming your endpoint is structured like this
   }
 
+  getNotifications(lrn: string): Observable<any> {
+    return this.http.get<any>(`${this.url}notifications/?LRN=${lrn}`); // Pass LRN as a query parameter
+  }
 
   getSubject(): Observable<any[]> {
     return this.http.get<any[]>('http://localhost:8000/api/subjects');
@@ -85,11 +91,11 @@ export class ConnectService {
 }
 
   uploadProfile(formData: FormData): Observable<any> {
-    const headers = new HttpHeaders({
-        'Authorization': `Bearer ${this.token}` // Replace with actual token
-    });
-    return this.http.post(`${this.url}students/upload-profile`, formData, { headers });
-}
+    return this.http.post('http://localhost:8000/api/students/upload-profile', formData);
+  }
+  updateStudentPic(newImageUrl: string) {
+    this.StudentsImages.next(newImageUrl); // Emit new image URL
+  } 
 
 getProfileImage(lrn: string): Observable<any> {
   return this.http.get(`${this.url}students/${lrn}/profile-image`);
@@ -129,7 +135,7 @@ getFinancialStatement(LRN: string): Observable<any> {
 }
 
 getLatestMessages(): Observable<any[]> {
-  return this.http.get<any[]>(`${this.url}latest-messages`); // Adjust endpoint as necessary
+  return this.http.get<any[]>(`${this.url}latest-messages`); 
 }
 
 // Fetch student data by LRN
@@ -141,5 +147,13 @@ getLatestMessages(): Observable<any[]> {
     return this.http.get(`${this.url}students/${lrn}/payment`);
   }
 
+
+  updateAcc(LRN: number, oldPassword: string, newData: any): Observable<any> {
+    return this.http.put(`${this.url}updatePassword`, {
+      LRN: LRN,
+      oldPassword: oldPassword,
+      ...newData
+    });
+  }
 
 }

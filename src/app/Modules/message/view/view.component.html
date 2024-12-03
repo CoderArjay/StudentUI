@@ -11,7 +11,7 @@
     <div class="chat-area" #chatArea>
         @for(cnv of convo?.conversation; track cnv.message_id){ @if(cnv.me == null){
         <div class="message received">
-            <img src="default-image" alt="User" class="rounded-circle" width="40" height="40" />
+            <img src="mik.jpg" alt="User" class="rounded-circle" width="40" height="40" />
             <div class="message-content ms-2">
                 {{ cnv.message }}
                 <span class="hover-time">{{ cnv.created_at | date: 'short' }}</span>

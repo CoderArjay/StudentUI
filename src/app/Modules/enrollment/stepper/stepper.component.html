@@ -6,101 +6,81 @@
 
     <div class="row">
       <!-- Step 1: Personal Information -->
-      <!-- Step 1: Personal Information -->
-  <div class="col-12 col-md-4 mb-3">
-    <div class="card text-center" style="height: 150px;">
-      <div class="card-body d-flex flex-column justify-content-between">
-        <div>
-          <i class="bi bi-1-circle-fill text-warning h3"></i>
-          <strong class="text-dark">Step 1</strong>
-          <p>Personal Information</p>
+      <div class="col-12 col-md-4 mb-3">
+        <div class="card text-center" style="height: 150px;" (click)="enrollmentStateService.personalInfoSubmitted || goToStep(1)">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+              <strong class="text-dark">Step <i class="bi bi-1-circle-fill text-warning h3"></i></strong>
+              <p>Personal Information</p>
+            </div>
+            <span class="badge" [ngClass]="enrollmentStateService.personalInfoSubmitted ? 'bg-success' : 'bg-warning'">
+              {{ enrollmentStateService.personalInfoSubmitted ? 'Finished' : 'Pending' }}
+            </span>
+          </div>
         </div>
-        <span class="badge" [ngClass]="enrollmentStateService.personalInfoSubmitted ? 'bg-success' : 'bg-warning'">
-          {{ enrollmentStateService.personalInfoSubmitted ? 'Finished' : 'Pending' }}
-        </span>
       </div>
-    </div>
-  </div>
-
-  <!-- Step 2: Enrollment Details -->
-  <div class="col-12 col-md-4 mb-3">
-    <div class="card text-center" style="height: 150px;">
-      <div class="card-body d-flex flex-column justify-content-between">
-        <div>
-          <i class="bi bi-2-circle-fill text-warning h3"></i>
-          <strong class="text-dark">Step 2</strong>
-          <p>Enrollment Details</p>
-        </div>
-        <span class="badge" [ngClass]="enrollmentStateService.enrollmentDetailsSubmitted ? 'bg-success' : 'bg-warning'">
-          {{ enrollmentStateService.enrollmentDetailsSubmitted ? 'Finished' : 'Pending' }}
-        </span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Step 3: Payment -->
-  <div class="col-12 col-md-4 mb-3">
-    <div class="card text-center" style="height: 150px;">
-      <div class="card-body d-flex flex-column justify-content-between">
-        <div>
-          <i class="bi bi-3-circle-fill text-warning h3"></i>
-          <strong class="text-dark">Step 3</strong>
-          <p>Payment</p>
-        </div>
-        <span class="badge" [ngClass]="enrollmentStateService.paymentSubmitted ? 'bg-success' : 'bg-warning'">
-          {{ enrollmentStateService.paymentSubmitted ? 'Finished' : 'Pending' }}
-        </span>
-      </div>
-    </div>
-  </div>
-
-   <!-- Step 4: DSF Approval -->
-   <div class="col-12 col-md-4 mb-3">
-     <div class="card text-center" style="height: 150px;">
-       <div class="card-body d-flex flex-column justify-content-between">
-         <div>
-           <i class="bi bi-4-circle-fill text-warning h3"></i>
-           <strong class="text-dark">Step 4</strong>
-           <p>DSF Approval</p>
-         </div>
-         <span class="badge" [ngClass]="enrollmentStateService.dsfApproved ? 'bg-success' : 'bg-warning'">
-           {{ enrollmentStateService.dsfApproved ? 'Finished' : 'Pending' }}
-         </span>
-       </div>
-     </div>
-   </div>
-
-   <!-- Step 5: Confirmation
-   <div class="col-12 col-md-4 mb-3">
-     <div class="card text-center" style="height: 150px;">
-       <div class="card-body d-flex flex-column justify-content-between">
-         <div>
-           <i class="bi bi-5-circle-fill text-warning h3"></i>
-           <strong class="text-dark">Step 5</strong>
-           <p>Confirmation</p>
-         </div>
-         <span class="badge" [ngClass]="enrollmentStateService.contractSigned ? 'bg-success' : 'bg-warning'">
-           {{ enrollmentStateService.contractSigned ? 'Finished' : 'Pending' }}
-         </span>
-       </div>
-     </div>
-   </div> -->
-
-
-   <div class="col-12 col-md-4 mb-3">
-    <div class="card text-center" style="height: 150px;">
-      <div class="card-body d-flex flex-column justify-content-between">
-        <div>
-          <i class="bi bi-5-circle-fill text-warning h3"></i>
-          <strong class="text-dark">Step 5</strong>
-          <p>Confirmation</p>
-        </div>
-        <span class="badge" [ngClass]="enrollmentStateService.registrarApproved ? 'bg-success' : 'bg-warning'">
-          {{ enrollmentStateService.registrarApproved ? 'Finished' : 'Pending' }}
-        </span>
-      </div>
-    </div>
-  </div>
-
     
-    </div>
+      <!-- Step 2: Enrollment Details -->
+      <div class="col-12 col-md-4 mb-3">
+        <div class="card text-center" style="height: 150px;" (click)="enrollmentStateService.enrollmentDetailsSubmitted || goToStep(2)">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+              
+              <strong class="text-dark">Step <i class="bi bi-2-circle-fill text-warning h3"></i></strong>
+              <p>Enrollment Details</p>
+            </div>
+            <span class="badge" [ngClass]="enrollmentStateService.enrollmentDetailsSubmitted ? 'bg-success' : 'bg-warning'">
+              {{ enrollmentStateService.enrollmentDetailsSubmitted ? 'Finished' : 'Pending' }}
+            </span>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Step 3: Payment -->
+      <div class="col-12 col-md-4 mb-3">
+        <div class="card text-center" style="height: 150px;" routerLink="/register/payment">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+              
+              <strong class="text-dark">Step <i class="bi bi-3-circle-fill text-warning h3"></i></strong>
+              <p>Payment</p>
+            </div>
+            <span class="badge" [ngClass]="enrollmentStateService.paymentSubmitted ? 'bg-success' : 'bg-warning'">
+              {{ enrollmentStateService.paymentSubmitted ? 'Finished' : 'Pending' }}
+            </span>
+          </div>
+        </div>
+      </div>
+    
+       <!-- Step 4: DSF Approval -->
+       <div class="col-12 col-md-4 mb-3">
+         <div class="card text-center" style="height: 150px;" (click)="enrollmentStateService.dsfApproved || goToStep(4)">
+           <div class="card-body d-flex flex-column justify-content-between">
+             <div>
+               
+               <strong class="text-dark">Step <i class="bi bi-4-circle-fill text-warning h3"></i></strong>
+               <p>DSF Approval</p>
+             </div>
+             <span class="badge" [ngClass]="enrollmentStateService.dsfApproved ? 'bg-success' : 'bg-warning'">
+               {{ enrollmentStateService.dsfApproved ? 'Finished' : 'Pending' }}
+             </span>
+           </div>
+         </div>
+       </div>
+    
+       <!-- Step 5: Confirmation -->
+       <div class="col-12 col-md-4 mb-3">
+         <div class="card text-center" style="height: 150px;" (click)="enrollmentStateService.registrarApproved || goToStep(5)">
+           <div class="card-body d-flex flex-column justify-content-between">
+             <div>
+               
+               <strong class="text-dark">Step <i class="bi bi-5-circle-fill text-warning h3"></i></strong>
+               <p>Confirmation</p>
+             </div>
+             <span class="badge" [ngClass]="enrollmentStateService.registrarApproved ? 'bg-success' : 'bg-warning'">
+               {{ enrollmentStateService.registrarApproved ? 'Finished' : 'Pending' }}
+             </span>
+           </div>
+         </div>
+       </div>
+       </div>    

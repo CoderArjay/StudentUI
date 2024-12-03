@@ -1,104 +1,103 @@
-.card {
-  border-radius: 10px;
+.container-fluid {
+  overflow-y: auto; /* Allows vertical scrolling */
+  height: 90vh; /* Set a height to enable scrolling */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
 }
 
-.card-title {
-  font-weight: bold;
-  font-size: 1.5rem;
+/* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+.container-fluid::-webkit-scrollbar {
+  display: none; /* Hides the scrollbar */
 }
 
-.list-group {
-  max-height: 400px; /* Set a maximum height */
+
+.ancmnt-section {
+  background-color: transparent;
+  border-radius: 8px;
+  box-shadow: #6c757d;
+
+  .list-group-item {
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer; /* Change cursor to pointer */
+    /* width: 600px; */
+    margin-bottom: 20px;
+  }
+  
+  .list-group-item:hover {
+    background-color: #f1f1f1; /* Light background on hover */
+  }
+  
+  blockquote {
+    padding-left: 1rem; /* Padding for blockquote text */
+    margin: 10px; /* Remove default margin */
+  }
+  
+  .blockquote-footer {
+    font-size: 0.9em; /* Slightly smaller font for footer */
+    color: #6c757d; /* Muted color for footer text */
+  }
+}
+
+.ancmnt-section .card-body {
+  max-height: 300px; /* Set the maximum height for the announcements section */
   overflow-y: auto;  /* Enable vertical scrolling */
-  overflow-x: hidden; /* Hide horizontal scrolling */
-  border: 1px solid #dee2e6; /* Optional: Add a border for better visibility */
-  border-radius: 0.25rem; /* Optional: Round the corners */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  
+  /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+  ::-webkit-scrollbar {
+    display: none; /* Hides the scrollbar */
+  }
 }
 
-/* Optional: Customize scrollbar appearance for WebKit browsers (Chrome, Safari) */
-.list-group::-webkit-scrollbar {
-  width: 8px;
-  margin: 10px; /* Width of the scrollbar */
+.custom-tab-label {
+  font-weight: bold; /* Make the label bold */
+  font-size: medium; /* Change to medium font size */
+  cursor: pointer; /* Change the cursor to pointer */
 }
 
-.list-group::-webkit-scrollbar-thumb {
-  background-color: #007bff; /* Color of the scrollbar thumb */
-  border-radius: 4px; /* Round the corners of the scrollbar thumb */
+
+.banner {
+  display: flex;
+  align-items: center;
+  background-color: #003366;
+  color: #ffffff;
+  padding: 20px 40px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  /* gap: 50px; */
 }
 
-.list-group::-webkit-scrollbar-track {
-  background-color: #f1f1f1; /* Background color of the scrollbar track */
+.illustration {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+  max-width: 60%; /* Set max-width to control image area */
+  padding-right: 20px;
 }
 
-.list-group-item {
-  cursor: pointer;
-  transition: background-color 0.2s;
-  font-size: 15px;
-  margin-bottom: 10px;
+.illustration img {
+  width: 100%;
+  max-width: 600px;
+  margin-left: 4rem;
 }
 
-.list-group-item:hover {
-  background-color: #f8f9fa;
+.date {
+  font-size: 20px;
+  opacity: 0.8;
+  padding-bottom: 4rem;
 }
 
-.announcement-item {
-  border-left: 4px solid #007bff; 
-  font-size: 0.85rem;
-}
-
-.announcement-box {
-  background-color: #f1f1f1; 
-  overflow-y: auto; /* Allows scrolling if content overflows */
-  max-height: 400px;
-  padding-right: 10px; 
-}
-
-.announcement-list {
+.welcome-message {
+  font-size: 26px;
   font-weight: bold;
-  margin-bottom: 1rem;
-  font-size: 0.95rem;
 }
 
-.text-muted {
-  font-size: 0.8rem;
-}
-
-.announcement-item p {
-  font-size: 0.85rem;
-}
-
-.announcement {
-  overflow-x: hidden;
-  overflow-y: hidden;
-  max-height: 570px; 
-  padding-right: 10px; 
-}
-
-.list-group-item.active {
-  background-color: #007bff; /* Highlight selected announcement */
-  color: white; /* Text color for active item */
-}
-
-.card-header {
-  background-color: #007bff; /* Header background */
-  color: white; /* Header text color */
-}
-
-.card-header h5 {
-  margin: 0; /* Remove default margin */
-}
-
-.card-body {
-  background-color: #f9f9f9; /* Card body background */
-}
-
-.subss-item {
-  border: 1px solid #e0e0e0; /* Light border for each message */
-  border-radius: 5px; /* Rounded corners */
-  padding: 10px; /* Padding inside each message */
-  margin-bottom: 10px; /* Space between messages */
-}
-
-.subss-item:hover {
-  background-color: #f8f9fa; /* Light gray background on hover */
+.subtext {
+  font-size: 16px;
+  margin-top: 5px;
+  opacity: 0.9;
 }

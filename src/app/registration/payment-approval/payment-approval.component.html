@@ -70,10 +70,17 @@
                   </div>
               </div>
               <div class="card-body">
-                  <h6 class="card-title text-success text-center">
-                      <strong>The Director of Student Finance has confirmed your payment. <br> Thank you for the payment you made.</strong>
-                  </h6>
-              </div>
+                <h6 class="card-title text-success text-center">
+                    <strong *ngIf="!paymentApproved">
+                        <!-- <img src="samplePic/hour-glass.gif" alt="" height="50" width="50" class="img-fluid"> -->
+                        Please wait for the DSF Approval
+                    </strong>
+                    <strong *ngIf="paymentApproved">
+                        <!-- <i class="bi bi-check-circle-fill text-success" style="font-size: 1.5rem;"></i> -->
+                        The Director of Student Finance has confirmed your payment. <br> Thank you for the payment you made.
+                    </strong>
+                </h6>
+            </div>
               <div class="card-footer">
                  
                   <div class="mt-3">
@@ -83,7 +90,6 @@
                           </div>
                           <div class="card-body d-flex align-items-center">
                               <div class="me-3">
-                                  <!-- <img src="default-image.png" alt="Uploaded Image" class="img-fluid rounded" style="max-width: 100px; max-height: 100px; object-fit: cover;"> -->
                                   <img [src]="paymentImage" alt="Proof of Payment" class="img-thumbnail" style="max-width: 100%; max-height: 100px;">
                               </div>
                               <div>
@@ -97,8 +103,7 @@
                     <div>
                         <p>Please confirm the details of your payment:</p>
                     </div>
-                    <button class="btn btn-success" [disabled]="!paymentApproved" routerLink="/register/student-contract" type="submit">Next</button>
-                </div>
+                    <button class="btn btn-success" [disabled]="!paymentApproved" routerLink="/register/confirmation" type="submit">Next</button>                </div>
               </div>
           </div>
       </div>

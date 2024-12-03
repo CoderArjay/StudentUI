@@ -1,57 +1,256 @@
-  .example-spacer {
-    flex: 1 0 auto;
-  }
-
-  .personal-container {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 16px;
-  }
-
-  .personal-info-card {
-    width: 100%;
-    max-width: 400px;
-    margin: auto;
-  }
-
-  .placeholder {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: #f0f0f0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Container */
+.container-fluid {
+  padding: 30px;
 }
 
-.profile-container {
-  background-color: #f8f9fa; /* Light background */
-  padding: 20px;
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+/* Card Styles */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  margin-bottom: 30px;
+  overflow: hidden;
+  transition: box-shadow 0.3s, transform 0.3s;
 }
 
-.image-wrapper {
-  margin-bottom: 15px; /* Space below the image */
+
+/* Profile Card */
+.profile-card .card-body {
+  padding: 1.25rem;
 }
 
-.profile-image {
-  width: 100px; 
-  height: 100px; 
-  border: 2px solid #28a745; /* Green border */
+.profile-bx {
+  border-bottom: 1px solid #e0e0e0;
 }
 
-.placeholder {
+.profile-image img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px solid #b700ff;
+}
+
+.fs-22 {
+  font-size: 22px;
+}
+
+.font-w600 {
+  font-weight: 600;
+}
+
+.text-black {
+  color: #333;
+}
+
+.contact-list {
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 100px; 
-  height: 100px; 
-  border-radius: 50%; /* Circular placeholder */
-  background-color: #e9ecef; /* Placeholder background */
+  gap: 2rem;
 }
 
-.email-display {
-  font-size: 1.1em; /* Slightly larger font for email */
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.contact-icon {
+  font-size: 20px;
+  color: #007bff;
+  transition: color 0.3s;
+}
+
+.contact-icon:hover {
+  color: #0056b3;
+}
+
+/* Buttons */
+.btn {
+  border-radius: 8px;
+  font-weight: 500;
+  padding: 12px 24px;
+  text-transform: uppercase;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-dark {
+  background-color: #343a40;
+  color: #ffffff;
+}
+
+.btn-dark:hover {
+  background-color: #23272b;
+}
+
+
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 12px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Title Styles */
+.title {
+  margin-bottom: 1.5rem;
+}
+
+.title-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.fs-18{
+  font-size: 18px;
+}
+
+.title-wrapper .fs-18 {
+  margin-right: 1rem;
+}
+
+.title-line {
+  flex-grow: 1;
+  height: 1px;
+  background-color: #3f4244;
+  opacity: .3;
+}
+
+/* Header Container */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0;
+}
+
+.header-container .fs-24 {
+  margin: 0;
+}
+
+.button-group {
+  display: flex;
+}
+
+.button-group .btn:not(:last-child) {
+  margin-right: 15px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .card {
+      margin-bottom: 15px;
+  }
+
+  .contact-list {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+  }
+
+  .button-group {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .button-group .btn {
+      margin-bottom: 10px;
+  }
+}
+
+/* Button Cursor Style */
+.btn:not(:disabled):not(.disabled) {
+  cursor: pointer;
+}
+
+/* Rounded Corners */
+.rounded {
+  border-radius: 1.25rem !important;
+}
+
+/* Primary Button Styling */
+/* .btn-primary {
+  background-color:#8743df;
+  border-color: #8743df;
+} */
+.btn-dark {
+  background-color:#989898;
+  border-color: #989898;
+}
+
+/* Profile Container */
+.profile-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Profile Image */
+.profile-image {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-image img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px solid #007bff;
+}
+
+/* Upload Container */
+.upload-container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 10px; /* Adjust space from the bottom and right */
+}
+
+.upload-icon {
+  background-color: #ffffff;
+  border: 2px solid #007bff;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.upload-icon:hover {
+  background-color: #007bff;
+  border-color: #0056b3;
+  color: #ffffff; /* Change icon color on hover */
+}
+
+.upload-icon i {
+  font-size: 16px; /* Adjust icon size */
+}
+
+/* Hide the actual file input */
+input[type="file"].d-none {
+  display: none;
 }

@@ -6,46 +6,6 @@
   <img [width]="180" [height]="40" src="Logo.png"/>
     <span class="example-spacer"></span>
 
-<button mat-icon-button class="example-icon" matTooltip="Notification" 
-matTooltipPosition="right" [matMenuTriggerFor]="messageMenu" aria-label="Messages">
-  <mat-icon matBadgeColor="accent" matBadge="3">notifications</mat-icon>
-</button>
-
-<mat-menu #messageMenu="matMenu">
-    <mat-list>
-        <mat-list-item>
-          <div class="user-list-item mb-2" >
-            <span class="h6">
-              <img src="samplePic/download2.jfif" alt="User" class="rounded-circle me-1" width="30" height="30" style="float: left;">
-              Registration until this day <br>
-              <figcaption style="font-size: 9px;">Date: August 9, 2024</figcaption>
-            </span>
-          </div>
-        </mat-list-item>
-
-        <mat-list-item>
-          <div class="user-list-item mb-2" >
-            <span class="h6">
-              <img src="samplePic/download2.jfif" alt="User" class="rounded-circle me-1" width="30" height="30" style="float: left;">
-             Join in A club <br>
-              <figcaption style="font-size: 9px;">Date: August 9, 2024</figcaption>
-            </span>
-          </div>
-        </mat-list-item>
-
-        <mat-list-item>
-          <div class="user-list-item mb-2" >
-            <span class="h6">
-              <img src="samplePic/download2.jfif" alt="User" class="rounded-circle me-1" width="30" height="30" style="float: left;">
-              Exam day <br>
-              <figcaption style="font-size: 9px;">Date: August 9, 2024</figcaption>
-            </span>
-          </div>
-        </mat-list-item>
-    </mat-list>
-</mat-menu>
-
-
 <!-- Profile Button with Dropdown -->
 <button mat-icon-button class="example-icon circle-btn ms-2" [matMenuTriggerFor]="profileMenu">
     <img [src]="profileImage" class="prof-image" />

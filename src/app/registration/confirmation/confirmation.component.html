@@ -66,20 +66,32 @@
               <div class="card border-info mb-3">
                   <div class="card-header text-primary d-flex align-items-center">
                       <i class="bi bi-exclamation-octagon text-danger me-2" style="font-size: 1rem;"></i>
-                      <span class="h5">Wait for the confirmation of your registration and Voila! You are now officially Enrolled!</span>
+                      <span class="h5" style="font-size: 1rem;">Wait for the confirmation of your registration and Voila! You are now officially Enrolled!</span>
                   </div>
                   <div class="card-body text-center">
+                    <ng-container *ngIf="reg_approval; else waitingTemplate">
                       <h6 class="card-title text-success"><strong>You are now Officially Enrolled!</strong></h6>
                       <div class="mt-3">
-                          <i class="bi bi-check-circle text-success" style="font-size: 3rem;"></i>
+                        <i class="bi bi-check-circle text-success" style="font-size: 3rem;"></i>
                       </div>
                       <p class="mt-2">Congratulations on completing your registration! You can now access all the resources available to you.</p>
+                    </ng-container>
+                  
+                    <ng-template #waitingTemplate>
+                      <h6 class="card-title text-warning"><strong>Waiting for Official Registration</strong></h6>
+                      <div class="mt-3">
+                        <!-- <img src="samplePic/hour-glass.gif" alt="" height="100" width="100" class="img-fluid"> -->
+                      </div>
+                      <p class="mt-2">Your registration is currently under review. Please check back later for updates.</p>
+                    </ng-template>
                   </div>
                   <div class="card-footer text-center">
-                      <a class="btn btn-success" routerLink="/main">
-                          <i class="bi bi-arrow-right-circle"></i> Proceed to Portal
-                      </a>
-                  </div>
+                    <button class="btn btn-success" 
+                       routerLink="/main" 
+                       [disabled]="!reg_approval">
+                        <i class="bi bi-arrow-right-circle"></i> Proceed to Portal
+                    </button>
+                </div>
               </div>
           </div>
       </div>

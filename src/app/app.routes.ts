@@ -33,7 +33,7 @@ import { EnrollLoginComponent } from './enroll-login/enroll-login.component';
 
 
 export const routes: Routes = [
-    { path: 'main-page', component: MainPageComponent },
+    // { path: 'main-page', component: MainPageComponent },
     {
       path: 'register',
       component: RegistrationPageComponent,
@@ -43,7 +43,7 @@ export const routes: Routes = [
         { path: 'enrollment-details', component:EnrollmentDetailsComponent},
         { path: 'payment', component: PaymentComponent },
         { path: 'dsf-approval', component: PaymentApprovalComponent },
-        { path: 'student-contract', component: StudentContractComponent },
+        // { path: 'student-contract', component: StudentContractComponent },
         { path: 'confirmation', component: ConfirmationComponent },
         { path: '', redirectTo: 'admission', pathMatch: 'full' },
       ],
@@ -102,5 +102,5 @@ export const routes: Routes = [
             { path: '', redirectTo: 'home-page', pathMatch: 'full' },
         ],
     },
-    { path: '', redirectTo: '/main-page', pathMatch: 'full' },
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];

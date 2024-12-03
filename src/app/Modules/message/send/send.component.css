@@ -224,3 +224,61 @@
     }
     
 }
+
+/* chat.component.css */
+
+/* General Styles */
+body {
+    background-color: #f8f9fa; /* Light background for contrast */
+}
+
+/* Messenger Container */
+.messenger-container {
+    height: 100vh; /* Full height */
+}
+
+/* Sidebar Styles */
+.sidebar {
+    background-color: #ffffff; /* White background for the sidebar */
+    border-right: 1px solid #dee2e6; /* Light gray border */
+}
+
+.sidebar .input-group {
+    margin-bottom: 15px;
+}
+
+.scrollable-container {
+    max-height: calc(100vh - 200px); /* Adjust based on header/footer height */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* User List Item Styles */
+.user-list-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+.user-list-item:hover {
+    background-color: #e9ecef; /* Light gray hover effect */
+}
+
+.user-list-item img {
+    border-radius: 50%; /* Circular profile picture */
+}
+
+/* Content Styles */
+.content {
+    margin-left: 10px; /* Space between image and text */
+}
+
+.content h6 {
+    margin: 0;
+    font-size: 14px; /* Adjust font size as needed */
+}
+
+/* Main Content Styles */
+.main-content {
+    background-color: #ffffff; /* White background for main content area */
+}

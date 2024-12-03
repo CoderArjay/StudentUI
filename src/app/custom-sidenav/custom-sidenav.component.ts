@@ -22,15 +22,34 @@ export type MenuItem = {
   styleUrl: './custom-sidenav.component.css',
 })
 export class CustomSidenavComponent implements OnInit {
-  fname: string = '';
-  lname: string = '';
-  lrn: string = '';
-  profileImage: string = '';
+  lname = '';
+  fname = '';
+  mname = '';
+  profileImage: string | null = null;
 
   ngOnInit(): void {
-    this.retrieveStudentData(); 
-    this.lrn = JSON.parse(localStorage.getItem('student') || '{}').LRN;
-    this.retrieveProfileImage(this.lrn);
+    this.loadUserData();
+    this.conn.studentPic$.subscribe((newImageUrl) => {
+      if (newImageUrl) {
+        this.profileImage = newImageUrl; // Update the component's admin picture
+      }
+    });
+
+    // Optionally, initialize with the image from localStorage
+    const user = JSON.parse(localStorage.getItem('student') || '{}');
+    if (user && user.student_pic) {
+      this.profileImage = user.student_pic;
+    }
+  }
+   
+
+  loadUserData() {
+    const userData = localStorage.getItem('student');
+    if (userData) {
+        const parsedData = JSON.parse(userData);
+        this.lname = parsedData.lname || '';
+        this.fname = parsedData.fname || '';
+    }
   }
 
   constructor(private conn: ConnectService, private router: Router) {}

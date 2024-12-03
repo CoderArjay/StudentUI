@@ -10,6 +10,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import { CustomSidenavComponent } from '../../../custom-sidenav/custom-sidenav.component';
 import { CommonModule } from '@angular/common';
+import {MatTabsModule} from '@angular/material/tabs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-financial-statement',
@@ -17,7 +19,7 @@ import { CommonModule } from '@angular/common';
   imports: [ RouterModule, 
     MatToolbarModule, MatButtonModule, 
     MatIconModule, MatSidenavModule, MatBadgeModule, 
-    MatMenuModule, MatListModule, CommonModule],
+    MatMenuModule, MatListModule, CommonModule,MatTabsModule],
   templateUrl: './financial-statement.component.html',
   styleUrl: './financial-statement.component.css'
 })
@@ -25,44 +27,69 @@ export class FinancialStatementComponent implements OnInit {
   fname: string = '';
   lname: string = '';
   grade_level: string = '';
-  currentDate = new Date();
+  currentDate: Date = new Date();
   payments: any[] = [];
   documents: any[] = [];
   LRN: string = '';
-  
+   selectedImage: string = '';
+  private intervalId: any;
 
 
-  constructor(private route: ActivatedRoute, private conn: ConnectService) {}
+  constructor(private conn: ConnectService) {}
 
   ngOnInit(): void {
     this.retrieveStudentData();
-    const LRN = this.route.snapshot.paramMap.get('LRN')!;
-      this.fetchFinancialStatement(LRN);
+    
+    // Fetch financial statement using LRN from local storage
+    if (this.LRN) {
+      this.fetchFinancialStatement(this.LRN);
+    } else {
+      console.error('LRN is not available in local storage.');
+    }
+    setInterval(() => {
+      this.fetchFinancialStatement(this.LRN);
+    }, 1000);
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.intervalId); // Clear the interval on component destroy
   }
 
   retrieveStudentData(): void {
     const student = JSON.parse(localStorage.getItem('student') || '{}');
 
-    if (student) {
+    if (student && student.LRN) {
       this.fname = student.fname || '';
       this.lname = student.lname || '';
       this.grade_level = student.grade_level || '';
-      this.LRN = student.LRN || ''; // Assuming LRN is stored
+      this.LRN = student.LRN; // Assuming LRN is stored in local storage
     } else {
-      console.error('No student data found.');
+      console.error('No student data found or LRN is missing.');
     }
   }
-
 
   fetchFinancialStatement(LRN: string): void {
     this.conn.getFinancialStatement(LRN).subscribe(
       response => {
-        this.payments = response.payments;
-        this.documents = response.documents;
+        this.payments = response.payments || []; // Default to empty array if undefined
+        this.documents = response.documents || []; // Default to empty array if undefined
       },
       error => {
         console.error('Error fetching financial statement:', error);
       }
     );
+  }
+
+  openModal(imageUrl: string): void {
+    Swal.fire({
+      title: 'Image Preview',
+      imageUrl: imageUrl,
+      imageWidth: 400, // Adjust width as needed
+      imageHeight: 300, // Adjust height as needed
+      imageAlt: 'Document Image',
+      showCloseButton: true,
+      showCancelButton: false,
+      confirmButtonText: 'Close'
+    });
   }
 }

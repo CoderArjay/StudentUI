@@ -5,10 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { ConnectService } from '../../../connect.service';
-import { NgForm } from '@angular/forms';
 import { EnrollmentStateService } from '../../../enrollment-state.service';
-import { ActivatedRoute } from '@angular/router';
-
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-stepper',
@@ -20,6 +18,7 @@ import { ActivatedRoute } from '@angular/router';
     CommonModule, // Add CommonModule here
     FormsModule, // Add FormsModule here
     MatInputModule,
+    RouterModule
   ],
   templateUrl: './stepper.component.html',
   styleUrls: ['./stepper.component.css'],
@@ -27,11 +26,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class StepperComponent implements OnInit {
   enrollmentId!: string; // Declare enrollmentId without initializing it
+  private intervalId: any;
 
   constructor(
     public enrollmentStateService: EnrollmentStateService,
-    private connectService: ConnectService
-  ) {}
+    private connectService: ConnectService,
+    private router: Router ) {}
 
   ngOnInit() {
     // Retrieve the student data from localStorage
@@ -44,6 +44,10 @@ export class StepperComponent implements OnInit {
     } else {
       console.warn('No student data found in localStorage');
     }
+
+    setInterval(() => {
+      this.fetchStudentData(this.enrollmentId);
+    }, 1000);
   }
 
   fetchStudentData(lrn: string) {
@@ -74,5 +78,37 @@ export class StepperComponent implements OnInit {
         console.error('Error fetching student data', error);
       }
     );
+  }
+
+  goToStep(stepNumber: number) {
+    switch(stepNumber) {
+      case 1:
+        if (!this.enrollmentStateService.personalInfoSubmitted) {
+          this.router.navigate(['/register/personal-information']); // Update with your actual route
+        }
+        break;
+      case 2:
+        if (!this.enrollmentStateService.enrollmentDetailsSubmitted) {
+          this.router.navigate(['/register/enrollment-details']); // Update with your actual route
+        }
+        break;
+      case 3:
+        if (!this.enrollmentStateService.paymentSubmitted) {
+          this.router.navigate(['/register/payment']); // Update with your actual route
+        }
+        break;
+      case 4:
+        if (!this.enrollmentStateService.dsfApproved) {
+          this.router.navigate(['/register/dsf-approval']); // Update with your actual route
+        }
+        break;
+      case 5:
+        if (!this.enrollmentStateService.registrarApproved) {
+          this.router.navigate(['/register/confirmation']); // Update with your actual route
+        }
+        break;
+      default:
+        break;
+    }
   }
 }

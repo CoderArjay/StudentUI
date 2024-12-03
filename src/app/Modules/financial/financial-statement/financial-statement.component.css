@@ -1,58 +1,153 @@
-.custom-table {
-  border-radius: 10px;
-  overflow: hidden;
+.header {
+  background-color: #007bff; /* Header background color */
+  color: white; /* Text color */
+  padding: 20px; /* Padding around the header */
+  border-radius: 10px; /* Rounded corners */
+  min-height: 100px; /* Set a minimum height for the header */
 }
 
-.custom-table th {
-  background-color: #007bff; /* Bootstrap primary color */
-  color: white;
+/* General Styles */
+body {
+  font-family: 'Georgia', sans-serif;
+  background-color: #f8f9fa; /* Light background for contrast */
+  color: #343a40; /* Dark text for readability */
+}
+
+/* Tab Group Styles */
+.mat-tab-group {
+  margin: 20px; /* Space around the tab group */
+  border-radius: 8px; /* Rounded corners */
+  overflow: hidden; /* Prevent overflow of content */
+}
+
+::ng-deep .mat-tab-group {
+  overflow: hidden; /* Hides the scrollbar */
+}
+
+::ng-deep .mat-tab-labels {
+  overflow-x: auto; /* Allows horizontal scrolling */
+}
+
+/* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+::ng-deep .mat-tab-labels::-webkit-scrollbar {
+  display: none; /* Hides the scrollbar */
+}
+
+/* Hide scrollbar for Firefox */
+::ng-deep .mat-tab-labels {
+  scrollbar-width: none; /* Hides the scrollbar in Firefox */
+}
+
+/* Hide scrollbar for Internet Explorer and Edge */
+::ng-deep .mat-tab-labels {
+  -ms-overflow-style: none; /* Hides the scrollbar in IE and Edge */
+}
+
+/* Tab Label Styles */
+.mat-tab-label {
+  font-weight: bold; /* Bold labels for emphasis */
+}
+
+
+/* Table Styles */
+.table {
+  width: 100%; /* Full width for tables */
+  margin-bottom: 1rem; /* Space below tables */
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f2f2f2; /* Light gray for odd rows */
+}
+
+.table-hover tbody tr:hover {
+  background-color: #e9ecef; /* Slightly darker gray on hover */
+}
+
+.thead-light th {
+  background-color: #007bff; /* Primary color for header */
+  color: white; /* White text for contrast */
+}
+
+/* Card Styles for Uploaded Documents */
+.card {
+  border: none; /* No border for a cleaner look */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+}
+
+.card-img-top {
+  height: auto; /* Maintain aspect ratio of images */
+}
+
+.card-body {
+  padding: 1rem; /* Padding inside cards */
+}
+
+.card-title {
+  font-size: 1.25rem; /* Larger title font size */
+}
+
+.card-text {
+  color: #6c757d; /* Muted text color for descriptions */
+}
+
+/* Button Styles */
+.btn-outline-primary {
+  border-color: #007bff; /* Primary button border color */
+}
+
+.btn-outline-primary:hover {
+  background-color: #007bff; /* Change background on hover */
+  color: white; /* White text on hover */
+}
+
+/* Contact Service Section Styles */
+.contact-service {
+  padding: 20px;
+}
+
+.contact-service h5 {
   font-weight: bold;
 }
 
-.custom-table td {
-  background-color: #f8f9fa; /* Light gray background */
-  transition: background-color 0.3s ease;
+.contact-service p {
+  margin-bottom: 10px;
 }
 
-.custom-table tr:hover td {
-  background-color: #e2e6ea; /* Slightly darker gray on hover */
+::ng-deep .mat-tab-label {
+  min-width: 100px; /* Set your desired minimum width */
+  max-width: 150px; /* Optional: Set a maximum width */
+  flex-grow: 0; /* Prevents the tab from growing */
 }
 
-.card {
-  border: none;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+.custom-tab-label {
+  min-width: 100px; /* Customize as needed */
+  max-width: 150px; /* Optional */
+  text-align: center; /* Center text */
 }
 
-.card-header {
-  border-bottom: none;
-  border-radius: 10px 10px 0 0;
-  padding: 1rem;
+.mat-tab-group {
+  display: flex;
 }
 
-.text-muted small {
-  font-style: italic;
-  display: block;
-  margin-top: 10px;
-  text-align: center;
+.mat-tab-labels {
+  display: flex;
+  justify-content: space-between; /* Adjust spacing as needed */
 }
 
-/* Badge styles */
-.badge {
-  font-size: 0.9rem; /* Adjust badge size */
+.clickable-image:hover {
+  transform: scale(1.05); /* Slightly enlarge the image on hover */
+  transition: transform 0.2s ease; /* Smooth transition */
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-  .container {
-      padding-left: 15px;
-      padding-right: 15px;
-  }
-  
-  .card-header h5 {
-      font-size: 1.25rem; /* Adjust header size for smaller screens */
-  }
-  
-  .table th, .table td {
-      font-size: 0.9rem; /* Adjust table font size for smaller screens */
-  }
+.title{
+  border-radius: .5rem;
+  /* font-size: x-large; */
+  font-weight: bold;
+  /* margin: 20px; */
+  /* background-color: #007bff; */
+  /* color: #000000; */
+  width: fit-content;
+  border-bottom: #343a40;
+  border: #343a40;
+  border-width: medium;
 }

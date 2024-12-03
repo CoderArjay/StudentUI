@@ -67,92 +67,98 @@
   
           <form (ngSubmit)="onSubmit()" #personalInfoForm="ngForm">
             <div class="row g-2" style="display: none;">
-              <div class="col-md">
-                <div class="form-floating mb-2">
-                  <input type="text" name="LRN" [(ngModel)]="enrollment.LRN" class="form-control" id="floatingInput" placeholder="123456789" required>
-                  <label for="floatingInput"><i class="bi bi-123"></i> LRN</label>
+                <div class="col-md">
+                    <div class="form-floating mb-2">
+                        <input type="text" name="LRN" [(ngModel)]="enrollment.LRN" class="form-control" id="floatingInput" placeholder="123456789" required>
+                        <label for="floatingInput"><i class="bi bi-123"></i> LRN</label>
+                    </div>
                 </div>
-              </div>
             </div>
-          
+        
             <div class="row g-2">
-              <div class="col-md">
-                  <mat-form-field appearance="fill" class="w-100">
-                      <mat-label>
-                          Last Attended 
-                          <span matTooltip="School that you attended last year" matTooltipPosition="above">
-                                  <i class="bi bi-exclamation-circle text-danger"></i>
-                          </span>
-                      </mat-label>
-                      <input matInput type="text" id="last_attended" name="last_attended" [(ngModel)]="enrollment.last_attended" required>
-                  </mat-form-field>
-              </div>
-          
-              <div class="col-md">
-                  <mat-form-field appearance="fill" class="w-100">
-                      <mat-label>School Year
-                          <span matTooltip="e.g., 2023-2024" matTooltipPosition="above">
-                              
-                                  <i class="bi bi-exclamation-circle text-danger"></i>
-                              
-                          </span>
-                      </mat-label>
-                      <input matInput type="text" id="school_year" name="school_year" [(ngModel)]="enrollment.school_year" required>
-                  </mat-form-field>
-              </div>
-          </div>
-
-            <div class="row g-2">
-              <div class="col-md mb-3">
-                <mat-radio-group name="public_private" [(ngModel)]="enrollment.public_private" required>
-                    <mat-radio-button value="public">Public</mat-radio-button>
-                    <mat-radio-button value="private">Private</mat-radio-button>
-                </mat-radio-group>
+                <div class="col-md">
+                    <mat-form-field appearance="fill" class="w-100">
+                        <mat-label>
+                            Last School Attended 
+                            <span matTooltip="School that you attended last year" matTooltipPosition="above">
+                                <i class="bi bi-exclamation-circle text-danger"></i>
+                            </span>
+                        </mat-label>
+                        <input matInput type="text" id="last_attended" name="last_attended" [(ngModel)]="enrollment.last_attended" required pattern="[A-Za-z\s]+" title="Please enter letters only.">
+                    </mat-form-field>
+                </div>
+        
+                <div class="col-md">
+                    <mat-form-field appearance="fill" class="w-100">
+                        <mat-label>School Year
+                            <span matTooltip="e.g., 2024-2025" matTooltipPosition="above">
+                                <i class="bi bi-exclamation-circle text-danger"></i>
+                            </span>
+                        </mat-label>
+                        <input matInput type="text" id="school_year" name="school_year" [(ngModel)]="enrollment.school_year" required pattern="[0-9]{4}-[0-9]{4}" title="Please enter a valid school year (e.g., 2024-2025)">
+                    </mat-form-field>
+                </div>
             </div>
-              <div class="col-md">
+        
+            <div class="row g-2">
+                <div class="col-md mb-3">
+                    <mat-radio-group name="public_private" [(ngModel)]="enrollment.public_private" required>
+                        <mat-radio-button value="public">Public</mat-radio-button>
+                        <mat-radio-button value="private">Private</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+        
+                <div class="col-md">
+                    <mat-form-field>
+                        <mat-label>Grade Level</mat-label>
+                        <mat-select id="grade_level" [(ngModel)]="enrollment.grade_level" name="grade_level" required>
+                            <mat-option value="7">Grade 7</mat-option>
+                            <mat-option value="8">Grade 8</mat-option>
+                            <mat-option value="9">Grade 9</mat-option>
+                            <mat-option value="10">Grade 10</mat-option>
+                            <mat-option value="11">Grade 11</mat-option>
+                            <mat-option value="12">Grade 12</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+        
+                <div class="col-md">
+                    <div *ngIf="enrollment.grade_level === '11' || enrollment.grade_level === '12'">
                         <mat-form-field>
-                          <mat-label>Grade Level</mat-label>
-                          <mat-select id="grade_level" [(ngModel)]="enrollment.grade_level" name="grade_level" required>
-                              <mat-option value="7">Grade 7</mat-option>
-                              <mat-option value="8">Grade 8</mat-option>
-                              <mat-option value="9">Grade 9</mat-option>
-                              <mat-option value="10">Grade 10</mat-option>
-                              <mat-option value="11">Grade 11</mat-option>
-                              <mat-option value="12">Grade 12</mat-option>
-                          </mat-select>
+                            <mat-label>Strand</mat-label>
+                            <mat-select id="strand" [(ngModel)]="enrollment.strand" name="strand">
+                                <mat-option value="ABM">ABM</mat-option>
+                                <mat-option value="STEM">STEM</mat-option>
+                                <mat-option value="HUMMS">HUMMS</mat-option>
+                            </mat-select>
                         </mat-form-field>
-                        </div>
-
-                        <div class="col-md">
-                        <div *ngIf="enrollment.grade_level === '11' || enrollment.grade_level === '12'">
-                          <mat-form-field>
-                              <mat-label>Strand</mat-label>
-                              <mat-select id="strand" [(ngModel)]="enrollment.strand" name="strand">
-                                  <mat-option value="abm">ABM</mat-option>
-                                  <mat-option value="stem">STEM</mat-option>
-                                  <mat-option value="humms">HUMMS</mat-option>
-                              </mat-select>
-                          </mat-form-field>
-                        </div>
-                        </div>
-                      </div>
+                    </div>
+                </div>
+            </div>
         
             <div class="row g-2">
                 <div class="col-md">
                     <mat-form-field class="w-100">
                         <mat-label>Guardian's Name</mat-label>
-                        <input matInput id="guardianName" name="guardian_name" [(ngModel)]="enrollment.guardian_name" required>
+                        <input matInput id="guardianName" name="guardian_name" [(ngModel)]="enrollment.guardian_name" pattern="[A-Za-z\s]+" required title='Please enter letters only.' >
                     </mat-form-field>
                 </div>
         
                 <div class="col-md">
-                  <mat-form-field class="w-100">
-                      <mat-label>Current Address</mat-label>
-                      <input matInput type="text" id="currentAddress" name="current_address"  required>
-                  </mat-form-field>
-              </div>
+                    <mat-form-field class='w-100'>
+                        <mat-label>Current Address</mat-label>
+                        <!-- Allowing letters, numbers, and spaces for address -->
+                        <input matInput type='text' id='currentAddress' name='current_address' [(ngModel)]='enrollment.current_address' pattern="[A-Za-z0-9\s,.-]+" required title='Please enter a valid address.' >
+                    </mat-form-field>
+                </div>
             </div>
-            <button mat-raised-button class="btn btn-success mb-2" type="submit" [disabled]="personalInfoForm.invalid" style="float:right;">Submit</button>
+        
+            <!-- Submit Button -->
+            <button mat-raised-button class='btn btn-success mb-2' type='submit' 
+                    [disabled]="personalInfoForm.invalid"
+                    style='float:right;'>Submit
+            </button>
+        
         </form>
       </div>
     </div>

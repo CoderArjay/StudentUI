@@ -46,7 +46,7 @@ export class EnrollmentDetailsComponent {
   }
 
   fetchEnrollmentInfo(LRN: number): void {
-    this.conn.getStudent(LRN).subscribe(
+    this.conn.getStudentInfo(LRN).subscribe(
       (response) => {
         this.enrollment = response; // Update local enrollment object with fetched data
         console.log('Fetched updated enrollment:', this.enrollment);

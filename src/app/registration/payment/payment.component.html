@@ -64,7 +64,7 @@
 
     <div class="col-md mb-3 form-col">
       <div class="student_name mt-2">
-        <h6><strong>{{ student?.lname }} {{ student?.fname }} </strong> <span class="badge text-bg-primary">Grade {{ student?.grade_level }}</span></h6> 
+        <h6><strong>{{ student?.lname }} {{ student?.fname }} </strong> <span class="badge text-bg-primary">Grade  {{ student.enrollment.grade_level }}</span></h6> 
       </div>
       <div class="container">
         <div class="row g-2">
@@ -148,7 +148,7 @@
                     <form (ngSubmit)="onSubmit()" enctype="multipart/form-data">
                       <div class="d-flex gap-2">
                           <input type="file" id="imageUpload" (change)="onFileChange($event)" class="form-control" accept="image/*" required>
-                          <button class="btn btn-success ms-3 mx-2" type="submit">Submit</button><br>
+                         
                       </div>
 
                       <div class="col-md mt-2">
@@ -169,6 +169,7 @@
                           <textarea matInput id="description" [(ngModel)]="description" name="description" required></textarea>
                       </mat-form-field>
                   </div>
+                  <button class="btn btn-success ms-3 mx-2" type="submit">Submit</button><br>
                   </form>
                     </div>
                   </div>

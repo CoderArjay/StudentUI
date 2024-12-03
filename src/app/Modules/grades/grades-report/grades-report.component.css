@@ -1,45 +1,50 @@
 .custom-table {
-  border-radius: 10px;
-  overflow: hidden;
-}
+    border-radius: 10px; /* Rounded corners for the table */
+    overflow: hidden; /* Prevents overflow for rounded corners */
+  }
+  
+  .table {
+    background-color: #ffffff; /* White background for the table */
+  }
+  
+  .table th {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white; /* White text for header */
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f2f9ff; /* Light blue for odd rows */
+  }
+  
+  .table-striped tbody tr:hover {
+    background-color: #e1f5fe; /* Light blue on hover */
+  }
+  
+  .card {
+    border: none; /* Remove card border */
+  }
+  
+  .card-body {
+    padding: 20px; /* Add padding to card body */
+  }
+  
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .custom-table {
+      font-size: 14px; /* Smaller font size on mobile */
+    }
+  }
 
-.custom-table th {
-  background-color: #007bff; /* Bootstrap primary color */
-  color: white;
-  font-weight: bold;
-}
-
-.custom-table td {
-  background-color: #f8f9fa; /* Light gray background */
-  transition: background-color 0.3s ease;
-}
-
-.custom-table tr:hover td {
-  background-color: #e2e6ea; /* Slightly darker gray on hover */
-}
-
-.card {
-  border: none;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-.card-header {
-  border-bottom: none;
-  border-radius: 10px 10px 0 0;
-  padding: 1rem;
-}
-
-.table-responsive {
-  margin-top: 20px;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: inset 0 -1px 5px rgba(0,0,0,0.1);
-}
-
-/* Optional styling for the footer note */
-.text-muted small {
-  font-style: italic;
-  display: block;
-  margin-top: 10px;
-  text-align: center;
-}
+  .header {
+    background-color: #007bff; /* Header background color */
+     /* Text color */
+    padding: 20px; /* Padding around the header */
+    border-radius: 10px; /* Rounded corners */
+    min-height: 100px; /* Set a minimum height for the header */
+  }
+  
+  .header-content {
+    flex-grow: 1; /* Allow content to take up remaining space */
+  }
+  

@@ -1,86 +1,131 @@
-<div class="container">
-    <mat-toolbar style="background-color: transparent; border-bottom: 1px solid;">
-        <mat-toolbar-row>
-            <span> <strong>{{ lname }} {{ fname }} </strong></span>
-            <span class="example-spacer"></span>
-            <a class="btn btn-warning" style="border-radius: 1.5rem;" routerLink="/login">Sign out</a>
-        </mat-toolbar-row>
-    </mat-toolbar>
-
-    <div class="row mt-3">
-        <div class="col-md-3 text-center profile-container">
-            <div class="image-wrapper">
-                <img *ngIf="profileImage" [src]="profileImage" alt="Profile Image" class="img-fluid rounded-circle profile-image">
-                <div *ngIf="!profileImage" class="placeholder d-flex justify-content-center align-items-center">
-                    <span class="text-muted">No Image</span>
+ <div class="content-body">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Profile Card -->
+        <div class="card flex-lg-column flex-md-row">
+          <!-- Profile Information -->
+          <div class="card-body text-center border-bottom profile-bx">
+            <div class="profile-container">
+              <div class="profile-image">
+                <img [src]="profileImage" alt="Profile Image" class="rounded-circle">
+                <div class="upload-container">
+                  <label for="fileUpload" class="upload-icon">
+                    <i class="fa-solid fa-camera"></i>
+                  </label> 
+                  <input type="file" id="fileUpload" class="d-none" (change)="onFileSelected($event)">
                 </div>
+              </div>
             </div>
-        
-            <button class="btn btn-success mt-3" (click)="openUploadImageDialog()">
-                Upload Image
-            </button>
-        
-            <div class="email-display mt-4">
-                <span class="text-muted">{{ email }}</span> 
+            <h4 class="fs-22 text-black mb-1">{{user.fname }} {{user.mname }}. {{user.lname }}</h4>
+          </div>
+  
+          <!-- Contact Information -->
+          <div class="card-body text-center">
+            <div class="contact-list">
+              <div class="contact-item">
+                <a href="mailto:{{ user.email }}" class="contact-icon"><i class="fa-solid fa-envelope"></i></a>
+                <span class="text-black">{{ user.email }}</span>
+              </div>
+              <div class="contact-item">
+                <a href="#" class="contact-icon"><i class="fa-solid fa-location-dot"></i></a>
+                <span class="text-black">{{ user.address }}</span>
+              </div>
             </div>
+          </div>
         </div>
-        <div class="col-md-9">
-            <h5><strong>Personal Information</strong></h5>
-            <p>You can't edit your personal information, but you can update your password.</p>
-
-            <div class="container mt-5">
+  
+        <!-- Profile Edit Card -->
+        <div class="card flex-lg-column flex-md-row">
+          <div class="header-container mt-3">
+            <h2 class="fs-50 text-black font-w600 ms-3">Edit Profile</h2>
+            <div class="button-group">
+              <button  class="btn btn-primary rounded">Save Changes</button>
+            </div>
+          </div>
+  
+          <div class="card-body">
+            <form [formGroup]="profileForm" novalidate>
+              <!-- Generals Section -->
+              <div class="mb-sm-5 mb-2">
+                <div class="title mb-4">
+                  <div class="title-wrapper">
+                    <span class="fs-18 text-black font-w600">GENERALS</span>
+                    <div class="title-line"></div>
+                  </div>
+                </div>
+  
                 <div class="row">
-                    <div class="col-md-5">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <span class="card-title h5"><strong>Name</strong></span>
-                                    <span class="text-danger h4"><i class="bi bi-person-circle"></i></span>
-                                </div>
-                                <p class="card-text mt-2">{{ fname }} {{ mname }} {{ lname }}</p> 
-                            </div>
-                        </div>
+  
+                  <div class="col-xl-4 col-sm-6">
+                    <div class="form-group">
+                      <label for="firstName">Firstname</label>
+                      <input formControlName="fname" id="firstName" placeholder="Enter name" class="form-control">
                     </div>
-                    <div class="col-md-5">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <span class="card-title h5"><strong>Contact Number</strong></span>
-                                    <span class="text-danger h4"><i class="bi bi-wechat"></i></span>
-                                </div>
-                                <p class="card-text mt-2">{{ contact_no }}</p> <!-- Display contact number -->
-                            </div>
-                        </div>
+                  </div>
+                  <div class="col-xl-4 col-sm-6">
+                    <div class="form-group">
+                      <label for="middleName">Middlename</label>
+                      <input formControlName="mname" id="middleName" placeholder="Enter Middlename" class="form-control">
                     </div>
-
-                    <!-- Password Update Section -->
-                    <form (ngSubmit)="onSubmit()" #passwordForm="ngForm">
-                        <div class="row g-2">
-                            <div class="col-md-6">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" name="password" id="password" class="form-control" [(ngModel)]="password" required>
-                            </div>
-                        </div>
-                    
-                        <div class="row g-2">
-                            <div class="col-md-6">
-                                <label for="confirm-password" class="form-label">Confirm Password</label>
-                                <input type="password" name="passwordConfirmation" id="confirm-password" class="form-control" [(ngModel)]="passwordConfirmation" required>
-                            </div>
-                        </div>
-                    
-                        <div class="row g-2">
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary mt-3">Update Password</button>
-                            </div>
-                        </div>
-                    
-                        <div *ngIf="message" class="alert" [ngClass]="{'alert-success': success, 'alert-danger': !success}">
-                            {{ message }}
-                        </div>
-                    </form>
+                  </div>
+                  <div class="col-xl-4 col-sm-6">
+                    <div class="form-group">
+                      <label for="lastName">Lastname</label>
+                      <input formControlName="lname" id="lastName" placeholder="Enter lastname" class="form-control">
+                    </div>
+                  </div>
                 </div>
-            </div>
+                <div class="row">
+                  <div class="col-xl-4 col-sm-6">
+                    <div class="form-group">
+                      <label for="oldPassword">Old Password</label>
+                      <input formControlName="oldPassword" id="oldPassword" type="password"
+                        placeholder="Enter old password" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-xl-4 col-sm-6">
+                    <div class="form-group">
+                      <label for="password">New Password</label>
+                      <input formControlName="newPassword" id="password" type="password" placeholder="Enter new password"
+                        class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-xl-4 col-sm-6">
+                    <div class="form-group">
+                      <label for="retypePassword">Re-Type Password</label>
+                      <input formControlName="newPassword_confirmation" id="retypePassword" type="password"
+                        placeholder="Re-enter new password" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Contact Section -->
+              <div class="mb-sm-5 mb-2">
+                <div class="title mb-4">
+                  <div class="title-wrapper">
+                    <span class="fs-18 text-black font-w600">CONTACT</span>
+                    <div class="title-line"></div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-4 col-sm-6">
+                    <div class="form-group">
+                      <label for="email">Email</label>
+                      <input formControlName="email" id="email" placeholder="Enter email" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-xl-4 col-sm-6">
+                    <div class="form-group">
+                      <label for="address">Address</label>
+                      <input formControlName="address" id="address" placeholder="Enter address" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>

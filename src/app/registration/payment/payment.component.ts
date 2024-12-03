@@ -22,8 +22,6 @@ import { MatInputModule } from '@angular/material/input';
   styleUrls: ['./payment.component.css']
 })
 export class PaymentComponent implements OnInit {
-  // amount_paid: number | undefined;
-  
   enrollment: any = {
     LRN: '',
     last_attended: '',
@@ -44,6 +42,7 @@ export class PaymentComponent implements OnInit {
   amount_paid: any;
   description: string = '';
   date_of_payment!: string;
+// grade_level: any;
   
   constructor(private conn: ConnectService, private router: Router, private route: ActivatedRoute) {}
 
@@ -57,6 +56,7 @@ export class PaymentComponent implements OnInit {
       console.log('Student data retrieved from local storage:', this.student);
       this.LRN = this.student.LRN; // Retrieve LRN from student data
       this.fetchTuitionDetails();
+      this.enrollment.grade_level = this.student.grade_level;
     } else {
       console.error('No student data found in local storage.');
       // Optionally, navigate away or show an error message
@@ -151,17 +151,7 @@ export class PaymentComponent implements OnInit {
         return;
     }
 
-    // // Check if amount_paid is valid
-    // if (!this.amount_paid || this.amount_paid <= 0) {
-       
-    //     return;
-    // }
-
-    // // Check if description is provided
-    // if (!this.description) {
-        
-    //     return;
-    // }
+    
 
     const formData = new FormData();
     formData.append('LRN', this.LRN || ''); // Ensure LRN is appended safely

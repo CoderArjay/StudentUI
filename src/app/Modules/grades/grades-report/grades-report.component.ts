@@ -67,10 +67,10 @@ export class GradesReportComponent implements OnInit{
                 this.studentSubjects = Object.keys(data).map(subject => ({
                     subject_name: subject,
                     grades: [
-                        Number(data[subject]['1st Quarter']?.grade) || 0,
-                        Number(data[subject]['2nd Quarter']?.grade) || 0,
-                        Number(data[subject]['3rd Quarter']?.grade) || 0,
-                        Number(data[subject]['4th Quarter']?.grade) || 0,
+                        Number(data[subject]['First Quarter']?.grade) || 0,
+                        Number(data[subject]['Second Quarter']?.grade) || 0,
+                        Number(data[subject]['Third Quarter']?.grade) || 0,
+                        Number(data[subject]['Fourth Quarter']?.grade) || 0,
                     ],
                 }));
                 this.student.LRN = lrn; // Update LRN in student object
