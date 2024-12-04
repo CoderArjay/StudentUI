@@ -31,22 +31,22 @@ export class FinancialStatementComponent implements OnInit {
   payments: any[] = [];
   documents: any[] = [];
   LRN: string = '';
-   selectedImage: string = '';
+  selectedImage: string = '';
   private intervalId: any;
-
 
   constructor(private conn: ConnectService) {}
 
   ngOnInit(): void {
     this.retrieveStudentData();
-    
+
     // Fetch financial statement using LRN from local storage
     if (this.LRN) {
       this.fetchFinancialStatement(this.LRN);
     } else {
       console.error('LRN is not available in local storage.');
     }
-    setInterval(() => {
+    
+    this.intervalId = setInterval(() => {
       this.fetchFinancialStatement(this.LRN);
     }, 1000);
   }
@@ -72,7 +72,11 @@ export class FinancialStatementComponent implements OnInit {
     this.conn.getFinancialStatement(LRN).subscribe(
       response => {
         this.payments = response.payments || []; // Default to empty array if undefined
-        this.documents = response.documents || []; // Default to empty array if undefined
+        // Update documents to include full URLs
+        this.documents = response.documents.map((doc: { filename: any; }) => ({
+          ...doc,
+          url: `http://localhost:8000/storage/financials/${doc.filename}` // Construct full URL
+        })) || []; // Default to empty array if undefined
       },
       error => {
         console.error('Error fetching financial statement:', error);
@@ -83,9 +87,9 @@ export class FinancialStatementComponent implements OnInit {
   openModal(imageUrl: string): void {
     Swal.fire({
       title: 'Image Preview',
-      imageUrl: imageUrl,
-      imageWidth: 400, // Adjust width as needed
-      imageHeight: 300, // Adjust height as needed
+      imageUrl: imageUrl, // Use the image URL passed as argument
+      imageWidth: 500, // Adjust width as needed
+      imageHeight: 400, // Adjust height as needed
       imageAlt: 'Document Image',
       showCloseButton: true,
       showCancelButton: false,

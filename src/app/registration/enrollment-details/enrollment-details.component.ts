@@ -38,25 +38,36 @@ export class EnrollmentDetailsComponent {
   constructor(private route: ActivatedRoute, private conn: ConnectService, private router: Router) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      const LRN = params['LRN']; // Get LRN from route parameters
-      console.log('Fetching enrollment for LRN:', LRN); // Debug log
-      this.fetchEnrollmentInfo(LRN); // Fetch existing enrollment information
-    });
+    const studentData = localStorage.getItem('student');
+
+    if (studentData) {
+      this.enrollment = JSON.parse(studentData); // Parse and assign the student data
+      console.log('Student data retrieved from local storage:', this.enrollment);
+    } else {
+      console.error('No student data found in local storage.');
+      // Optionally, you can navigate away or show an error message
+      this.router.navigate(['/error']); // Example navigation on error
+    }
+
+    // this.route.params.subscribe(params => {
+    //   const LRN = params['LRN']; // Get LRN from route parameters
+    //   console.log('Fetching enrollment for LRN:', LRN); // Debug log
+    //   this.fetchEnrollmentInfo(LRN); // Fetch existing enrollment information
+    // });
   }
 
-  fetchEnrollmentInfo(LRN: number): void {
-    this.conn.getStudentInfo(LRN).subscribe(
-      (response) => {
-        this.enrollment = response; // Update local enrollment object with fetched data
-        console.log('Fetched updated enrollment:', this.enrollment);
-      },
-      (error) => {
-        console.error('Error fetching updated enrollment:', error);
-        alert('Failed to fetch updated enrollment data.');
-      }
-    );
-  }
+  // fetchEnrollmentInfo(LRN: number): void {
+  //   this.conn.getStudentInfo(LRN).subscribe(
+  //     (response) => {
+  //       this.enrollment = response; // Update local enrollment object with fetched data
+  //       console.log('Fetched updated enrollment:', this.enrollment);
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching updated enrollment:', error);
+  //       alert('Failed to fetch updated enrollment data.');
+  //     }
+  //   );
+  // }
 
   onSubmit() {
     // Check if LRN is provided

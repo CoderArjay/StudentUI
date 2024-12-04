@@ -45,7 +45,7 @@ export class AttendanceReportComponent implements OnInit {
       this.fetchAttendance();
 
       // Set an interval to fetch attendance records every 30 seconds (adjust as needed)
-      setInterval(() => {
+      this.intervalId = setInterval(() => {
           this.fetchAttendance();
       }, 1000); 
   }

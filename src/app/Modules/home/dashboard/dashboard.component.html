@@ -1,20 +1,15 @@
 <div class="container-fluid">
-  <div class="row">
-      <div class="banner">
+      <header class="header d-flex justify-content-between align-items-center mx-5 ms-5">
         <div class="text-content">
-            <h5>Grade Level: {{grade_level}}</h5>
+             <h1 class="welcome-message">Welcome {{lname}} {{fname}}!</h1>
           <div class="date">{{ currentTime | date: 'fullDate' }}</div>
-          <h1 class="welcome-message">Welcome {{lname}} {{fname}}!</h1>
-          <p class="subtext">Always stay updated in your student portal</p>
         </div>
-        <div class="illustration">
-          <!-- Placeholder for the 3D illustration -->
-          <img src="sams.png " alt="Illustration">
-        </div>
-      </div>
+        <img src="sams.png" alt=""  width="300" height="" class="ms-3 img-fluid align-items_center">
+      </header>
 
+  <div class="row">
       <!-- Main Content Area -->
-      <div class="col-md-12 mt-5 ms-sm-auto px-md-4">
+      <div class="col-md-12 mt-5 px-md-4">
         <mat-tab-group>
             <!-- Subjects Tab -->
             <mat-tab>
@@ -49,21 +44,18 @@
                     <span class="custom-tab-label"><img src="megaphone.png" alt="" width="30" height="30"> Announcements</span>
                 </ng-template>
                 <div class="card shadow-sm mb-3 ancmnt-section">
-                    <div class="card-header text-white bg-primary">
-                        <h5 class="mb-0">Announcements</h5>
-                    </div>
-            
                     <div class="card-body m-2">
                         <!-- Use Bootstrap margin classes for spacing -->
                         <div class="mb-3" *ngFor="let announcement of announcements">
                             <div class="card ">
                                 <div class="card-header bg-secondary text-white">
-                                    <img src="default-image.jpg" alt="User" class="rounded-circle me-2" width="40" height="40" />
+                                    <img src="default-image.jpg" alt="User" class="rounded-circle me-2" width="40" height="40" style="float:left;"/>
                                     <strong>{{ announcement.admin_name }}</strong> | {{ announcement.created_at | date:'short' }}
+                                    <div class="sub-text">{{ announcement.title }}</div>
                                 </div>
                                 <div class="card-body">
                                     <blockquote class="blockquote mb-0">
-                                        <p>{{ announcement.title }}</p>
+                                        <p>{{announcement.announcement}}</p>
                                         <footer class="blockquote-footer">Subject: {{ announcement.subject_name }}</footer>
                                     </blockquote>
                                 </div>
@@ -80,21 +72,22 @@
       
             <!-- Latest Messages Tab -->
             <mat-tab>
-                <ng-template mat-tab-label>
-                    <span class="custom-tab-label"><img src="chat.png" alt="" width="30" height="30"> Latest Messages</span>
-                </ng-template>
-                <ul class="list-group list-group-flush">
-                    <li *ngFor="let message of messages" 
-                        [class.active]="!message.isRead" 
-                        class="list-group-item d-flex justify-content-between align-items-center">
-                        {{ truncateMessage(message.content) }}
-                        <span>{{ message.timestamp | date:'short' }}</span> 
-                    </li>
-      
-                    <!-- Placeholder if no messages -->
-                    <li *ngIf="messages.length === 0" class='list-group-item text-center'>No latest messages</li>
-                    </ul>
-            </mat-tab>
+    <ng-template mat-tab-label>
+        <span class="custom-tab-label"><img src="chat.png" alt="" width="30" height="30"> Latest Messages</span>
+    </ng-template>
+    <ul class="list-group list-group-flush">
+        <li *ngFor="let message of messages; let i = index" 
+            [class.active]="!message.isRead" 
+            class="list-group-item d-flex justify-content-between align-items-center">
+            {{ truncateMessage(message.content) }}
+            <span>{{ message.timestamp | date:'short' }}</span> 
+            <!-- <button class="btn btn-sm btn-link" (click)="deleteMessage(i)">Delete</button> -->
+        </li>
+    
+        <!-- Placeholder if no messages -->
+        <li *ngIf="messages.length === 0" class='list-group-item text-center'>No latest messages</li>
+    </ul>
+</mat-tab>
         </mat-tab-group>
     </div>
   </div> 

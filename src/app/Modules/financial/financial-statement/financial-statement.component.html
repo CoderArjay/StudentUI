@@ -1,15 +1,14 @@
 <div class="container-fluid">
-  <header class="header d-flex justify-content-between align-items-center">
-   
+  <header class="header">
     <div class="contact-service">
       <h4>Financial Statment</h4>
       <h5>Contact our DSF Office:</h5>
       <p>Email: nlacacademydsf&#64;gmail.com</p>
     </div>
-    <img src="samplePic/img3.png" alt="Grade Icon"  width="200" height="" class="ms-3 img-fluid">
   </header>
 
-  <div class="col-md-12 mt-1">
+<div class="container mt-2">
+  <div class="col-md-12">
     <h6 class="title mb-4">Uploaded by the DSF</h6>
     <div class="row">
         <!-- Check if there are any documents -->
@@ -22,10 +21,10 @@
         <div *ngFor="let document of documents" class="col-md-4 mb-4">
             <div class="card shadow-sm border-light"> <!-- Card with shadow and light border -->
                 <img 
-                    [src]="document.filename" 
+                    [src]="document.url" 
                     class="card-img-top clickable-image" 
                     alt="{{ document.filename }}" 
-                    (click)="openModal(document.filename)" 
+                    (click)="openModal(document.url)" 
                     style="cursor: pointer;"
                 >
                 <div class="card-body text-center">
@@ -36,10 +35,5 @@
         </div>
     </div>    
 </div>
-
-  <footer>
-    <div class="mt-4 text-muted text-center">
-      * For any queries, contact the Student Financing Office.
-    </div>
-  </footer>
+</div>
 </div>

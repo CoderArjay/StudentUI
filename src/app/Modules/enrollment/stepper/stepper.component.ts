@@ -45,9 +45,13 @@ export class StepperComponent implements OnInit {
       console.warn('No student data found in localStorage');
     }
 
-    setInterval(() => {
+    this.intervalId = setInterval(() => {
       this.fetchStudentData(this.enrollmentId);
     }, 1000);
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.intervalId); 
   }
 
   fetchStudentData(lrn: string) {

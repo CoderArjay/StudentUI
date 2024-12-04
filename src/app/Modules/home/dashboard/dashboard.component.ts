@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
 import { MatTabsModule } from '@angular/material/tabs';
+import { Observable ,of} from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +16,7 @@ import { MatTabsModule } from '@angular/material/tabs';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
+  message!: Observable<any[]>;
   classes: any[] = [];
   announcements: any[] = [];
   selectedAnnouncement: any = null;
@@ -31,6 +33,7 @@ export class DashboardComponent implements OnInit {
   keyword: string = '';
   currentTime!: string;
   private intervalId: any;
+  class!: Observable<any[]>;
 
   constructor(private http: HttpClient, private conn: ConnectService) {}
 
