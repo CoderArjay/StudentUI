@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-payment-approval',
   standalone: true,
-  imports: [MatListModule,RouterModule,CommonModule],
+  imports: [MatListModule, RouterModule, CommonModule],
   templateUrl: './payment-approval.component.html',
   styleUrl: './payment-approval.component.css'
 })

@@ -87,9 +87,9 @@ export class FinancialStatementComponent implements OnInit {
   openModal(imageUrl: string): void {
     Swal.fire({
       title: 'Image Preview',
-      imageUrl: imageUrl, // Use the image URL passed as argument
-      imageWidth: 500, // Adjust width as needed
-      imageHeight: 400, // Adjust height as needed
+      imageUrl: imageUrl,
+      imageWidth: 500, 
+      imageHeight: 400, 
       imageAlt: 'Document Image',
       showCloseButton: true,
       showCancelButton: false,

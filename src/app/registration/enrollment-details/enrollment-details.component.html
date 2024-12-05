@@ -62,7 +62,7 @@
       </div>
       <div class="col-md mb-3 form-col">
         <blockquote class="blockquote mb-4" style="border-bottom: 2px solid; border-bottom-color: black;">
-          <h6><strong>Enrollment Details <span class="badge text-bg-primary mb-2">{{ enrollment?.lname }} {{ enrollment?.fname }}</span></strong></h6> 
+          <h4><strong>Enrollment Details <span class="badge text-bg-primary mb-2">{{ enrollment?.lname }} {{ enrollment?.fname }}</span></strong></h4> 
           </blockquote>
   
           <form (ngSubmit)="onSubmit()" #personalInfoForm="ngForm">
@@ -84,7 +84,7 @@
                                 <i class="bi bi-exclamation-circle text-danger"></i>
                             </span>
                         </mat-label>
-                        <input matInput type="text" id="last_attended" name="last_attended" [(ngModel)]="enrollment.last_attended" required pattern="[A-Za-z\s]+" title="Please enter letters only.">
+                        <input matInput type="text" id="last_attended" name="last_attended" [(ngModel)]="enrollment.last_attended" required pattern="[A-Za-z\s]+" title="Please enter letters only." oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');">
                     </mat-form-field>
                 </div>
         
@@ -95,7 +95,7 @@
                                 <i class="bi bi-exclamation-circle text-danger"></i>
                             </span>
                         </mat-label>
-                        <input matInput type="text" id="school_year" name="school_year" [(ngModel)]="enrollment.school_year" required pattern="[0-9]{4}-[0-9]{4}" title="Please enter a valid school year (e.g., 2024-2025)">
+                        <input matInput type="text" id="school_year" name="school_year" [(ngModel)]="enrollment.school_year" required oninput="this.value = this.value.replace(/[^0-9-]/g, '');"  title="Please enter a valid school year (e.g., 2024-2025)">
                     </mat-form-field>
                 </div>
             </div>
@@ -140,7 +140,7 @@
                 <div class="col-md">
                     <mat-form-field class="w-100">
                         <mat-label>Guardian's Name</mat-label>
-                        <input matInput id="guardianName" name="guardian_name" [(ngModel)]="enrollment.guardian_name" pattern="[A-Za-z\s]+" required title='Please enter letters only.' >
+                        <input matInput id="guardianName" name="guardian_name" [(ngModel)]="enrollment.guardian_name" oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');" required title='Please enter letters only.' >
                     </mat-form-field>
                 </div>
         
@@ -148,7 +148,7 @@
                     <mat-form-field class='w-100'>
                         <mat-label>Current Address</mat-label>
                         <!-- Allowing letters, numbers, and spaces for address -->
-                        <input matInput type='text' id='currentAddress' name='current_address' [(ngModel)]='enrollment.current_address' pattern="[A-Za-z0-9\s,.-]+" required title='Please enter a valid address.' >
+                        <input matInput type='text' id='currentAddress' name='current_address' [(ngModel)]='enrollment.current_address'  required title='Please enter a valid address.' >
                     </mat-form-field>
                 </div>
             </div>

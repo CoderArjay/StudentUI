@@ -55,6 +55,7 @@
         </div>
       </div>
     </div>
+    
     <div class="col-md mb-3 form-col">
       <blockquote class="blockquote mb-4 mt-3" style="border-bottom: 2px solid; border-bottom-color: black;">
         <strong>Personal Information</strong>
@@ -75,21 +76,21 @@
                 <mat-form-field>
                     <mat-label>Firstname</mat-label>
                     <input matInput placeholder="First Name" [(ngModel)]="student.fname" name="fname" 
-                           required pattern="[A-Za-z\s]+" title="Please enter letters only." readonly>
+                           required oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');" title="Please enter letters only." readonly>
                 </mat-form-field>
             </div>
             <div class="col-md">
                 <mat-form-field class="w-100">
                     <mat-label>Lastname</mat-label>
                     <input matInput id="lname" [(ngModel)]="student.lname" name="lname" 
-                           required pattern="[A-Za-z\s]+" title="Please enter letters only." readonly>
+                           required oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');" title="Please enter letters only." readonly>
                 </mat-form-field>
             </div>
             <div class="col-md">
                 <mat-form-field class="w-100">
                     <mat-label>Middlename</mat-label>
                     <input matInput id="mname" [(ngModel)]="student.mname" name="mname" 
-                           required pattern="[A-Za-z\s]+" title="Please enter letters only." readonly>
+                           required oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');" title="Please enter letters only." readonly>
                 </mat-form-field>
             </div>
     
@@ -97,7 +98,7 @@
                 <mat-form-field class="w-100">
                     <mat-label>Suffix</mat-label>
                     <input matInput id="suffix" [(ngModel)]="student.suffix" name="suffix"
-                           pattern="[A-Za-z\s]*" title="Please enter letters only.">
+                    oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');" title="Please enter letters only.">
                 </mat-form-field>
             </div>
         </div>
@@ -126,7 +127,7 @@
                 <mat-form-field class="w-100">
                     <mat-label>Religion</mat-label>
                     <input matInput id="religion" [(ngModel)]="student.religion" name="religion"
-                           required pattern="[A-Za-z\s]+" title="Please enter letters only.">
+                           required oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');" title="Please enter letters only.">
                 </mat-form-field>
             </div>
         </div>
@@ -154,7 +155,7 @@
                 <mat-form-field class="w-100">
                     <mat-label>Birth Place</mat-label>
                     <input matInput id="bplace" [(ngModel)]="student.bplace" name="bplace"
-                           required pattern="[A-Za-z\s]+" title='Please enter letters only.' >
+                           required oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');" title='Please enter letters only.' >
                 </mat-form-field>
             </div>
     
@@ -163,7 +164,7 @@
                     <mat-label>Address</mat-label>
                     <!-- Allowing letters, numbers, and spaces for address -->
                     <input matInput id='address' [(ngModel)]='student.address' name='address' 
-                           required pattern="[A-Za-z0-9\s,.-]+" title='Please enter a valid address.' >
+                           required oninput="this.value = this.value.replace(/[^A-Za-z0-9]/g, '');"  title='Please enter a valid address.' >
                 </mat-form-field>
             </div>
         </div>

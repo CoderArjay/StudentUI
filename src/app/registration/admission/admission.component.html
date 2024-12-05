@@ -52,7 +52,7 @@
                               id="floatingLastname" 
                               placeholder="Lastname" 
                               required 
-                              pattern="[A-Za-z\s]+" 
+                              oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');" 
                               title="Please enter letters only."
                           >
                           <label for="floatingLastname">Lastname</label>
@@ -67,7 +67,7 @@
                               id="floatingFirstname" 
                               placeholder="Firstname" 
                               required 
-                              pattern="[A-Za-z\s]+" 
+                              oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');" 
                               title="Please enter letters only."
                           >
                           <label for="floatingFirstname">Firstname</label>
@@ -82,7 +82,7 @@
                               id="floatingMiddlename" 
                               placeholder="Middlename" 
                               required 
-                              pattern="[A-Za-z\s]+"  
+                              oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');"  
                               title="Please enter letters only."
                           >
                           <label for="floatingMiddlename">Middlename</label>
