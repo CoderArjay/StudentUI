@@ -1,9 +1,9 @@
 <div class="container-fluid">
       <header class="header d-flex justify-content-between align-items-center mx-5 ms-5">
         <div class="text-content">
-             <h1 class="welcome-message">Welcome {{lname}} {{fname}}!</h1>
+             <h1 class="welcome-message">Welcome {{fname}}!</h1>
           <div class="date">{{ currentTime | date: 'fullDate' }}</div>
-          <div class="date">Grade Level:{{ grade_level}}</div>
+          <div class="date">Grade Level: {{ grade_level}}</div>
         </div>
         <img src="sams.png" alt=""  width="300" height="" class="ms-3 img-fluid align-items_center">
       </header>
@@ -17,7 +17,12 @@
                 <ng-template mat-tab-label>
                     <span class="custom-tab-label"><img src="text-books.png" alt="" width="30" height="30"> Subjects</span>
                 </ng-template>
-                <table class="table table-striped">
+                <div *ngIf="loadingClasses" class="d-flex justify-content-center align-items-center mt-5" >
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                </div>
+                <table *ngIf="!loadingClasses" class="table table-striped">
                     <thead class="table-primary">
                         <tr>
                             <th>Room</th>
@@ -38,58 +43,76 @@
                     </tbody>
                 </table>
             </mat-tab>
-      
+        
             <!-- Announcements Tab -->
             <mat-tab label="Announcements">
                 <ng-template mat-tab-label>
                     <span class="custom-tab-label"><img src="megaphone.png" alt="" width="30" height="30"> Announcements</span>
                 </ng-template>
-                <div class="card shadow-sm mb-3 ancmnt-section">
-                    <div class="card-body m-2">
-                        <!-- Use Bootstrap margin classes for spacing -->
-                        <div class="mb-3" *ngFor="let announcement of announcements">
-                            <div class="card ">
-                                <div class="card-header bg-secondary text-white">
-                                    <img src="default-image.jpg" alt="User" class="rounded-circle me-2" width="40" height="40" style="float:left;"/>
-                                    <strong>{{ announcement.admin_name }}</strong> | {{ announcement.created_at | date:'short' }}
-                                    <div class="sub-text">{{ announcement.title }}</div>
-                                </div>
-                                <div class="card-body">
-                                    <blockquote class="blockquote mb-0">
-                                        <p>{{announcement.announcement}}</p>
-                                        <footer class="blockquote-footer">Subject: {{ announcement.subject_name }}</footer>
-                                    </blockquote>
+                <div *ngIf="loadingAnnouncements" class="d-flex justify-content-center align-items-center mt-5" >
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                </div>
+                <div *ngIf="!loadingAnnouncements">
+                    <div class="card shadow-sm mb-3 ancmnt-section">
+                        <div class="card-body m-2">
+                            <!-- Use Bootstrap margin classes for spacing -->
+                            <div class="mb-3" *ngFor="let announcement of announcements">
+                                <div class="card announcement-card">
+                                    <div class="card-header text-dark">
+                                        <img src="default-image.jpg" alt="User" class="rounded-circle me-2" width="40" height="40" style="float:left;"/>
+                                        <strong>{{ announcement.admin_name }}</strong> | {{ announcement.created_at | date:'medium' }}
+                                        <div class="sub-text">{{ announcement.subject_name }}</div>
+                                    </div>
+                                    <div class="card-body">
+                                        <blockquote class="blockquote mb-0">
+                                            <h5>{{ announcement.title }}</h5>
+                                            <p>{{announcement.announcement}}</p>
+                                            <!-- <footer class="blockquote-footer">Subject: {{ announcement.subject_name }}</footer> -->
+                                        </blockquote>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-            
-                        <!-- Default Message if No Announcement Selected -->
-                        <div *ngIf="!announcements.length" class="text-muted text-center mt-5">
-                            No announcements available.
+        
+                            <!-- Default Message if No Announcement Selected -->
+                            <div *ngIf="!announcements.length" class="text-muted text-center mt-5">
+                                No announcements available.
+                            </div>
                         </div>
                     </div>
                 </div>
             </mat-tab>
-      
+        
             <!-- Latest Messages Tab -->
-            <mat-tab>
-    <ng-template mat-tab-label>
-        <span class="custom-tab-label"><img src="chat.png" alt="" width="30" height="30"> Latest Messages</span>
-    </ng-template>
-    <ul class="list-group list-group-flush">
-        <li *ngFor="let message of messages; let i = index" 
-            [class.active]="!message.isRead" 
-            class="list-group-item d-flex justify-content-between align-items-center">
-            {{ truncateMessage(message.content) }}
-            <span>{{ message.timestamp | date:'short' }}</span> 
-            <!-- <button class="btn btn-sm btn-link" (click)="deleteMessage(i)">Delete</button> -->
-        </li>
-    
-        <!-- Placeholder if no messages -->
-        <li *ngIf="messages.length === 0" class='list-group-item text-center'>No latest messages</li>
-    </ul>
-</mat-tab>
-        </mat-tab-group>
+            <mat-tab label="Latest Messages">
+                <ng-template mat-tab-label>
+                    <span class="custom-tab-label"><img src="chat.png" alt="" width="30" height="30"> Latest Messages</span>
+                </ng-template>
+        
+                <!-- Spinner for Latest Messages -->
+                <div *ngIf="loadingMessages" class="d-flex justify-content-center align-items-center mt-5" >
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                </div>
+        
+                <!-- Messages List -->
+                <ul *ngIf="!loadingMessages" class="list-group list-group-flush">
+                    <li *ngFor="let message of messages; let i = index"
+                        [class.active]="!message.isRead"
+                        class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ truncateMessage(message.content) }}
+                        <span>{{ message.timestamp | date:'short' }}</span> 
+                        <!-- Optional delete button -->
+                        <!-- <button class="btn btn-sm btn-link" (click)="deleteMessage(i)">Delete</button> -->
+                    </li>
+        
+                    <!-- Placeholder if no messages -->
+                    <li *ngIf="messages.length === 0" class='list-group-item text-center'>No latest messages</li>
+                </ul>
+            </mat-tab>
+        </mat-tab-group>             
     </div>
   </div> 
 </div> 

@@ -49,7 +49,7 @@
             </a>
             
             <a class="list-group-item list-group-item-action">
-              <i class="bi bi-6-circle-fill text-warning h3 mx-2" style="float: left;"></i>
+              <i class="bi bi-5-circle-fill text-warning h3 mx-2" style="float: left;"></i>
               <strong class="text-secondary">Official Registration</strong>: Wait for the registration decision from the school administration. Follow up as needed to ensure your application is processed in a timely manner. Once approved, you will receive confirmation and further instructions.
             </a>
           </div>
@@ -59,7 +59,7 @@
 
     <div class="col-md mb-3 form-col">
       <div class="student_name mt-2">
-        <h4><strong>{{ student?.lname }} {{ student?.fname }} </strong> <span class="badge text-bg-primary">Grade  {{ student.enrollment.grade_level }}</span></h4> 
+        <h4><strong>{{ student?.lname }} {{ student?.fname }} </strong> <span class="badge text-bg-primary">Grade  {{ enrollment?.grade_level }}</span></h4> 
       </div>
       <div class="container">
         <div class="row g-2">
@@ -70,48 +70,46 @@
             <div class="card-body mb-2">
               <table class="tuition-table">
                 <tbody *ngIf="tuitionDetails">
-                  <tr>
-                    <th>Old Account:</th>
-                    <td class="text-end">
-                      {{ tuitionDetails?.old_account || '0.00' }}
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>Tuition Fee:</th>
-                    <td class="text-end">{{ tuitionDetails?.tuition || '0.00' }}</td>
-                  </tr>
-                  <tr>
-                    <th>General and Miscellaneous Fees:</th>
-                    <td class="text-end">{{ tuitionDetails?.general || '0.00' }}</td>
-                  </tr>
-                  <tr>
-                    <th>Total Tuition and Fees (+old account):</th>
-                    <td class="text-end">
-                      {{ tuitionDetails?.total_and_fees || '0.00' }}
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>Less: ESC</th>
-                    <td class="text-end">{{ tuitionDetails?.esc || '0.00' }}</td>
-                  </tr>
-                  <tr>
-                    <th>TOTAL BALANCE</th>
-                    <td class="text-end">
-                      <!-- {{ (parseFloat(tuitionDetails?.tuition || '0') + parseFloat(tuitionDetails?.old_account || '0') - (parseFloat(tuitionDetails?.esc || '0'))).toFixed(2) }} -->
-                    </td>
-                  </tr>
-                  <tr>
-                    <th class="text-end">Down Payment</th>
-                    <td class="text-end" style="border-bottom: 2px solid; border-bottom-color: black;">{{ tuitionDetails?.req_downpayment || '0.00' }}</td>
-                  </tr>
-                  <tr class="m-3 justify-content-center align-items-center">
-                    <th style="text-align: center;">Down Payment (NO ESC)</th>
-                    <td style="text-align: center;">
-                      <!-- {{ (parseFloat(tuitionDetails?.req_downpayment || '0') - (parseFloat(tuitionDetails?.esc || '0'))).toFixed(2) }} -->
-                    </td>
-                  </tr>
+                    <tr>
+                        <th>Old Account:</th>
+                        <td class="text-end">{{ tuitionDetails?.old_account || '0.00' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Tuition Fee:</th>
+                        <td class="text-end">{{ tuitionDetails?.tuition || '0.00' }}</td>
+                    </tr>
+                    <tr>
+                        <th>General and Miscellaneous Fees:</th>
+                        <td class="text-end">{{ tuitionDetails?.general || '0.00' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Total Tuition and Fees (+old account):</th>
+                        <td class="text-end">{{ tuitionDetails?.total_and_fees || '0.00' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Less: ESC</th>
+                        <td class="text-end">{{ tuitionDetails?.esc || '0.00' }}</td>
+                    </tr>
+                    <tr>
+                        <th>TOTAL BALANCE</th>
+                        <td class="text-end">
+                            {{ calculateTotalBalance() | number: '1.2-2' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-end">Down Payment</th>
+                        <td class="text-end" style="border-bottom: 2px solid; border-bottom-color: black;">
+                            {{ tuitionDetails?.req_downpayment || '0.00' }}
+                        </td>
+                    </tr>
+                    <tr class="m-3 justify-content-center align-items-center">
+                        <th style="text-align: center;">Down Payment (NO ESC)</th>
+                        <td style="text-align: center;">
+                            {{ calculateDownPaymentNoEsc() | number: '1.2-2' }}
+                        </td>
+                    </tr>
                 </tbody>
-              </table>
+            </table>
             </div>
           </div>
     

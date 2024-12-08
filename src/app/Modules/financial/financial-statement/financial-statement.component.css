@@ -123,6 +123,7 @@ body {
   min-width: 100px; /* Customize as needed */
   max-width: 150px; /* Optional */
   text-align: center; /* Center text */
+  font-weight: 700;
 }
 
 .mat-tab-group {
@@ -141,13 +142,64 @@ body {
 
 .title{
   border-radius: .5rem;
-  /* font-size: x-large; */
   font-weight: bold;
-  /* margin: 20px; */
-  /* background-color: #007bff; */
-  /* color: #000000; */
   width: fit-content;
   border-bottom: #343a40;
   border: #343a40;
   border-width: medium;
+}
+
+.payment-form {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+.payment-form h6 {
+  font-weight: bold;
+  color: #333;
+}
+.form-group label {
+  font-weight: bold;
+}
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.blur-image {
+  filter: blur(5px); /* Adjust the blur intensity as needed */
+  transition: filter 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.card:hover .blur-image {
+  filter: blur(0); /* Remove blur on hover */
+}
+
+/* Example CSS for customizing SweetAlert */
+.custom-swal-popup {
+  width: 500px; /* Set a fixed width */
+}
+
+.custom-swal-title {
+  text-align: left; /* Align title to the left */
+}
+
+.custom-swal-input {
+  margin-bottom: 15px; /* Add some spacing below input fields */
+}
+
+.custom-swal-button {
+  background-color: #3085d6; /* Customize button color */
+  color: white; /* Button text color */
+}
+
+/* Optional: Adjust button hover effect */
+.custom-swal-button:hover {
+  background-color: #2672b1; /* Darker shade on hover */
 }

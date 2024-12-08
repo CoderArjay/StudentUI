@@ -49,11 +49,6 @@
               
               <a class="list-group-item list-group-item-action">
                 <i class="bi bi-5-circle-fill text-warning h3 mx-2" style="float: left;"></i>
-                <strong class="text-secondary">Student Contract</strong>: Review and sign the student contract, which outlines the terms and conditions of enrollment. Make sure you understand all clauses before signing.
-              </a>
-              
-              <a class="list-group-item list-group-item-action">
-                <i class="bi bi-6-circle-fill text-warning h3 mx-2" style="float: left;"></i>
                 <strong class="text-secondary">Official Registration</strong>: Wait for the registration decision from the school administration. Follow up as needed to ensure your application is processed in a timely manner. Once approved, you will receive confirmation and further instructions.
               </a>
             </div>
@@ -75,39 +70,49 @@
                 </div>
             </div>
         
-            <div class="row g-2">
-                <div class="col-md">
-                    <mat-form-field appearance="fill" class="w-100">
-                        <mat-label>
-                            Last School Attended 
-                            <span matTooltip="School that you attended last year" matTooltipPosition="above">
-                                <i class="bi bi-exclamation-circle text-danger"></i>
-                            </span>
-                        </mat-label>
-                        <input matInput type="text" id="last_attended" name="last_attended" [(ngModel)]="enrollment.last_attended" required pattern="[A-Za-z\s]+" title="Please enter letters only." oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');">
-                    </mat-form-field>
-                </div>
+           <div class="row g-2">
+            <div class="col-md">
+              <mat-form-field appearance="fill" class="w-100">
+                  <mat-label>
+                      Last School Attended 
+                      <span matTooltip="School that you attended last year" matTooltipPosition="above">
+                          <i class="bi bi-exclamation-circle text-danger"></i>
+                      </span>
+                  </mat-label>
+                  <input matInput type="text" id="last_attended" name="last_attended" [(ngModel)]="enrollment.last_attended" required pattern="[A-Za-z\s]+" title="Please enter letters only." oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');">
+              </mat-form-field>
+          </div>
+          
+            <div class="col-md mb-3">
+              <mat-radio-group name="public_private" [(ngModel)]="enrollment.public_private" required>
+                  <mat-radio-button value="public">Public</mat-radio-button>
+                  <mat-radio-button value="private">Private</mat-radio-button>
+              </mat-radio-group>
+          </div>
+           </div>
+                
         
                 <div class="col-md">
                     <mat-form-field appearance="fill" class="w-100">
-                        <mat-label>School Year
-                            <span matTooltip="e.g., 2024-2025" matTooltipPosition="above">
-                                <i class="bi bi-exclamation-circle text-danger"></i>
-                            </span>
-                        </mat-label>
-                        <input matInput type="text" id="school_year" name="school_year" [(ngModel)]="enrollment.school_year" required oninput="this.value = this.value.replace(/[^0-9-]/g, '');"  title="Please enter a valid school year (e.g., 2024-2025)">
-                    </mat-form-field>
+                      <mat-label>School Year
+                          <span matTooltip="e.g., 2024-2025" matTooltipPosition="above">
+                              <i class="bi bi-exclamation-circle text-danger"></i>
+                          </span>
+                      </mat-label>
+                      <input matInput 
+                            type="text" 
+                            id="school_year" 
+                            name="school_year" 
+                            [(ngModel)]="enrollment.school_year" 
+                            required 
+                            oninput="this.value = this.value.replace(/[^0-9-]/g, '');"  
+                            title="Please enter a valid school year (e.g., 2024-2025)">
+                  </mat-form-field>
                 </div>
-            </div>
-        
-            <div class="row g-2">
-                <div class="col-md mb-3">
-                    <mat-radio-group name="public_private" [(ngModel)]="enrollment.public_private" required>
-                        <mat-radio-button value="public">Public</mat-radio-button>
-                        <mat-radio-button value="private">Private</mat-radio-button>
-                    </mat-radio-group>
-                </div>
-        
+            
+                
+
+                <div class="row g-2">
                 <div class="col-md">
                     <mat-form-field>
                         <mat-label>Grade Level</mat-label>
@@ -134,8 +139,8 @@
                         </mat-form-field>
                     </div>
                 </div>
-            </div>
-        
+              </div>
+    
             <div class="row g-2">
                 <div class="col-md">
                     <mat-form-field class="w-100">

@@ -12,6 +12,17 @@ import { CommonModule } from '@angular/common';
   styleUrl: './payment-approval.component.css'
 })
 export class PaymentApprovalComponent implements OnInit {
+  enrollment: any = {
+    LRN: '',
+    last_attended: '',
+    public_private: '',
+    guardian_name: '',
+    contact_no: '',
+    grade_level: '',
+    strand: '',
+    school_year: '',
+  };
+  
   paymentImage!: string;
   fname: string = '';
   lname: string = '';
@@ -24,27 +35,32 @@ export class PaymentApprovalComponent implements OnInit {
   constructor(private conn: ConnectService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    const enrollmentData = localStorage.getItem('enrollment');
     this.retrievePaymentData(); // Retrieve student data on init
     this.getPaymentDetails(); // Fetch payment details by LRN
     this.getEnrollmentDetails(this.LRN); // Fetch enrollment details
+
+    if (enrollmentData) {
+      this.enrollment = JSON.parse(enrollmentData); // Parse and assign the enrollment data
+      console.log('Enrollment data retrieved from local storage:', this.enrollment);
+  } else {
+      console.warn('No enrollment data found in local storage.');
+  }
   }
 
   retrievePaymentData(): void {
     const student = JSON.parse(localStorage.getItem('student') || '{}');
+    const enrollmentData = localStorage.getItem('enrollment');
 
     if (student) {
       this.fname = student.fname || '';
       this.lname = student.lname || '';
       this.LRN = student.LRN || ''; // Retrieve LRN from localStorage
-
-      if (student.enrollment) {
-        this.grade_level = student.enrollment.grade_level || ''; // Retrieve grade level from enrollment
-    } else {
-        console.error('Enrollment data not found.');
-    }
     } else {
       console.error('No payment data found.');
     }
+
+
   }
 
   getPaymentDetails(): void {

@@ -32,6 +32,11 @@ export class AdmissionComponent {
   };
 
   constructor(private router: Router, private conn: ConnectService) {}
+  
+  myDateFilter = (date: Date | null): boolean => {
+    const currentYear = new Date().getFullYear();
+    return date ? date.getFullYear() < currentYear : true; // Disable current year dates
+  };
 
   // Method to handle form submission
   register(form: any) {
@@ -60,7 +65,7 @@ export class AdmissionComponent {
             icon: 'success',
             confirmButtonText: 'OK'
           }).then(() => {
-            this.router.navigate(['/enroll-login']);
+            this.router.navigate(['register/personal-information']);
             localStorage.setItem('student', JSON.stringify(enrollmentData));
           });
         },
@@ -85,4 +90,6 @@ export class AdmissionComponent {
       });
     }
   }
+
+  
 }

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -20,7 +20,7 @@ import { ConnectService } from '../../../connect.service';
   templateUrl: './attendance-report.component.html',
   styleUrls: ['./attendance-report.component.css']
 })
-export class AttendanceReportComponent implements OnInit {
+export class AttendanceReportComponent implements OnInit ,OnDestroy {
   LRN: string = '';
   today: Date;
   attendanceRecords: any[] = [];
@@ -28,7 +28,7 @@ export class AttendanceReportComponent implements OnInit {
   calendarData: any[] = [];
   currentTime!: string;
   private intervalId: any;
-
+  loadingAttendance: boolean = true; // Loading state for attendance
 
   constructor(private conn: ConnectService) {
     this.today = new Date();
@@ -36,8 +36,7 @@ export class AttendanceReportComponent implements OnInit {
 
   ngOnInit(): void {
     const studentData = JSON.parse(localStorage.getItem('student') || '{}');
-    this.updateCurrentTime(); // Get the current date
-   
+    this.updateCurrentTime(); // Get the current date   
     if (studentData?.LRN) {
       this.LRN = studentData.LRN;
 
@@ -46,28 +45,38 @@ export class AttendanceReportComponent implements OnInit {
 
       // Set an interval to fetch attendance records every 30 seconds (adjust as needed)
       this.intervalId = setInterval(() => {
-          this.fetchAttendance();
-      }, 1000); 
-  }
+          this.fetchAttendance(false); // Call fetchAttendance without showing loading spinner
+      }, 30000); // Adjusted to 30 seconds for better performance
+    }
   }
 
   ngOnDestroy(): void {
     clearInterval(this.intervalId); 
   }
 
-  fetchAttendance(): void {
+  fetchAttendance(showLoading: boolean = true): void {
     // Fetch attendance report
+    if (showLoading) {
+      this.loadingAttendance = true; // Show loading spinner only on initial fetch
+    }
+    
     this.conn.getAttendanceReport(this.LRN).subscribe(
         (response) => {
             this.attendanceRecords = response.attendanceRecords; // Fetch attendance records
             this.subjects = response.subjects; // Fetch subjects
             this.createCalendar(); // Create calendar data
+            if (showLoading) {
+              this.loadingAttendance = false; // Hide loading spinner after data is fetched
+            }
         },
         (error) => {
             console.error('Error fetching attendance data:', error);
+            if (showLoading) {
+              this.loadingAttendance = false; // Ensure loading state is updated on error
+            }
         }
     );
-}
+  }
 
   updateCurrentTime(): void {
     const now = new Date();

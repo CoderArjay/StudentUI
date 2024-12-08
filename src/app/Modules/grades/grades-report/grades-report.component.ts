@@ -28,8 +28,9 @@ export class GradesReportComponent implements OnInit{
   contact_no: string = '';
   grade_level: string = '';
   LRN: string = '';
-  studentSection: string = ''
+  studentSection: string = '';
   currentDate: Date = new Date();
+  loadingSubjects: boolean = true; // Fixed spelling from loadingSujects to loadingSubjects
 
   constructor(private conn: ConnectService, private http: HttpClient) {}
 
@@ -55,32 +56,35 @@ export class GradesReportComponent implements OnInit{
   }
 
   fetchStudentReport(lrn: string): void {
+    this.loadingSubjects = true; // Start loading state
     this.http.get<any>(`http://localhost:8000/api/student-report/${lrn}`).subscribe(
-        data => {
-            console.log('Fetched data:', data); // Log the fetched data
-            if (Object.keys(data).length > 0) {
-                this.studentSection = data.section_name;
+      data => {
+        console.log('Fetched data:', data); // Log the fetched data
+        if (Object.keys(data).length > 0) {
+          this.studentSection = data.section_name;
 
-                // Check if subjects are present
-                console.log('Subjects:', Object.keys(data)); // Log subjects
+          // Check if subjects are present
+          console.log('Subjects:', Object.keys(data)); // Log subjects
 
-                this.studentSubjects = Object.keys(data).map(subject => ({
-                    subject_name: subject,
-                    grades: [
-                        Number(data[subject]['First Quarter']?.grade) || 0,
-                        Number(data[subject]['Second Quarter']?.grade) || 0,
-                        Number(data[subject]['Third Quarter']?.grade) || 0,
-                        Number(data[subject]['Fourth Quarter']?.grade) || 0,
-                    ],
-                }));
-                this.student.LRN = lrn; // Update LRN in student object
-            } else {
-                console.warn('No records found for the given LRN.');
-            }
-        },
-        error => {
-            console.error('Error fetching student report:', error);
+          this.studentSubjects = Object.keys(data).map(subject => ({
+            subject_name: subject,
+            grades: [
+              Number(data[subject]['First Quarter']?.grade) || 0,
+              Number(data[subject]['Second Quarter']?.grade) || 0,
+              Number(data[subject]['Third Quarter']?.grade) || 0,
+              Number(data[subject]['Fourth Quarter']?.grade) || 0,
+            ],
+          }));
+          this.student.LRN = lrn; // Update LRN in student object
+        } else {
+          console.warn('No records found for the given LRN.');
         }
+        this.loadingSubjects = false; // Set loading to false after data is fetched
+      },
+      error => {
+        console.error('Error fetching student report:', error);
+        this.loadingSubjects = false; // Ensure loading state is updated on error
+      }
     );
-}
+  }
 }

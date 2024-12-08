@@ -147,6 +147,10 @@ getLatestMessages(): Observable<any[]> {
     return this.http.get(`${this.url}students/${lrn}/payment`);
   }
 
+  newPayment(formData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.url}submit-payment`, formData);
+  }
+
 
   updateAcc(LRN: number, oldPassword: string, newData: any): Observable<any> {
     return this.http.put(`${this.url}updatePassword`, {
@@ -155,5 +159,6 @@ getLatestMessages(): Observable<any[]> {
       ...newData
     });
   }
-
+  
+  
 }

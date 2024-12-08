@@ -48,22 +48,36 @@ export class PaymentComponent implements OnInit {
 
   ngOnInit(): void {
     const studentData = localStorage.getItem('student');
+    const enrollmentData = localStorage.getItem('enrollment');
     const today = new Date();
     this.date_of_payment = today.toISOString().split('T')[0];
 
+    // Check if student data exists
     if (studentData) {
-      this.student = JSON.parse(studentData); // Parse and assign the student data
-      console.log('Student data retrieved from local storage:', this.student);
-      this.LRN = this.student.LRN; // Retrieve LRN from student data
-      this.fetchTuitionDetails();
-      this.enrollment.grade_level = this.student.grade_level;
+        this.student = JSON.parse(studentData); // Parse and assign the student data
+        console.log('Student data retrieved from local storage:', this.student);
+        this.LRN = this.student.LRN; // Retrieve LRN from student data
+
+        // Fetch tuition details based on LRN
+        this.fetchTuitionDetails();
+        this.enrollment.grade_level = this.student.grade_level;
     } else {
-      console.error('No student data found in local storage.');
-      // Optionally, navigate away or show an error message
-      this.router.navigate(['/error']); // Example navigation on error
+        console.error('No student data found in local storage.');
+        // Navigate away or show an error message
+        this.router.navigate(['/error']); // Example navigation on error
     }
-    
-  }
+
+    // Check if enrollment data exists
+    if (enrollmentData) {
+        this.enrollment = JSON.parse(enrollmentData); // Parse and assign the enrollment data
+        console.log('Enrollment data retrieved from local storage:', this.enrollment);
+        
+        // You can add additional logic here if needed, such as setting default values or updating UI based on enrollment.
+    } else {
+        console.warn('No enrollment data found in local storage.');
+        // Optionally, handle the absence of enrollment data, e.g., set default values or notify the user.
+    }
+}
 
   fetchTuitionDetails(): void {
     if (this.LRN) {
@@ -74,7 +88,6 @@ export class PaymentComponent implements OnInit {
         (response: any) => {
           if (response && response.tuition) {
             this.tuitionDetails = response;
-            this.formatTuitionDetails();
           } else {
             console.error('Tuition details not found');
             alert('Tuition details not found for the given LRN.');
@@ -183,5 +196,26 @@ export class PaymentComponent implements OnInit {
             });
         }
     );
+}
+
+calculateTotalBalance(): number {
+  const oldAccount = parseFloat(this.tuitionDetails?.old_account || '0');
+  const tuition = parseFloat(this.tuitionDetails?.tuition || '0');
+  const generalFees = parseFloat(this.tuitionDetails?.general || '0');
+  const esc = parseFloat(this.tuitionDetails?.esc || '0');
+
+  // Total balance calculation
+  return oldAccount + tuition + generalFees - esc;
+}
+
+calculateDownPaymentNoEsc(): number {
+  const downPayment = parseFloat(this.tuitionDetails?.req_downpayment || '0');
+  const esc = parseFloat(this.tuitionDetails?.esc || '0');
+
+  // Calculate down payment without ESC and ensure it doesn't go negative
+  const result = downPayment - esc;
+
+  // Return 0 if the result is negative
+  return result < 0 ? 0 : result; 
 }
 }

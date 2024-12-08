@@ -65,11 +65,11 @@ export class CustomSidenavComponent implements OnInit {
       label: 'Home',
       route: 'home-page'
     },
-    {
-      icon: 'assignment',
-      label: 'Enrollment',
-      route: 'enrollment-page',
-    },
+    // {
+    //   icon: 'assignment',
+    //   label: 'Enrollment',
+    //   route: 'enrollment-page',
+    // },
     {
       icon: 'table',
       label: 'Attendance',

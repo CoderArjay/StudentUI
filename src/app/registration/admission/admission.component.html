@@ -1,127 +1,19 @@
-<section style="width: 100%;">
-  <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center p-md-4 p-xl-5">
+<!-- <section style="width: 100%;">
+  <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-between p-md-4 p-xl-5">
     <div class="row justify-content-center">
       <div class="col-12 col-md-10 col-lg-9">
         <div class="card border-light shadow-lg">
           <div class="row g-0">
             <div class="col-12 col-md-5">
-              <div class="card">
-                <img class="rounded-start img-fluid" loading="lazy" src="nlac1.jpg" alt="" style="object-fit: cover; height: 90vh; width: 100%;">
-                <div class="card-img-overlay d-flex flex-column justify-content-center align-items-center text-center">
-                  <div class="text-center">
-                    <img class="img-fluid rounded-circle" style="width: 150px; height: 150px;" src="images.png" alt="">
-                  </div>
-                  <span class="card-title text-white h4">Northern Luzon Adventist College Academy</span>
-                  <span class="card-text text-white h5">The School that Prepares for Life</span>
-                </div>
+             
               </div>
             </div>
 
-            <div class="col-12 col-md-7 d-flex align-items-center justify-content-center">
-              <div class="col-12 col-lg-11 col-xl-10">
+            <div class="col-md-12  d-flex align-items-center justify-content-center">
+              <div class="col-md-12 col-lg-11 col-xl-10">
                 <div class="card-body p-2 p-md-4 p-xl-5">
                   <div class="row">
-                    <div class="titles mb-4">
-                      <h3><strong>Sign Up Form <img src="samplePic/contact-form.png" alt="" class="img-fluid" loading="lazy" width="30px" height="30px"></strong></h3>
-                      <span>Hello Student, please sign up first</span>
-                    </div>
-
-                    <form (ngSubmit)="register(admissionForm)" #admissionForm="ngForm">
-                      <div class="form-floating mb-2">
-                          <input 
-                              type="text" 
-                              name="LRN" 
-                              [(ngModel)]="student.LRN" 
-                              class="form-control" 
-                              id="floatingInput" 
-                              placeholder="123456789" 
-                              required 
-                              maxlength="12" 
-                              pattern="[0-9]*" 
-                              title="Please enter numbers only."
-                          >
-                          <label for="floatingInput">LRN</label>
-                      </div>
-                  
-                      <div class="form-floating mb-2">
-                          <input 
-                              type="text" 
-                              name="lastname" 
-                              [(ngModel)]="student.lname" 
-                              class="form-control" 
-                              id="floatingLastname" 
-                              placeholder="Lastname" 
-                              required 
-                              oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');" 
-                              title="Please enter letters only."
-                          >
-                          <label for="floatingLastname">Lastname</label>
-                      </div>
-                  
-                      <div class="form-floating mb-2">
-                          <input 
-                              type="text" 
-                              name="firstname" 
-                              [(ngModel)]="student.fname" 
-                              class="form-control" 
-                              id="floatingFirstname" 
-                              placeholder="Firstname" 
-                              required 
-                              oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');" 
-                              title="Please enter letters only."
-                          >
-                          <label for="floatingFirstname">Firstname</label>
-                      </div>
-                  
-                      <div class="form-floating mb-2">
-                          <input 
-                              type="text" 
-                              name="middlename" 
-                              [(ngModel)]="student.mname" 
-                              class="form-control" 
-                              id="floatingMiddlename" 
-                              placeholder="Middlename" 
-                              required 
-                              oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');"  
-                              title="Please enter letters only."
-                          >
-                          <label for="floatingMiddlename">Middlename</label>
-                      </div>
-                  
-                      <div class="form-floating mb-2">
-                          <input 
-                              type="email" 
-                              name="email" 
-                              [(ngModel)]="student.email" 
-                              class="form-control" 
-                              id="floatingInputEmail" 
-                              placeholder="" 
-                              required
-                          >
-                          <label for="floatingInputEmail">Email</label>
-                      </div>
-                  
-                      <div class="form-floating mb-2">
-                          <input 
-                              type="password" 
-                              name="password" 
-                              [(ngModel)]="student.password" 
-                              class="form-control" 
-                              id ="floatingPassword" 
-                              placeholder="" required
-                          >
-                          <label for="floatingPassword">Password</label>
-                      </div>
-                  
-                      <mat-form-field class='w-100'>
-                        <mat-label>Birth Date</mat-label>
-                        <input matInput [matDatepicker]="picker" id='bdate' [(ngModel)]='student.bdate' name='bdate' required>
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                      </mat-form-field>
-                  
-                      <button type='submit' class='btn btn-primary btn-login w-100'>Register</button>
-                  </form>
+                    
                   </div>
                 </div>
               </div>
@@ -131,4 +23,134 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
+
+<div class="container-fluid d-flex">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <img class="rounded-start img-fluid" loading="lazy" src="nlac1.jpg" alt="" style="object-fit: cover; height: 90vh; width: 100%;">
+          <div class="card-img-overlay d-flex flex-column justify-content-center align-items-center text-center">
+            <div class="text-center">
+              <img class="img-fluid rounded-circle" style="width: 150px; height: 150px;" src="images.png" alt="">
+            </div>
+            <span class="card-title text-white h4">Northern Luzon Adventist College Academy</span>
+            <span class="card-text text-white h5">The School that Prepares for Life</span>
+          </div>
+      </div>
+      </div>
+      <div class="col-md-6">
+        <div class="titles mb-4">
+          <h3><strong>Sign Up Form <img src="samplePic/contact-form.png" alt="" class="img-fluid" loading="lazy" width="30px" height="30px"></strong></h3>
+          <span>Hello Student, please sign up first</span>
+        </div>
+
+        <form (ngSubmit)="register(admissionForm)" #admissionForm="ngForm">
+          <div class="form-floating mb-2">
+              <input 
+                  type="text" 
+                  name="LRN" 
+                  [(ngModel)]="student.LRN" 
+                  class="form-control" 
+                  id="floatingInput" 
+                  placeholder="400238150777" 
+                  required 
+                  maxlength="12" 
+                  minlength="12"
+                  oninput="this.value = this.value.replace(/[^0-9]/g, '');" 
+                  title="Please enter numbers only."
+              >
+              <label for="floatingInput">LRN</label>
+          </div>
+      
+          <div class="form-floating mb-2">
+              <input 
+                  type="text" 
+                  name="lastname" 
+                  [(ngModel)]="student.lname" 
+                  class="form-control" 
+                  id="floatingLastname" 
+                  placeholder="Lastname" 
+                  required 
+                  oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');" 
+                  title="Please enter letters only."
+              >
+              <label for="floatingLastname">Lastname</label>
+          </div>
+      
+          <div class="form-floating mb-2">
+              <input 
+                  type="text" 
+                  name="firstname" 
+                  [(ngModel)]="student.fname" 
+                  class="form-control" 
+                  id="floatingFirstname" 
+                  placeholder="Firstname" 
+                  required 
+                  oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');" 
+                  title="Please enter letters only."
+              >
+              <label for="floatingFirstname">Firstname</label>
+          </div>
+      
+          <div class="form-floating mb-2">
+              <input 
+                  type="text" 
+                  name="middlename" 
+                  [(ngModel)]="student.mname" 
+                  class="form-control" 
+                  id="floatingMiddlename" 
+                  placeholder="Middlename" 
+                  required 
+                  oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');"  
+                  title="Please enter letters only."
+              >
+              <label for="floatingMiddlename">Middlename</label>
+          </div>
+
+          <mat-form-field class='w-100'>
+            <mat-label>Birth Date</mat-label>
+            <input matInput [matDatepicker]="picker" 
+                  id='bdate' 
+                  [(ngModel)]='student.bdate' 
+                  name='bdate' 
+                  required 
+                  [matDatepickerFilter]="myDateFilter"
+                  oninput="this.value = this.value.replace(/[^0-9]/g, '');" 
+                  >
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+                          
+          <div class="form-floating mb-2">
+              <input 
+                  type="email" 
+                  name="email" 
+                  [(ngModel)]="student.email" 
+                  class="form-control" 
+                  id="floatingInputEmail" 
+                  placeholder="" 
+                  required
+              >
+              <label for="floatingInputEmail">Email</label>
+          </div>
+      
+          <div class="form-floating mb-2">
+              <input 
+                  type="password" 
+                  name="password" 
+                  [(ngModel)]="student.password" 
+                  class="form-control" 
+                  id ="floatingPassword" 
+                  placeholder="" required
+              >
+              <label for="floatingPassword">Password</label>
+          </div>
+      
+          
+      
+          <button type='submit' class='btn btn-primary btn-login w-100'>Register</button>
+      </form>
+      </div>
+    </div>
+</div>

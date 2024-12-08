@@ -49,25 +49,8 @@ export class EnrollmentDetailsComponent {
       this.router.navigate(['/error']); // Example navigation on error
     }
 
-    // this.route.params.subscribe(params => {
-    //   const LRN = params['LRN']; // Get LRN from route parameters
-    //   console.log('Fetching enrollment for LRN:', LRN); // Debug log
-    //   this.fetchEnrollmentInfo(LRN); // Fetch existing enrollment information
-    // });
+    
   }
-
-  // fetchEnrollmentInfo(LRN: number): void {
-  //   this.conn.getStudentInfo(LRN).subscribe(
-  //     (response) => {
-  //       this.enrollment = response; // Update local enrollment object with fetched data
-  //       console.log('Fetched updated enrollment:', this.enrollment);
-  //     },
-  //     (error) => {
-  //       console.error('Error fetching updated enrollment:', error);
-  //       alert('Failed to fetch updated enrollment data.');
-  //     }
-  //   );
-  // }
 
   onSubmit() {
     // Check if LRN is provided
@@ -84,11 +67,11 @@ export class EnrollmentDetailsComponent {
 
     // Prepare enrollment data for the create request
     const enrollmentData = {
-      ...this.enrollment,
+        ...this.enrollment,
     };
 
     // Create enrollment data
-    this.conn.createEnrollment(enrollmentData).subscribe( // Call createEnrollment instead of updateEnrollment
+    this.conn.createEnrollment(enrollmentData).subscribe(
         response => {
             console.log('Enrollment created:', response);
             Swal.fire({
@@ -98,16 +81,25 @@ export class EnrollmentDetailsComponent {
                 confirmButtonText: "OK"
             }).then(() => {
                 // Navigate after successful creation
-                this.router.navigate(['/register/payment']); // Use existingLRN here
+                this.router.navigate(['register/payment']);
             });
 
-            // Check if student data exists in the response and store it in local storage
+            // Check if student data exists in the response and update it in local storage
             if (response.student) {
-                localStorage.setItem('student', JSON.stringify(response.student)); // Store student data
+                // Store new student data in local storage under 'student' key
+                localStorage.setItem('student', JSON.stringify(response.student));
                 console.log('Student data stored in local storage:', response.student);
             } else {
                 console.warn('No student data returned in the response.');
             }
+
+            // Create a new key called 'enrollment' and set it in local storage
+            const enrollmentInfo = {
+                grade_level: this.enrollment.grade_level,
+            };
+
+            localStorage.setItem('enrollment', JSON.stringify(enrollmentInfo));
+            console.log('New enrollment info stored in local storage:', enrollmentInfo);
         },
         error => {
             console.error('Error creating enrollment:', error);

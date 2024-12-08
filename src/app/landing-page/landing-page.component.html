@@ -8,7 +8,12 @@
 
 <!-- Profile Button with Dropdown -->
 <button mat-icon-button class="example-icon circle-btn ms-2" [matMenuTriggerFor]="profileMenu">
-    <img [src]="profileImage" class="prof-image" />
+  <ng-container *ngIf="profileImage; else defaultImage">
+      <img [src]="profileImage" class="prof-image" />
+  </ng-container>
+  <ng-template #defaultImage>
+      <img src="mik.jpg" class="prof-image" alt="Default Profile" />
+  </ng-template>
 </button>
 
 <!-- Profile Dropdown Menu -->

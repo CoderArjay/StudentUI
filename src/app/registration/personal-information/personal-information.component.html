@@ -29,7 +29,7 @@
           <div class="list-group">
             <a class="list-group-item list-group-item-action">
               <i class="bi bi-1-circle-fill text-warning h3 mx-2" style="float: left;"></i>
-              <strong class="text-dark">Personal Information</strong>: Fill up the required fields in the Personal Information form, including your full name, date of birth, gender, address, and contact information. Ensure all details are accurate to avoid issues later.
+              <strong class="text-dark"><b>Personal Information</b></strong>: Fill up the required fields in the Personal Information form, including your full name, date of birth, gender, address, and contact information. Ensure all details are accurate to avoid issues later.
             </a>
             
             <a class="list-group-item list-group-item-action">
@@ -105,12 +105,18 @@
     
         <div class="row g-2">
             <div class="col-md">
-                <mat-form-field class="w-100">
-                    <mat-label>Birth Date</mat-label>
-                    <input matInput [matDatepicker]="picker" id="bdate" [(ngModel)]="student.bdate" name="bdate" readonly>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
+              <mat-form-field class='w-100'>
+                <mat-label>Birth Date</mat-label>
+                <input matInput [matDatepicker]="picker" 
+                      id='bdate' 
+                      [(ngModel)]='student.bdate' 
+                      name='bdate' 
+                      required 
+                      [matDatepickerFilter]="myDateFilter"
+                      oninput="this.value = this.value.replace(/[^0-9]/g, '');" > <!-- Bind the filter here -->
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
             </div>
     
             <div class="col-md">
@@ -136,8 +142,11 @@
             <div class="col-md">
                 <mat-form-field class="w-100">
                     <mat-label>Phone Number</mat-label>
-                    <input matInput type="number" id="contact" [(ngModel)]="student.contact_no" name="contact"
-                           required pattern="[0-9]*" title="Please enter numbers only.">
+                    <input matInput type="text" id="contact" [(ngModel)]="student.contact_no" name="contact"
+                           required pattern="[0-9]*" title="Please enter numbers only."
+                           oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                           maxlength="11" 
+                           minlength="11">
                 </mat-form-field>
             </div>
     

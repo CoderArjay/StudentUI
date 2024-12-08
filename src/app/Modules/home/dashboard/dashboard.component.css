@@ -75,3 +75,12 @@
   width: 100%;
   max-width: 100%;
 }
+
+.announcement-card {
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.announcement-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Add a shadow on hover */
+  transform: translateY(-2px); /* Slight lift effect on hover */
+}

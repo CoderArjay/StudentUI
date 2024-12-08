@@ -7,11 +7,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
-import { CustomSidenavComponent } from '../../../custom-sidenav/custom-sidenav.component';
+import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import {MatTabsModule} from '@angular/material/tabs';
+import {  MatTabsModule} from '@angular/material/tabs';
 import Swal from 'sweetalert2';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-financial-statement',
@@ -19,7 +20,7 @@ import Swal from 'sweetalert2';
   imports: [ RouterModule, 
     MatToolbarModule, MatButtonModule, 
     MatIconModule, MatSidenavModule, MatBadgeModule, 
-    MatMenuModule, MatListModule, CommonModule,MatTabsModule],
+    MatMenuModule, MatListModule, CommonModule,MatTabsModule, FormsModule],
   templateUrl: './financial-statement.component.html',
   styleUrl: './financial-statement.component.css'
 })
@@ -33,11 +34,18 @@ export class FinancialStatementComponent implements OnInit {
   LRN: string = '';
   selectedImage: string = '';
   private intervalId: any;
+  amount_paid: number | undefined;
+  paymentMethod!: string;
+  selectedFile: File | null = null;
+  description: string = '';
+  date_of_payment!: string;
 
-  constructor(private conn: ConnectService) {}
+  constructor(private conn: ConnectService, private router: Router) { }
 
   ngOnInit(): void {
     this.retrieveStudentData();
+    const today = new Date();
+    this.date_of_payment = today.toISOString().split('T')[0];
 
     // Fetch financial statement using LRN from local storage
     if (this.LRN) {
@@ -49,6 +57,7 @@ export class FinancialStatementComponent implements OnInit {
     this.intervalId = setInterval(() => {
       this.fetchFinancialStatement(this.LRN);
     }, 1000);
+
   }
 
   ngOnDestroy(): void {
@@ -96,4 +105,139 @@ export class FinancialStatementComponent implements OnInit {
       confirmButtonText: 'Close'
     });
   }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
+  }
+
+  onSubmit(): void {
+    // Validation checks
+    if (!this.selectedFile) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please select a proof of payment file before submitting.",
+        icon: "error",
+        confirmButtonText: "OK"
+      });
+      return;
+    }
+
+    if (!this.amount_paid || this.amount_paid <= 0) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please enter a valid amount paid.",
+        icon: "error",
+        confirmButtonText: "OK"
+      });
+      return;
+    }
+
+    if (!this.description) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please provide a description.",
+        icon: "error",
+        confirmButtonText: "OK"
+      });
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('LRN', this.LRN || ''); // Ensure LRN is appended safely
+    formData.append('amount_paid', this.amount_paid.toString()); // Append amount_paid as string
+    formData.append('proof_payment', this.selectedFile); // Append the selected file
+    formData.append('description', this.description); // Append description
+    formData.append('date_of_payment', this.date_of_payment);
+
+    // Call the service to upload payment proof
+    this.conn.uploadPaymentProof(formData).subscribe(
+      response => {
+        console.log('Upload successful:', response);
+        Swal.fire({
+          title: "Success!",
+          text: "Your payment has been successfully uploaded. Please wait for the DSF approval.",
+          icon: "success",
+          confirmButtonText: "OK"
+        })
+      },
+      error => {
+        console.error('Upload failed:', error);
+        Swal.fire({
+          title: "Error!",
+          text: "Failed to upload payment proof. Please try again later.",
+          icon: "error",
+          confirmButtonText: "OK"
+        });
+      }
+    );
+  }
+
+  openNewPaymentAlert(): void {
+    Swal.fire({
+        title: 'New Payment',
+        html: `
+            <form id="paymentForm" class="justify-content-start align-items-start">
+                <div class="form-group">
+                    <label for="amount">Payment Amount:</label>
+                    <input type="number" class="form-control" id="amount" name="amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="paymentMethod">Payment Method:</label>
+                    <select class="form-control" id="paymentMethod" name="paymentMethod" required>
+                        <option value="" disabled selected>Select a method</option>
+                        <option value="Credit Card">Credit Card</option>
+                        <option value="Debit Card">Debit Card</option>
+                        <option value="Gcash">Gcash</option>
+                        <option value="Bank Transfer">Bank Transfer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="receipt">Upload Receipt:</label><br>
+                    <input type="file" class="form-control-file" id="receipt" name="receipt" accept=".jpg,.jpeg,.png,.pdf">
+                </div>
+            </form>
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Submit Payment',
+        preConfirm: () => {
+            const form = document.getElementById('paymentForm') as HTMLFormElement;
+            const amount = (form.querySelector('#amount') as HTMLInputElement).value;
+            const paymentMethod = (form.querySelector('#paymentMethod') as HTMLSelectElement).value;
+
+            // Perform validation if needed
+            if (!amount || !paymentMethod) {
+                Swal.showValidationMessage('Please fill out all fields');
+                return false;
+            }
+
+            // Handle file upload or any other logic here
+            this.amount_paid = Number(amount);
+            this.description = paymentMethod;
+
+            // Return true to close the modal
+            return { amount, paymentMethod };
+        },
+        customClass: {
+            popup: 'custom-swal-popup', // Custom class for the popup
+            title: 'custom-swal-title',   // Custom class for the title
+            input: 'custom-swal-input',    // Custom class for input elements
+            confirmButton: 'custom-swal-button', // Custom class for confirm button
+            cancelButton: 'custom-swal-button'   // Custom class for cancel button
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Here you can handle the submission logic
+            console.log('Payment submitted:', result.value);
+            
+            // You may want to reset the values after submission
+            this.amount_paid = undefined;
+            this.description = '';
+
+            Swal.fire('Success!', 'Your payment has been submitted.', 'success');
+        }
+    });
+}
 }

@@ -58,10 +58,15 @@ export class PersonalInformationComponent implements OnInit {
     private enrollmentStateService: EnrollmentStateService // Inject your state service
   ) {}
 
+  myDateFilter = (date: Date | null): boolean => {
+    const currentYear = new Date().getFullYear();
+    return date ? date.getFullYear() < currentYear : true; // Disable current year dates
+  };
+
   ngOnInit(): void {
     // Retrieve student information from local storage
     const studentData = localStorage.getItem('student');
-    
+        
     if (studentData) {
       this.student = JSON.parse(studentData); // Parse and assign the student data
       console.log('Student data retrieved from local storage:', this.student);
@@ -74,7 +79,8 @@ export class PersonalInformationComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      const formattedBdate = this.formatDate(this.student.bdate);
+      const bdate = new Date(this.student.bdate);
+      const formattedBdate = isNaN(bdate.getTime()) ? null : bdate.toISOString().split('T')[0]; 
 
       // Prepare data for update
       const studentData = {
@@ -88,7 +94,7 @@ export class PersonalInformationComponent implements OnInit {
           console.log('Student updated successfully:', response);
           this.enrollmentStateService.personalInfoSubmitted = true; // Update state in service
           this.submitted.emit(true); // Emit event for parent component
-          this.router.navigate(['/register/enrollment-details', { LRN: studentData.LRN }]); // Navigate after successful update
+          this.router.navigate(['/register/enrollment-details']); // Navigate after successful update
         },
         error => {
           console.error('Error updating student:', error);

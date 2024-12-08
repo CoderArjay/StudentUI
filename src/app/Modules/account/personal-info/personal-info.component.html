@@ -7,7 +7,12 @@
           <div class="card-body text-center border-bottom profile-bx">
             <div class="profile-container">
               <div class="profile-image">
-                <img [src]="profileImage" alt="Profile Image" class="rounded-circle">
+                <ng-container *ngIf="profileImage; else defaultImage">
+                  <img [src]="profileImage" alt="Profile Image" class="rounded-circle">
+              </ng-container>
+              <ng-template #defaultImage>
+                  <img src="mik.jpg" class="prof-image" alt="Default Profile" />
+              </ng-template>
                 <div class="upload-container">
                   <label for="fileUpload" class="upload-icon">
                     <i class="fa-solid fa-camera"></i>
@@ -39,7 +44,7 @@
           <div class="header-container mt-3">
             <h2 class="fs-50 text-black font-w600 ms-3">Edit Profile</h2>
             <div class="button-group">
-              <button  class="btn btn-primary rounded">Save Changes</button>
+              <button (click)="saveChanges()"  class="btn btn-primary rounded">Save Changes</button>
             </div>
           </div>
   
