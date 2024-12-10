@@ -3,10 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { ConnectService } from '../../../connect.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Route, Router, RouterModule } from '@angular/router';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Observable ,of} from 'rxjs';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatDialog } from '@angular/material/dialog';
+import { AnnouncementComponent } from '../announcement/announcement.component';
 
 interface Class {
   room: string;
@@ -25,10 +27,19 @@ interface Announcement {
   subject_name: string;
 }
 
-interface Message {
-  content: string;
-  timestamp: Date; // Adjust based on your actual date format
+export interface Message {
+  admin_id: number;
+  message_id: number;
+  message_reciever: number;
+  message_sender: number;
+  message: string; // This is the actual message content
+  message_date: string;
   isRead: boolean;
+  created_at: string;
+  updated_at: string;
+  fname: string; // Admin's first name
+  lname: string; // Admin's last name
+  admin_pic?: string | null; // Optional admin picture URL
 }
 
 @Component({
@@ -42,12 +53,12 @@ export class DashboardComponent implements OnInit {
   classes: Class[] = [];
   announcements: Announcement[] = [];
   messages: Message[] = [];
-  fname: string = '';
-  lname: string = '';
-  grade_level: string = '';
+  fname: string = ''; //for student
+  lname: string = '';//for student
+  grade_level: string = '';//for student
   lrn!: string;
   errorMessage: string = '';
-  uid: any;
+  uid: string = localStorage.getItem('LRN') || '';
   currentTime!: string;
   private intervalId: any;
 
@@ -55,7 +66,7 @@ export class DashboardComponent implements OnInit {
   loadingAnnouncements: boolean = true; // Loading state for announcements tab
   loadingMessages: boolean = true; // Loading state for messages tab
 
-  constructor(private http: HttpClient, private conn: ConnectService) {}
+  constructor(private http: HttpClient, private conn: ConnectService,private dialog: MatDialog, private route: Router) {}
 
   ngOnInit(): void {
     this.updateCurrentTime();
@@ -64,13 +75,12 @@ export class DashboardComponent implements OnInit {
       this.fetchAnnouncements();
     }, 1000); 
 
-    this.uid = localStorage.getItem('LRN');
+    // this.uid = localStorage.getItem('LRN');
     this.retrieveStudentData();
+    this.getMessages();
     
     // Load data
-    this.loadClasses();
     this.loadAnnouncements();
-    this.loadMessages();
     
     if (this.lrn) {
       this.getClass(this.lrn);
@@ -135,23 +145,23 @@ fetchAnnouncements(): void {
 }
 
 getMessages(): void {
-    console.log("uid (student LRN):", this.uid);
-    if (!this.uid) {
-      console.error("No UID found for fetching messages.");
-      return; // Exit early if UID is not available
+  if (!this.uid) {
+    this.errorMessage = 'No UID found. Please try again later.';
+    return; 
+  }
+  
+  // Fetch messages only for conversations involving the logged-in student
+  this.conn.getLatestMessages(this.uid).subscribe({
+    next: (result) => {
+      // Filter messages to include only those where the logged-in student is involved
+      this.messages = result.filter(message => 
+        message.message_reciever === this.uid || message.message_sender === this.uid
+      );
+    },
+    error: () => {
+      this.errorMessage = 'Failed to retrieve messages.';
     }
-    
-    this.conn.getMessages(this.uid).subscribe({
-      next: (result) => {
-        console.log("Fetched messages:", result); // Log fetched messages
-        this.loadingMessages = false; // Set loading to false after data is fetched
-      },
-      error: (error) => {
-        console.error("Error fetching messages:", error);
-        this.errorMessage = 'Failed to retrieve messages.';
-        this.loadingMessages = false; // Ensure loading state is updated on error
-      }
-    });
+  });
 }
 
 truncateMessage(message: string, limit: number = 50): string {
@@ -168,7 +178,44 @@ loadAnnouncements() {
   this.loadingAnnouncements = true; // Start loading state
 }
 
-loadMessages() {
-  this.loadingMessages = true; // Start loading state
+
+openDialog(announcement: Announcement): void {
+  const dialogRef = this.dialog.open(AnnouncementComponent, {
+    width: '700px',
+    data: announcement // Pass the selected announcement data to the dialog
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+    // Handle any additional logic after closing the dialog if needed
+  });
+}
+
+truncateText(text: string, length: number): string {
+  if (!text) return '';
+  return text.length > length ? text.substring(0, length) + '...' : text;
+}
+
+
+navigateToMessage(adminId: any, receiverId: any): void {
+  console.log("Navigating to conversation with Admin ID:", adminId, "and Receiver ID:", receiverId);
+  
+  // Fetch the conversation details if necessary
+  this.conn.getConvo(adminId, receiverId).subscribe((result: any) => {
+    console.log(result); // Check if result is as expected
+    
+    // Navigate to the specific message page using Receiver ID
+    this.route.navigate(['/main/message-page/message-page/messages/view', receiverId]);
+  });
+}
+
+deleteMessage(index: number): void {
+  // Remove the message from the messages array
+  this.messages.splice(index, 1);
+  
+  // Optionally, you can also call a service method here to delete it from the backend
+  // this.conn.deleteMessage(messageId).subscribe(...);
+  
+  console.log(`Deleted message at index ${index}`);
 }
 }

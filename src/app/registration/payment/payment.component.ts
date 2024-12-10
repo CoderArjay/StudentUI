@@ -205,7 +205,7 @@ calculateTotalBalance(): number {
   const esc = parseFloat(this.tuitionDetails?.esc || '0');
 
   // Total balance calculation
-  return oldAccount + tuition + generalFees - esc;
+  return oldAccount + tuition + generalFees;
 }
 
 calculateDownPaymentNoEsc(): number {

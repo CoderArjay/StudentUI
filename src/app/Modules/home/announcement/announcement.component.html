@@ -1,12 +1,23 @@
-<mat-card-header>
-    <div mat-card-avatar class="example-header-image4"></div>
-              <mat-card-title class="responsive-title">Glen Lozada</mat-card-title>
-              <mat-card-subtitle class="d-flex gap-2">Class Type: English | Date: 2024/08/24 </mat-card-subtitle>
-  </mat-card-header>
-    <mat-dialog-content>
-        <mat-card-subtitle class="responsive-title">Special title treatment</mat-card-subtitle>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    
-    </mat-dialog-content>
-  
-    
+<mat-dialog-content>
+  <div class="card announcement-card" >
+    <div class="card-header d-flex align-items-center">
+      <img src="default-image.jpg" alt="User" class="rounded-circle me-2" width="40" height="40">
+      <div>
+        <strong class="me-2">{{ data.admin_name }}</strong> |
+        <span class="text-muted">{{ data.created_at | date:'medium' }}</span><br>
+        <span class="me-2">{{ data.subject_name }}</span> 
+      </div>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ data.title }}</h5>
+      <p class="card-text">{{ data.announcement }}</p>
+      <div class="text-muted mt-2">
+        
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

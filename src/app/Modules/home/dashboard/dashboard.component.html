@@ -10,7 +10,7 @@
 
   <div class="row">
       <!-- Main Content Area -->
-      <div class="col-md-12 mt-5 px-md-4">
+      <div class="col-md-12 px-md-4">
         <mat-tab-group>
             <!-- Subjects Tab -->
             <mat-tab>
@@ -22,26 +22,49 @@
                         <span class="visually-hidden">Loading...</span>
                       </div>
                 </div>
-                <table *ngIf="!loadingClasses" class="table table-striped">
-                    <thead class="table-primary">
-                        <tr>
-                            <th>Room</th>
-                            <th>Subject Name</th>
-                            <th>Teacher</th>
-                            <th>Time</th>
-                            <th>Schedule</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let subject of classes">
-                            <td>{{ subject.room }}</td>
-                            <td>{{ subject.subject_name }}</td>
-                            <td>{{ subject.lname }} {{ subject.fname }}</td>
-                            <td>{{ subject.time }}</td>
-                            <td>{{ subject.schedule }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+
+                <!-- No Data Placeholder Row -->
+                    <!-- No Data Placeholder Row -->
+                    <table *ngIf="!loadingClasses && classes.length === 0" class="table table-striped">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Room</th>
+                                <th>Subject Name</th>
+                                <th>Teacher</th>
+                                <th>Time</th>
+                                <th>Schedule</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5" class="text-center">
+                                    No subjects available. Please check back later.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Display table if data is loaded -->
+                    <table *ngIf="!loadingClasses && classes.length > 0" class="table table-striped">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Room</th>
+                                <th>Subject Name</th>
+                                <th>Teacher</th>
+                                <th>Time</th>
+                                <th>Schedule</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let subject of classes">
+                                <td>{{ subject.room }}</td>
+                                <td>{{ subject.subject_name }}</td>
+                                <td>{{ subject.lname }} {{ subject.fname }}</td>
+                                <td>{{ subject.time }}</td>
+                                <td>{{ subject.schedule }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
             </mat-tab>
         
             <!-- Announcements Tab -->
@@ -58,8 +81,8 @@
                     <div class="card shadow-sm mb-3 ancmnt-section">
                         <div class="card-body m-2">
                             <!-- Use Bootstrap margin classes for spacing -->
-                            <div class="mb-3" *ngFor="let announcement of announcements">
-                                <div class="card announcement-card">
+                            <div class="mb-3" *ngFor="let announcement of announcements" (click)="openDialog(announcement)">
+                                <div class="card announcement-card" >
                                     <div class="card-header text-dark">
                                         <img src="default-image.jpg" alt="User" class="rounded-circle me-2" width="40" height="40" style="float:left;"/>
                                         <strong>{{ announcement.admin_name }}</strong> | {{ announcement.created_at | date:'medium' }}
@@ -68,8 +91,7 @@
                                     <div class="card-body">
                                         <blockquote class="blockquote mb-0">
                                             <h5>{{ announcement.title }}</h5>
-                                            <p>{{announcement.announcement}}</p>
-                                            <!-- <footer class="blockquote-footer">Subject: {{ announcement.subject_name }}</footer> -->
+                                            <p>{{ truncateText(announcement.announcement, 100) }}</p>
                                         </blockquote>
                                     </div>
                                 </div>
@@ -89,28 +111,32 @@
                 <ng-template mat-tab-label>
                     <span class="custom-tab-label"><img src="chat.png" alt="" width="30" height="30"> Latest Messages</span>
                 </ng-template>
-        
-                <!-- Spinner for Latest Messages -->
-                <div *ngIf="loadingMessages" class="d-flex justify-content-center align-items-center mt-5" >
-                    <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                      </div>
+                <div *ngIf="errorMessage" class="alert alert-danger">
+                    {{ errorMessage }}
                 </div>
-        
-                <!-- Messages List -->
-                <ul *ngIf="!loadingMessages" class="list-group list-group-flush">
-                    <li *ngFor="let message of messages; let i = index"
-                        [class.active]="!message.isRead"
-                        class="list-group-item d-flex justify-content-between align-items-center">
-                        {{ truncateMessage(message.content) }}
-                        <span>{{ message.timestamp | date:'short' }}</span> 
-                        <!-- Optional delete button -->
-                        <!-- <button class="btn btn-sm btn-link" (click)="deleteMessage(i)">Delete</button> -->
-                    </li>
-        
-                    <!-- Placeholder if no messages -->
-                    <li *ngIf="messages.length === 0" class='list-group-item text-center'>No latest messages</li>
-                </ul>
+                
+                <div class="container mt-4">
+                    <ul class="list-group list-group-flush">
+                        <li *ngFor="let message of messages; let i = index"
+                            [class.active]="!message.isRead" 
+                            class="list-group-item d-flex justify-content-between align-items-center border rounded mb-2"
+                            (click)="navigateToMessage(message.message_sender, message.message_reciever); deleteMessage(i)"> <!-- Pass admin ID and receiver ID -->
+                            
+                            <!-- Display admin's full name -->
+                            <div>
+                                <strong>{{ message.fname }} {{ message.lname }}</strong>
+                                <p class="mb-1 text-muted">{{ truncateMessage(message.message) }}</p> <!-- Truncated message content -->
+                                <small class="text-muted">{{ message.created_at | date:'short' }}</small> <!-- Timestamp -->
+                            </div>
+                            
+                            <!-- Optional delete button -->
+                            <!-- <button class="btn btn-sm btn-link" (click)="deleteMessage(i)">Delete</button> -->
+                        </li>
+                
+                        <!-- Placeholder if no messages -->
+                        <li *ngIf="messages.length === 0" class='list-group-item text-center'>No latest messages</li>
+                    </ul>
+                </div>
             </mat-tab>
         </mat-tab-group>             
     </div>

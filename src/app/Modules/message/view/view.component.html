@@ -27,7 +27,7 @@
         } }
     </div>
 
-    <form [formGroup]="msgForm" (ngSubmit)="sendMessage()" class="chat-footer">
+    <form [formGroup]="msgForm" (ngSubmit)="sendMessage()" class="chat-footer m-2">
         <input type="hidden" formControlName="message_sender" class="form-control" placeholder="Sender ID" />
         <input type="hidden" formControlName="message_reciever" class="form-control" placeholder="Receiver ID" required />
         <textarea #messageInput formControlName="message" class="form-control" placeholder="Type a message..."

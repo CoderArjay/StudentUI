@@ -1,5 +1,5 @@
 <!-- chat.component.html -->
-<div class="container h-100">
+<div class="container h-90 mt-2">
     <div class="row h-100 messenger-container">
         <!-- Sidebar -->
         <div class="col-12 col-md-3 col-lg-2 p-0 sidebar container">
@@ -29,13 +29,11 @@
                     }
                 } @else if(messages && inputClicked == false) {
                     @for(msg of messages; track msg.message_id){
-                        <div class="user-list-item" [routerLink]="['/main/message-page/message-page/messages/view/' + msg.message_sender]" routerLinkActive="active-link">
-                            <img src="default-image.jpg" alt="User " class="rounded-circle me-1" width="40" height="40">
+                        <div class="user-list-item" [routerLink]="['/main/message-page/message-page/messages/view/', msg.message_sender == uid ? msg.message_reciever : msg.message_sender]" routerLinkActive="active-link">
+                            <img src="default-image.jpg" alt="User" class="rounded-circle me-1" width="40" height="40">
                             <div class="content">
-                                <span>{{msg.role}}</span>
-                                <span>{{msg.sender_name}}</span>
+                                <span>{{ msg.sender_name }}</span> <!-- Displaying sender's name -->
                                 <h6>{{ msg.message.length > 30 ? (msg.message | slice:0:30) + '...' : msg.message }}</h6>
-                                <!-- <h6>{{msg.message}}</h6> -->
                             </div>
                         </div>
                     }

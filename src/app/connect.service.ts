@@ -10,7 +10,7 @@ export class ConnectService {
   token = localStorage.getItem('token');
   getCookie: any;
 
-  private StudentsImages = new BehaviorSubject<string | null>(null); // This will store the admin image URL
+  private StudentsImages = new BehaviorSubject<string | null>(null); 
   studentPic$ = this.StudentsImages.asObservable();
 
   constructor(private http: HttpClient ) { }
@@ -93,6 +93,7 @@ export class ConnectService {
   uploadProfile(formData: FormData): Observable<any> {
     return this.http.post('http://localhost:8000/api/students/upload-profile', formData);
   }
+
   updateStudentPic(newImageUrl: string) {
     this.StudentsImages.next(newImageUrl); // Emit new image URL
   } 
@@ -134,8 +135,8 @@ getFinancialStatement(LRN: string): Observable<any> {
   return this.http.get(`${this.url}financial-statement/${LRN}`);
 }
 
-getLatestMessages(): Observable<any[]> {
-  return this.http.get<any[]>(`${this.url}latest-messages`); 
+getLatestMessages(uid: any): Observable<any[]> {
+  return this.http.get<any[]>(`${this.url}latest-messages`, { params: { uid } });
 }
 
 // Fetch student data by LRN

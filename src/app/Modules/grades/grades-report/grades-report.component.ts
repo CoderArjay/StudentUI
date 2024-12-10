@@ -4,11 +4,6 @@ import { CommonModule } from '@angular/common';
 import { ConnectService } from '../../../connect.service';
 import { HttpClient } from '@angular/common/http';
 
-interface Grades {
-  [subject: string]: {
-    [period: string]: string; // Assuming grades are strings (e.g., 'A', 'B+')
-  };
-}
 
 @Component({
   selector: 'app-grades-report',
@@ -22,40 +17,45 @@ interface Grades {
 })
 export class GradesReportComponent implements OnInit{
   student: any = {};
-  studentSubjects: any[] = [];
-  fname: string = '';
-  lname: string = '';
-  contact_no: string = '';
-  grade_level: string = '';
-  LRN: string = '';
-  studentSection: string = '';
-  currentDate: Date = new Date();
-  loadingSubjects: boolean = true; // Fixed spelling from loadingSujects to loadingSubjects
+studentSubjects: any[] = [];
+fname: string = '';
+lname: string = '';
+contact_no: string = '';
+grade_level: string = '';
+LRN: string = '';
+studentSection: string = '';
+currentDate: Date = new Date();
+loadingSubjects: boolean = true; // Fixed spelling from loadingSujects to loadingSubjects
 
-  constructor(private conn: ConnectService, private http: HttpClient) {}
+isJuniorHigh: boolean = false; // New property to check if the student is in junior high
 
-  ngOnInit(): void {
+constructor(private conn: ConnectService, private http: HttpClient) {}
+
+ngOnInit(): void {
     this.retrieveStudentData();
     if (this.LRN) {
-      this.fetchStudentReport(this.LRN);
+        this.fetchStudentReport(this.LRN);
     }
-  }
+}
 
-  retrieveStudentData(): void {
+retrieveStudentData(): void {
     const student = JSON.parse(localStorage.getItem('student') || '{}');
 
     if (student) {
-      this.fname = student.fname || '';
-      this.lname = student.lname || '';
-      this.contact_no = student.contact_no || ''; // Assuming contact_no is stored
-      this.grade_level = student.grade_level || '';
-      this.LRN = student.LRN || ''; // Assuming LRN is stored
+        this.fname = student.fname || '';
+        this.lname = student.lname || '';
+        this.contact_no = student.contact_no || ''; // Assuming contact_no is stored
+        this.grade_level = student.grade_level || '';
+        this.LRN = student.LRN || ''; // Assuming LRN is stored
+        
+        // Determine if the student is in junior high or senior high
+        this.isJuniorHigh = parseInt(this.grade_level, 10) >= 7 && parseInt(this.grade_level, 10) <= 10;
     } else {
-      console.error('No student data found.');
+        console.error('No student data found.');
     }
-  }
+}
 
-  fetchStudentReport(lrn: string): void {
+fetchStudentReport(lrn: string): void {
     this.loadingSubjects = true; // Start loading state
     this.http.get<any>(`http://localhost:8000/api/student-report/${lrn}`).subscribe(
       data => {
@@ -68,13 +68,17 @@ export class GradesReportComponent implements OnInit{
 
           this.studentSubjects = Object.keys(data).map(subject => ({
             subject_name: subject,
-            grades: [
-              Number(data[subject]['First Quarter']?.grade) || 0,
-              Number(data[subject]['Second Quarter']?.grade) || 0,
-              Number(data[subject]['Third Quarter']?.grade) || 0,
-              Number(data[subject]['Fourth Quarter']?.grade) || 0,
+            semester: data[subject].semester, // Assuming this field is returned from the API
+            grades: this.isJuniorHigh ? [
+                Number(data[subject]['First Quarter']?.grade) || 0,
+                Number(data[subject]['Second Quarter']?.grade) || 0,
+                Number(data[subject]['Third Quarter']?.grade) || 0,
+                Number(data[subject]['Fourth Quarter']?.grade) || 0,
+            ] : [
+                Number(data[subject]['Midterm']?.grade) || 0,
+                Number(data[subject]['Final']?.grade) || 0,
             ],
-          }));
+        }));
           this.student.LRN = lrn; // Update LRN in student object
         } else {
           console.warn('No records found for the given LRN.');
@@ -86,5 +90,5 @@ export class GradesReportComponent implements OnInit{
         this.loadingSubjects = false; // Ensure loading state is updated on error
       }
     );
-  }
+}
 }

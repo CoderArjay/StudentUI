@@ -84,3 +84,49 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Add a shadow on hover */
   transform: translateY(-2px); /* Slight lift effect on hover */
 }
+
+.placeholder {
+  background-color: #e0e0e0; /* Light gray background for placeholders */
+}
+
+.placeholder.col-3 {
+  height: 20px; /* Set height for placeholder */
+}
+
+.placeholder.col-4 {
+  height: 20px; /* Set height for placeholder */
+}
+
+.placeholder.col-2 {
+  height: 20px; /* Set height for placeholder */
+}
+
+.text-center {
+  text-align: center; /* Center text for no data message */
+}
+
+.placeholder {
+  background-color: #e0e0e0; /* Light gray for placeholders */
+  height: 20px; /* Set a fixed height for placeholders */
+}
+
+.table-striped tbody tr:nth-of-type(odd) .placeholder {
+  background-color: #f8f9fa; /* Slightly different color for odd rows */
+}
+
+.table-striped tbody tr {
+  border-bottom: 1px solid #dee2e6; /* Add a border between rows */
+}
+
+.list-group-item {
+  cursor: pointer; /* Change cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+.list-group-item:hover {
+  background-color: #f8f9fa; /* Light background on hover */
+}
+
+.list-group-item.active {
+  background-color: #e9ecef; /* Different background for active items */
+}

@@ -113,68 +113,6 @@ export class FinancialStatementComponent implements OnInit {
     }
   }
 
-  onSubmit(): void {
-    // Validation checks
-    if (!this.selectedFile) {
-      Swal.fire({
-        title: "Error!",
-        text: "Please select a proof of payment file before submitting.",
-        icon: "error",
-        confirmButtonText: "OK"
-      });
-      return;
-    }
-
-    if (!this.amount_paid || this.amount_paid <= 0) {
-      Swal.fire({
-        title: "Error!",
-        text: "Please enter a valid amount paid.",
-        icon: "error",
-        confirmButtonText: "OK"
-      });
-      return;
-    }
-
-    if (!this.description) {
-      Swal.fire({
-        title: "Error!",
-        text: "Please provide a description.",
-        icon: "error",
-        confirmButtonText: "OK"
-      });
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('LRN', this.LRN || ''); // Ensure LRN is appended safely
-    formData.append('amount_paid', this.amount_paid.toString()); // Append amount_paid as string
-    formData.append('proof_payment', this.selectedFile); // Append the selected file
-    formData.append('description', this.description); // Append description
-    formData.append('date_of_payment', this.date_of_payment);
-
-    // Call the service to upload payment proof
-    this.conn.uploadPaymentProof(formData).subscribe(
-      response => {
-        console.log('Upload successful:', response);
-        Swal.fire({
-          title: "Success!",
-          text: "Your payment has been successfully uploaded. Please wait for the DSF approval.",
-          icon: "success",
-          confirmButtonText: "OK"
-        })
-      },
-      error => {
-        console.error('Upload failed:', error);
-        Swal.fire({
-          title: "Error!",
-          text: "Failed to upload payment proof. Please try again later.",
-          icon: "error",
-          confirmButtonText: "OK"
-        });
-      }
-    );
-  }
-
   openNewPaymentAlert(): void {
     Swal.fire({
         title: 'New Payment',
@@ -206,38 +144,103 @@ export class FinancialStatementComponent implements OnInit {
             const form = document.getElementById('paymentForm') as HTMLFormElement;
             const amount = (form.querySelector('#amount') as HTMLInputElement).value;
             const paymentMethod = (form.querySelector('#paymentMethod') as HTMLSelectElement).value;
+            const receiptInput = form.querySelector('#receipt') as HTMLInputElement;
 
-            // Perform validation if needed
-            if (!amount || !paymentMethod) {
+            // Safely access files property
+            const receipt = receiptInput?.files?.[0]; // Use optional chaining
+
+            // Perform validation
+            if (!amount || !paymentMethod || !receipt) {
                 Swal.showValidationMessage('Please fill out all fields');
                 return false;
             }
 
-            // Handle file upload or any other logic here
+            // Set the values to the component properties
             this.amount_paid = Number(amount);
             this.description = paymentMethod;
+            this.selectedFile = receipt; // Store the selected file
 
-            // Return true to close the modal
-            return { amount, paymentMethod };
+            return true; // Return true to proceed with submission
         },
         customClass: {
-            popup: 'custom-swal-popup', // Custom class for the popup
-            title: 'custom-swal-title',   // Custom class for the title
-            input: 'custom-swal-input',    // Custom class for input elements
-            confirmButton: 'custom-swal-button', // Custom class for confirm button
-            cancelButton: 'custom-swal-button'   // Custom class for cancel button
+            popup: 'custom-swal-popup',
+            title: 'custom-swal-title',
+            input: 'custom-swal-input',
+            confirmButton: 'custom-swal-button',
+            cancelButton: 'custom-swal-button',
+            htmlContainer: 'left-align'
         }
     }).then((result) => {
         if (result.isConfirmed) {
-            // Here you can handle the submission logic
-            console.log('Payment submitted:', result.value);
-            
-            // You may want to reset the values after submission
-            this.amount_paid = undefined;
-            this.description = '';
-
-            Swal.fire('Success!', 'Your payment has been submitted.', 'success');
+            this.onSubmit(); // Call onSubmit when confirmed
         }
     });
+}
+
+onSubmit(): void {
+    // Validation checks
+    if (!this.selectedFile) {
+        Swal.fire({
+            title: "Error!",
+            text: "Please select a proof of payment file before submitting.",
+            icon: "error",
+            confirmButtonText: "OK"
+        });
+        return;
+    }
+
+    if (!this.amount_paid || this.amount_paid <= 0) {
+        Swal.fire({
+            title: "Error!",
+            text: "Please enter a valid amount paid.",
+            icon: "error",
+            confirmButtonText: "OK"
+        });
+        return;
+    }
+
+    if (!this.description) {
+        Swal.fire({
+            title: "Error!",
+            text: "Please provide a description.",
+            icon: "error",
+            confirmButtonText: "OK"
+        });
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('LRN', this.LRN || ''); // Ensure LRN is appended safely
+    formData.append('amount_paid', this.amount_paid.toString()); // Append amount_paid as string
+    formData.append('proof_payment', this.selectedFile); // Append the selected file
+    formData.append('description', this.description); // Append description
+    formData.append('date_of_payment', this.date_of_payment); // Ensure date_of_payment is set correctly
+
+    // Call the service to upload payment proof
+    this.conn.newPayment(formData).subscribe(
+        response => {
+            console.log('Upload successful:', response);
+            Swal.fire({
+                title: "Success!",
+                text: "Your payment has been successfully uploaded. Please wait for the DSF approval.",
+                icon: "success",
+                confirmButtonText: "OK"
+            });
+
+            // Reset values after submission
+            this.amount_paid = undefined;
+            this.description = '';
+            this.selectedFile = null; // Reset selected file
+        },
+        error => {
+            console.error('Upload failed:', error);
+            Swal.fire({
+                title: "Error!",
+                text: "Failed to upload payment proof. Please try again later.",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        }
+    );
 }
 }

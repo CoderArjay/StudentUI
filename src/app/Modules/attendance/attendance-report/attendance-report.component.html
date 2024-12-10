@@ -2,7 +2,8 @@
   <div class="attendance-content">
       <div class="week-header d-flex justify-content-between">
           <h4><b>Attendance Report</b></h4>
-          <span>Attendance for the Week of {{ getCurrentWeek() }}</span>
+          <!-- <span>{{ getCurrentWeek() }}</span> -->
+          <span class="date">{{ currentTime | date: 'fullDate' }}</span>
           <div class="attendance-indicators mt-2">
               <i class="bi bi-circle-fill text-success"></i> Present 
               <i class="bi bi-circle-fill text-danger"></i> Absent  
@@ -21,9 +22,10 @@
       <table *ngIf="!loadingAttendance && calendarData.length > 0" class="attendance-table table table-striped">
           <thead>
               <tr>
-                  <th>Subject</th>
-                  <th class="text-center" *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']"> 
-                      {{ day }} 
+                  <th class="h5 text-center">Subject</th>
+                  <th class="text-center" *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']">
+                    {{day}} <br>
+                    {{ calendarData[0]?.dates[day]?.split(' ')[1] }}
                   </th>
               </tr>
           </thead>
@@ -37,6 +39,7 @@
                           'absent': subject.attendance[day] === 'absent',
                           'late': subject.attendance[day] === 'late'
                       }">
+                      <!-- {{ day }} -->
                   </td>
               </tr>
           </tbody>

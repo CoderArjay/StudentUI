@@ -75,6 +75,7 @@ body {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   width:90px;
   max-width: 90px;
+  font-weight: 600;
 }
 .subject-name {
   font-weight: bold;

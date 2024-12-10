@@ -49,6 +49,14 @@ export class LoginComponent{
             console.log(result);
         }, (error) => {
             console.error('Login failed', error); // Handle login errors
+            
+            // Display SweetAlert for error
+            Swal.fire({
+                icon: 'error',
+                title: 'Login Failed',
+                text: error.error.message || 'An unexpected error occurred. Please try again.',
+                confirmButtonText: 'OK'
+            });
         });
     } 
 }

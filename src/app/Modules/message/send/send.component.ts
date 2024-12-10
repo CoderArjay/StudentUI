@@ -44,23 +44,24 @@ export class SendComponent implements OnInit{
     this.getStudPar(); // Fetch student/parent data
   }
 
-  getMessages(){
-    console.log(this.uid)
+  getMessages() {
+    console.log(this.uid);
     this.conn.getMessages(this.uid).subscribe((result: any) => {
-      console.log(result)
-      const uniqueMessages = [];
-      const seenSenders = new Set();
+        console.log(result);
+        const uniqueMessages = [];
+        const seenSenders = new Set();
 
-      for (const msg of result) {
-          if (!seenSenders.has(msg.sender_name)) {
-              seenSenders.add(msg.sender_name);
-              uniqueMessages.push(msg);
-          }
-      }
+        for (const msg of result) {
+            // Check if we have already seen this sender
+            if (!seenSenders.has(msg.message_sender)) {
+                seenSenders.add(msg.message_sender); // Track sender
+                uniqueMessages.push(msg); // Add to unique messages
+            }
+        }
 
-      this.messages = uniqueMessages; // Assign filtered messages to 'messages'
-    })
-  }
+        this.messages = uniqueMessages; // Assign filtered messages to 'messages'
+    });
+}
 
   onInputClick() {
     this.inputClicked = true; // Set to true when the input is clicked

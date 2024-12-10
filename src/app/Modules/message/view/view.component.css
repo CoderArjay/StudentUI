@@ -26,7 +26,7 @@
 
 .sent {
     flex-direction: row-reverse;
-    text-align: right;
+    text-align:justify;
 }
 
 .message-content {
@@ -42,7 +42,7 @@
 
 
 .received .message-content {
-    background-color: #e1ffc7; /* Different color for received messages */
+    background-color: #5dcf76; /* Different color for received messages */
 }
 
 .sent .message-content {
@@ -51,7 +51,7 @@
 }
 
 .chat-header {
-    background-color: #007bff;
+    /* background-color: #dbdbdb; */
     padding: 10px;
     border-bottom: 1px solid #ddd;
     display: flex;
@@ -122,8 +122,6 @@ button.btn {
 }
   
   
-  
-
 /* Tooltip styling */
 /* Tooltip styling */
 .received .hover-time {

@@ -91,11 +91,18 @@ export class AttendanceReportComponent implements OnInit ,OnDestroy {
     const endOfWeek = new Date(startOfWeek);
     endOfWeek.setDate(startOfWeek.getDate() + 4); // Set to Friday
 
-    return `${startOfWeek.toLocaleDateString()} - ${endOfWeek.toLocaleDateString()}`;
-  }
+    // Define options for formatting
+    const options: Intl.DateTimeFormatOptions = { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    };
+
+    return `${startOfWeek.toLocaleDateString('en-US', options)} - ${endOfWeek.toLocaleDateString('en-US', options)}`;
+}
 
   createCalendar(): void {
-    const currentWeekDates: { [key: string]: number } = {}; // Store days (1-31)
+    const currentWeekDates: { [key: string]: string } = {}; // Store days in "Day Date" format
     const attendanceStatus: { [key: string]: string } = {};
     const { start, end } = this.getCurrentWeekDates();
     const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
@@ -105,7 +112,8 @@ export class AttendanceReportComponent implements OnInit ,OnDestroy {
     // Populate current week dates
     for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
       if (dayCount < daysOfWeek.length) {
-        currentWeekDates[daysOfWeek[dayCount]] = date.getDate(); // Store the day of the month (1-31)
+        // Store the day of the week with its corresponding date
+        currentWeekDates[daysOfWeek[dayCount]] = `${daysOfWeek[dayCount]} ${date.getDate()}`; 
         attendanceStatus[daysOfWeek[dayCount]] = ''; // Default to N/A
         dayCount++;
       }
@@ -145,7 +153,7 @@ export class AttendanceReportComponent implements OnInit ,OnDestroy {
   getDayNameByDate(dateString: string): string | null {
     const date = new Date(dateString);
     const dayIndex = date.getDay(); // Sunday is 0, Saturday is 6
-    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const dayNames = ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
     
     return dayNames[dayIndex + 1] || null; // Return the day name or null if not found (shifted to align with Monday)
   }

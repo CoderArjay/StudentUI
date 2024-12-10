@@ -1,11 +1,3 @@
-.header {
-  background-color: #007bff; /* Header background color */
-  color: white; /* Text color */
-  padding: 20px; /* Padding around the header */
-  border-radius: 10px; /* Rounded corners */
-  min-height: 100px; /* Set a minimum height for the header */
-}
-
 /* General Styles */
 body {
   font-family: 'Georgia', sans-serif;
@@ -13,69 +5,19 @@ body {
   color: #343a40; /* Dark text for readability */
 }
 
-/* Tab Group Styles */
-.mat-tab-group {
-  margin: 20px; /* Space around the tab group */
-  border-radius: 8px; /* Rounded corners */
-  overflow: hidden; /* Prevent overflow of content */
-}
-
-::ng-deep .mat-tab-group {
-  overflow: hidden; /* Hides the scrollbar */
-}
-
-::ng-deep .mat-tab-labels {
-  overflow-x: auto; /* Allows horizontal scrolling */
-}
-
-/* Hide scrollbar for WebKit browsers (Chrome, Safari) */
-::ng-deep .mat-tab-labels::-webkit-scrollbar {
-  display: none; /* Hides the scrollbar */
-}
-
-/* Hide scrollbar for Firefox */
-::ng-deep .mat-tab-labels {
-  scrollbar-width: none; /* Hides the scrollbar in Firefox */
-}
-
-/* Hide scrollbar for Internet Explorer and Edge */
-::ng-deep .mat-tab-labels {
-  -ms-overflow-style: none; /* Hides the scrollbar in IE and Edge */
-}
-
-/* Tab Label Styles */
-.mat-tab-label {
-  font-weight: bold; /* Bold labels for emphasis */
-}
-
-
-/* Table Styles */
-.table {
-  width: 100%; /* Full width for tables */
-  margin-bottom: 1rem; /* Space below tables */
-}
-
-.table-striped tbody tr:nth-of-type(odd) {
-  background-color: #f2f2f2; /* Light gray for odd rows */
-}
-
-.table-hover tbody tr:hover {
-  background-color: #e9ecef; /* Slightly darker gray on hover */
-}
-
-.thead-light th {
-  background-color: #007bff; /* Primary color for header */
-  color: white; /* White text for contrast */
+/* Header Styles */
+.header {
+  background-color: #2c9ace; /* Header background color */
+  color: white; /* Text color */
+  padding: 20px; /* Padding around the header */
+  border-radius: 10px; /* Rounded corners */
+  min-height: 100px; /* Set a minimum height for the header */
 }
 
 /* Card Styles for Uploaded Documents */
 .card {
   border: none; /* No border for a cleaner look */
   box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
-}
-
-.card-img-top {
-  height: auto; /* Maintain aspect ratio of images */
 }
 
 .card-body {
@@ -91,13 +33,14 @@ body {
 }
 
 /* Button Styles */
-.btn-outline-primary {
-  border-color: #007bff; /* Primary button border color */
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
 }
 
-.btn-outline-primary:hover {
-  background-color: #007bff; /* Change background on hover */
-  color: white; /* White text on hover */
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
 }
 
 /* Contact Service Section Styles */
@@ -113,42 +56,7 @@ body {
   margin-bottom: 10px;
 }
 
-::ng-deep .mat-tab-label {
-  min-width: 100px; /* Set your desired minimum width */
-  max-width: 150px; /* Optional: Set a maximum width */
-  flex-grow: 0; /* Prevents the tab from growing */
-}
-
-.custom-tab-label {
-  min-width: 100px; /* Customize as needed */
-  max-width: 150px; /* Optional */
-  text-align: center; /* Center text */
-  font-weight: 700;
-}
-
-.mat-tab-group {
-  display: flex;
-}
-
-.mat-tab-labels {
-  display: flex;
-  justify-content: space-between; /* Adjust spacing as needed */
-}
-
-.clickable-image:hover {
-  transform: scale(1.05); /* Slightly enlarge the image on hover */
-  transition: transform 0.2s ease; /* Smooth transition */
-}
-
-.title{
-  border-radius: .5rem;
-  font-weight: bold;
-  width: fit-content;
-  border-bottom: #343a40;
-  border: #343a40;
-  border-width: medium;
-}
-
+/* Payment Form Styles */
 .payment-form {
   background-color: #ffffff;
   border-radius: 8px;
@@ -156,22 +64,17 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: 30px;
 }
+
 .payment-form h6 {
   font-weight: bold;
   color: #333;
 }
+
 .form-group label {
   font-weight: bold;
 }
-.btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
-}
-.btn-primary:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
-}
 
+/* Blur Image Effect */
 .blur-image {
   filter: blur(5px); /* Adjust the blur intensity as needed */
   transition: filter 0.3s ease; /* Smooth transition for hover effect */
@@ -181,25 +84,40 @@ body {
   filter: blur(0); /* Remove blur on hover */
 }
 
-/* Example CSS for customizing SweetAlert */
+/* Tab Group Styles */
+.mat-tab-group {
+  margin: 20px; /* Space around the tab group */
+}
+
+/* Table Styles */
+.table {
+  width: 100%; /* Full width for tables */
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f2f2f2; /* Light gray for odd rows */
+}
+
+.table-hover tbody tr:hover {
+  background-color: #e9ecef; /* Slightly darker gray on hover */
+}
+
+.thead-light th {
+  background-color: #2c9ace; /* Primary color for header */
+  color: white; /* White text for contrast */
+}
+
+/* Custom SweetAlert Styles (if used) */
 .custom-swal-popup {
-  width: 500px; /* Set a fixed width */
+    width: 500px; /* Set a fixed width for SweetAlert popup */
+    justify-content: start;
 }
 
 .custom-swal-title {
-  text-align: left; /* Align title to the left */
-}
-
-.custom-swal-input {
-  margin-bottom: 15px; /* Add some spacing below input fields */
+    text-align: start; /* Align title to the left in SweetAlert popup */
 }
 
 .custom-swal-button {
-  background-color: #3085d6; /* Customize button color */
-  color: white; /* Button text color */
-}
-
-/* Optional: Adjust button hover effect */
-.custom-swal-button:hover {
-  background-color: #2672b1; /* Darker shade on hover */
+    background-color: #2c9ace; /* Customize button color in SweetAlert popup */
+    color: white; /* Button text color in SweetAlert popup */
 }
