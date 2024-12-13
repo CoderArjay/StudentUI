@@ -7,29 +7,48 @@
     </div>
   </header>
 
-    <div class="container mt-2">
-      <h5>Uploaded by the DSF Office <a class="btn btn-primary" (click)="openNewPaymentAlert()">New Payment</a></h5>
+  <div class="container mt-2">
+    <h5>Uploaded by the DSF Office </h5>
+    
+    <!-- Loading Placeholder -->
+    <div *ngIf="loadingFinancials" class="row">
+      <div class="col-md-3 mb-4" *ngFor="let i of [].constructor(4); let index = index"> <!-- Adjust number for placeholders -->
+        <div class="card text-bg-dark shadow-sm border-light text-dark">
+          <div class="card-img-top placeholder-glow" style="height: 200px;">
+            <span class="placeholder col-12 h-100"></span> <!-- Placeholder for image -->
+          </div>
+          <div class="card-img-overlay">
+            <h5 class="card-title placeholder col-8"></h5> <!-- Placeholder for title -->
+            <p class="card-text placeholder col-6"></p> <!-- Placeholder for upload date -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Document Display Section -->
+    <div *ngIf="!loadingFinancials">
       <div class="row">
         <div *ngIf="documents.length === 0" class="col-md-12 text-center mt-5">
           <img src="default-image.png" alt="No documents available" width="300" height="300" class="img-fluid mb-3">
           <p class="text-muted">No documents uploaded yet.</p>
         </div>
-               
+
         <div *ngFor="let document of documents" class="col-md-3 mb-4">
           <div class="card text-bg-dark shadow-sm border-light text-dark" (click)="openModal(document.url)">
-              <img 
-                  [src]="document.url" 
-                  class="card-img blur-image" 
-                  alt="{{ document.filename }}" 
-                   
-                  style="cursor: pointer;"
-              >
-              <div class="card-img-overlay">
-                  <h5 class="card-title">{{ document.title || 'Statement of Account' }}</h5>
-                  <p class="card-text">Uploaded on: {{ document.date_uploaded }}</p>
-              </div>
+            <img 
+                [src]="document.url" 
+                class="card-img blur-image" 
+                alt="{{ document.filename }}" 
+                style="cursor: pointer;"
+            >
+            <div class="card-img-overlay">
+              <h5 class="card-title">{{ document.title || 'Statement of Account' }}</h5>
+              <p class="card-text">Uploaded on: {{ document.date_uploaded }}</p>
+            </div>
           </div>
+        </div>
       </div>
-      </div>
-    </div> 
-  </div>
+    </div>
+
+  </div> 
+</div>

@@ -29,10 +29,9 @@ export class EnrollmentDetailsComponent {
     last_attended: '',
     public_private: '',
     guardian_name: '',
-    contact_no: '',
+    guardian_no: '',
     grade_level: '',
     strand: '',
-    school_year: ''
   };
 
   constructor(private route: ActivatedRoute, private conn: ConnectService, private router: Router) {}

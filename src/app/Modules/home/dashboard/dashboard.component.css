@@ -130,3 +130,21 @@
 .list-group-item.active {
   background-color: #e9ecef; /* Different background for active items */
 }
+
+.placeholder {
+  background-color: #a5a4a4; /* Light gray color */
+}
+
+.placeholder-glow {
+  animation: pulse-animation 1.5s infinite; /* Add animation */
+}
+
+@keyframes pulse-animation {
+  from {
+    opacity: 0.5;
+  }
+  
+  to {
+    opacity: 1;
+  }
+}

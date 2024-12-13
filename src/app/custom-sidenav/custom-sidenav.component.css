@@ -49,3 +49,10 @@
     }
   }
 }
+
+.badge {
+  font-size: 0.75rem; /* Smaller font size */
+  padding: 0.25em 0.4em; /* Padding for the badge */
+  border-radius: 0.5rem; /* Rounded corners */
+  /* color: red; */
+}

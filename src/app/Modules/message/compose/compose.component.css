@@ -1,0 +1,55 @@
+/* General form styling */
+.example-form {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f4f7fc; /* Light background */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .example-form mat-form-field {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  /* Enhance mat-form-field labels */
+  .example-form mat-label {
+    font-size: 1.1rem;
+    margin-top: 0px;
+    color: #0056b3; /* Accent color for the label */
+  }
+  
+  /* Autocomplete input */
+  
+  
+  .mat-option {
+    font-size: 1rem;
+    padding: 10px;
+  }
+  
+  .mat-option:hover {
+    background-color: #e6f4ff; /* Light blue on hover */
+    color: #0056b3; /* Accent color */
+  }
+  .textarea{
+    height: 200px;
+  }
+  textarea::-webkit-scrollbar {
+    display: none;
+  }
+  /* Responsive design for mobile */
+  @media (max-width: 600px) {
+    .example-form {
+      padding: 15px;
+      max-width: 100%;
+    }
+  
+    .example-form mat-form-field {
+      margin-bottom: 15px;
+    }
+  
+    input[matInput], textarea[matInput] {
+      font-size: 0.95rem;
+    }
+  }

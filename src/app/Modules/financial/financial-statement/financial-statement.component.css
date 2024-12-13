@@ -121,3 +121,21 @@ body {
     background-color: #2c9ace; /* Customize button color in SweetAlert popup */
     color: white; /* Button text color in SweetAlert popup */
 }
+
+.placeholder {
+  background-color: #e0e0e0; /* Light gray color */
+}
+
+.placeholder-glow {
+  animation: pulse-animation 1.5s infinite; /* Add animation */
+}
+
+@keyframes pulse-animation {
+  from {
+      opacity: 0.5;
+  }
+  
+  to {
+      opacity: 1;
+  }
+}

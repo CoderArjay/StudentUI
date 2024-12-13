@@ -72,7 +72,7 @@ export class PaymentApprovalComponent implements OnInit {
     this.conn.getPaymentDetails(this.LRN).subscribe(
         response => {
             console.log('Payment details response:', response);
-            this.paymentDate = response.date_of_payment;
+            this.paymentDate = this.formatDate(response.date_of_payment);
             this.amountPaid = parseFloat(response.amount_paid);
             this.paymentApproved = response.payment_approval !== null;
 
@@ -87,6 +87,13 @@ export class PaymentApprovalComponent implements OnInit {
             console.error('Error fetching payment details:', error);
         }
     );
+}
+
+// Function to format the date
+formatDate(dateString: string): string {
+  const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+  const date = new Date(dateString); // Convert string to Date object
+  return date.toLocaleDateString('en-US', options); // Format date as "December 8, 2024"
 }
 
 getEnrollmentDetails(LRN: string): void {

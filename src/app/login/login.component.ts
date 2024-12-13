@@ -50,16 +50,27 @@ export class LoginComponent{
         }, (error) => {
             console.error('Login failed', error); // Handle login errors
             
+            // Determine the error message based on the response
+            let errorMessage = 'An unexpected error occurred. Please try again.';
+            if (error.error && error.error.message) {
+                errorMessage = error.error.message; // Use the specific error message from the backend
+            } else if (error.status === 0) {
+                errorMessage = 'Network error. Please check your internet connection.';
+            } else if (error.status === 401) {
+                errorMessage = 'Invalid credentials. Please check your username and password.';
+            }
+
             // Display SweetAlert for error
             Swal.fire({
                 icon: 'error',
                 title: 'Login Failed',
-                text: error.error.message || 'An unexpected error occurred. Please try again.',
+                text: errorMessage,
                 confirmButtonText: 'OK'
             });
         });
     } 
 }
+
 
 fetchStudentData(lrn: string) {
   console.log('Fetching student data for LRN:', lrn); // Log the LRN

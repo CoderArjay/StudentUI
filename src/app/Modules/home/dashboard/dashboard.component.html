@@ -15,74 +15,149 @@
             <!-- Subjects Tab -->
             <mat-tab>
                 <ng-template mat-tab-label>
-                    <span class="custom-tab-label"><img src="text-books.png" alt="" width="30" height="30"> Subjects</span>
+                    <span class="custom-tab-label">
+                        <img src="text-books.png" alt="" width="30" height="30"> Subjects
+                    </span>
                 </ng-template>
-                <div *ngIf="loadingClasses" class="d-flex justify-content-center align-items-center mt-5" >
+            
+                <!-- Loading Spinner -->
+                <!-- <div *ngIf="loadingClasses" class="d-flex justify-content-center align-items-center mt-5">
                     <div class="spinner-border" role="status">
                         <span class="visually-hidden">Loading...</span>
-                      </div>
+                    </div>
+                </div> -->
+            
+                <!-- Loading Placeholders for Classes -->
+                <div *ngIf="loadingClasses" class="table-responsive mt-3">
+                    <table class="table">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Room</th>
+                                <th>Subject Name</th>
+                                <th>Teacher</th>
+                                <th>Time</th>
+                                <th>Schedule</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Placeholder Rows -->
+                            <tr *ngFor="let i of [].constructor(5); let index = index"> <!-- Adjust number of rows as needed -->
+                                <td class="placeholder-glow"><span class="placeholder col-12"></span></td> <!-- Placeholder for Room -->
+                                <td class="placeholder-glow"><span class="placeholder col-12"></span></td> <!-- Placeholder for Subject Name -->
+                                <td class="placeholder-glow"><span class="placeholder col-12"></span></td> <!-- Placeholder for Teacher -->
+                                <td class="placeholder-glow"><span class="placeholder col-12"></span></td> <!-- Placeholder for Time -->
+                                <td class="placeholder-glow"><span class="placeholder col-12"></span></td> <!-- Placeholder for Schedule -->
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-
+            
                 <!-- No Data Placeholder Row -->
-                    <!-- No Data Placeholder Row -->
-                    <table *ngIf="!loadingClasses && classes.length === 0" class="table table-striped">
-                        <thead class="table-primary">
-                            <tr>
-                                <th>Room</th>
-                                <th>Subject Name</th>
-                                <th>Teacher</th>
-                                <th>Time</th>
-                                <th>Schedule</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td colspan="5" class="text-center">
-                                    No subjects available. Please check back later.
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <!-- Display table if data is loaded -->
-                    <table *ngIf="!loadingClasses && classes.length > 0" class="table table-striped">
-                        <thead class="table-primary">
-                            <tr>
-                                <th>Room</th>
-                                <th>Subject Name</th>
-                                <th>Teacher</th>
-                                <th>Time</th>
-                                <th>Schedule</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let subject of classes">
-                                <td>{{ subject.room }}</td>
-                                <td>{{ subject.subject_name }}</td>
-                                <td>{{ subject.lname }} {{ subject.fname }}</td>
-                                <td>{{ subject.time }}</td>
-                                <td>{{ subject.schedule }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <table *ngIf="!loadingClasses && classes.length === 0" class="table table-striped">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Room</th>
+                            <th>Subject Name</th>
+                            <th>Teacher</th>
+                            <th>Time</th>
+                            <th>Schedule</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                No subjects available. Please check back later.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            
+                <!-- Display table if data is loaded -->
+                <table *ngIf="!loadingClasses && classes.length > 0" class="table table-striped">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Room</th>
+                            <th>Subject Name</th>
+                            <th>Teacher</th>
+                            <th>Time</th>
+                            <th>Schedule</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let subject of classes">
+                            <td>{{ subject.room }}</td>
+                            <td>{{ subject.subject_name }}</td>
+                            <td>{{ subject.lname }} {{ subject.fname }}</td>
+                            <td>{{ subject.time }}</td>
+                            <td>{{ subject.schedule }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            
             </mat-tab>
+            
         
             <!-- Announcements Tab -->
             <mat-tab label="Announcements">
                 <ng-template mat-tab-label>
                     <span class="custom-tab-label"><img src="megaphone.png" alt="" width="30" height="30"> Announcements</span>
                 </ng-template>
-                <div *ngIf="loadingAnnouncements" class="d-flex justify-content-center align-items-center mt-5" >
-                    <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                      </div>
+            
+                <div *ngIf="loadingAnnouncements">
+                    <div class="card shadow-sm mb-3 ancmnt-section">
+                        <div class="card-body m-2">
+                            <!-- Use Bootstrap margin classes for spacing -->
+                            <div class="mb-3">
+                                <div class="card announcement-card mt-3">
+                                    <div class="card-header text-dark placeholder-glow">
+                                        <img src="default-image.jpg" alt="User" class="rounded-circle me-2" width="40" height="40" style="float:left;"/>
+                                        <span class="placeholder col-2 placeholder-lg" style="border-radius: 1rem;"></span> <span class="placeholder col-2 placeholder-sm" style="border-radius: 1rem;"></span> <br> <!-- Placeholder for date -->
+                                        <div class="sub-text placeholder col-1 placeholder-sm" style="border-radius: 1rem;"></div> <!-- Placeholder for subject name -->
+                                    </div>
+                                    <div class="card-body">
+                                        <blockquote class="blockquote mb-0 placeholder-glow">
+                                            <h5 class="placeholder col-6 placeholder-lg" style="border-radius: 1rem;"></h5> <!-- Placeholder for title -->
+                                            <p class="placeholder col-12 placeholder-sm" style="border-radius: 1rem;"></p> <!-- Placeholder for announcement text -->
+                                        </blockquote>
+                                    </div>
+                                </div>
+                                <div class="card announcement-card mt-3 placeholder-glow">
+                                    <div class="card-header text-dark placeholder-glow">
+                                        <img src="default-image.jpg" alt="User" class="rounded-circle me-2" width="40" height="40" style="float:left;"/>
+                                        <span class="placeholder col-2 placeholder-lg" style="border-radius: 1rem;"></span> <span class="placeholder col-2 placeholder-sm" style="border-radius: 1rem;"></span> <br> <!-- Placeholder for date -->
+                                        <div class="sub-text placeholder col-1 placeholder-sm" style="border-radius: 1rem;"></div> <!-- Placeholder for subject name -->
+                                    </div>
+                                    <div class="card-body">
+                                        <blockquote class="blockquote mb-0 placeholder-glow">
+                                            <h5 class="placeholder col-6 placeholder-lg" style="border-radius: 1rem;"></h5> <!-- Placeholder for title -->
+                                            <p class="placeholder col-12 placeholder-sm" style="border-radius: 1rem;"></p> <!-- Placeholder for announcement text -->
+                                        </blockquote>
+                                    </div>
+                                </div>
+                                <div class="card announcement-card mt-3">
+                                    <div class="card-header text-dark placeholder-glow">
+                                        <img src="default-image.jpg" alt="User" class="rounded-circle me-2" width="40" height="40" style="float:left;"/>
+                                        <span class="placeholder col-2 placeholder-lg" style="border-radius: 1rem;"></span> <span class="placeholder col-2 placeholder-sm" style="border-radius: 1rem;"></span> <br> <!-- Placeholder for date -->
+                                        <div class="sub-text placeholder col-1 placeholder-sm" style="border-radius: 1rem;"></div> <!-- Placeholder for subject name -->
+                                    </div>
+                                    <div class="card-body">
+                                        <blockquote class="blockquote mb-0 placeholder-glow">
+                                            <h5 class="placeholder col-6 placeholder-lg" style="border-radius: 1rem;"></h5> <!-- Placeholder for title -->
+                                            <p class="placeholder col-12 placeholder-sm" style="border-radius: 1rem;"></p> <!-- Placeholder for announcement text -->
+                                        </blockquote>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
                 <div *ngIf="!loadingAnnouncements">
                     <div class="card shadow-sm mb-3 ancmnt-section">
                         <div class="card-body m-2">
                             <!-- Use Bootstrap margin classes for spacing -->
                             <div class="mb-3" *ngFor="let announcement of announcements" (click)="openDialog(announcement)">
-                                <div class="card announcement-card" >
+                                <div class="card announcement-card">
                                     <div class="card-header text-dark">
                                         <img src="default-image.jpg" alt="User" class="rounded-circle me-2" width="40" height="40" style="float:left;"/>
                                         <strong>{{ announcement.admin_name }}</strong> | {{ announcement.created_at | date:'medium' }}
@@ -96,46 +171,13 @@
                                     </div>
                                 </div>
                             </div>
-        
+            
                             <!-- Default Message if No Announcement Selected -->
                             <div *ngIf="!announcements.length" class="text-muted text-center mt-5">
                                 No announcements available.
                             </div>
                         </div>
                     </div>
-                </div>
-            </mat-tab>
-        
-            <!-- Latest Messages Tab -->
-            <mat-tab label="Latest Messages">
-                <ng-template mat-tab-label>
-                    <span class="custom-tab-label"><img src="chat.png" alt="" width="30" height="30"> Latest Messages</span>
-                </ng-template>
-                <div *ngIf="errorMessage" class="alert alert-danger">
-                    {{ errorMessage }}
-                </div>
-                
-                <div class="container mt-4">
-                    <ul class="list-group list-group-flush">
-                        <li *ngFor="let message of messages; let i = index"
-                            [class.active]="!message.isRead" 
-                            class="list-group-item d-flex justify-content-between align-items-center border rounded mb-2"
-                            (click)="navigateToMessage(message.message_sender, message.message_reciever); deleteMessage(i)"> <!-- Pass admin ID and receiver ID -->
-                            
-                            <!-- Display admin's full name -->
-                            <div>
-                                <strong>{{ message.fname }} {{ message.lname }}</strong>
-                                <p class="mb-1 text-muted">{{ truncateMessage(message.message) }}</p> <!-- Truncated message content -->
-                                <small class="text-muted">{{ message.created_at | date:'short' }}</small> <!-- Timestamp -->
-                            </div>
-                            
-                            <!-- Optional delete button -->
-                            <!-- <button class="btn btn-sm btn-link" (click)="deleteMessage(i)">Delete</button> -->
-                        </li>
-                
-                        <!-- Placeholder if no messages -->
-                        <li *ngIf="messages.length === 0" class='list-group-item text-center'>No latest messages</li>
-                    </ul>
                 </div>
             </mat-tab>
         </mat-tab-group>             

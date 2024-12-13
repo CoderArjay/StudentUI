@@ -73,7 +73,7 @@ export class DashboardComponent implements OnInit {
     this.intervalId = setInterval(() => {
       this.updateCurrentTime(); 
       this.fetchAnnouncements();
-    }, 1000); 
+    }, 10000); 
 
     // this.uid = localStorage.getItem('LRN');
     this.retrieveStudentData();

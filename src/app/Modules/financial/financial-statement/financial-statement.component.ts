@@ -39,6 +39,7 @@ export class FinancialStatementComponent implements OnInit {
   selectedFile: File | null = null;
   description: string = '';
   date_of_payment!: string;
+  loadingFinancials: boolean = true;
 
   constructor(private conn: ConnectService, private router: Router) { }
 
@@ -56,7 +57,7 @@ export class FinancialStatementComponent implements OnInit {
     
     this.intervalId = setInterval(() => {
       this.fetchFinancialStatement(this.LRN);
-    }, 1000);
+    }, 10000);
 
   }
 
@@ -86,9 +87,11 @@ export class FinancialStatementComponent implements OnInit {
           ...doc,
           url: `http://localhost:8000/storage/financials/${doc.filename}` // Construct full URL
         })) || []; // Default to empty array if undefined
+        this.loadingFinancials = false; 
       },
       error => {
         console.error('Error fetching financial statement:', error);
+        this.loadingFinancials = false; 
       }
     );
   }

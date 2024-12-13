@@ -42,7 +42,7 @@
 
 
 .received .message-content {
-    background-color: #5dcf76; /* Different color for received messages */
+    background-color: #e1ffc7; /* Different color for received messages */
 }
 
 .sent .message-content {

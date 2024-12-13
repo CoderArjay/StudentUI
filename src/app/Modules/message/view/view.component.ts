@@ -36,6 +36,7 @@ export class ViewComponent implements OnInit{
     private route: Router,
     private cdRef: ChangeDetectorRef
   ) { }
+  
   toggleTimeDisplay(message: any) {
     // Toggle `showTime` for the clicked message
     message.showTime = !message.showTime;
@@ -74,5 +75,10 @@ export class ViewComponent implements OnInit{
       this.msgForm.get('message')?.reset(); 
     })
   }
-
+  onKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter' && !event.shiftKey) { // Check if Enter is pressed and Shift is not held
+      event.preventDefault(); // Prevent default new line behavior
+      this.sendMessage(); // Call sendMessage method
+    }
+  }
 }

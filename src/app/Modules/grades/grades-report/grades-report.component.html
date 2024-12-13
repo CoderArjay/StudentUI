@@ -1,71 +1,117 @@
-<div class="attendance-container m-3 justify-content-between d-flex">
-  <div class="attendance-content m-3">
-      <h5 class="mb-3 text-dark"><b>Grades Overview</b></h5>
+<div class="container mt-3">
+  <h4 class=""><strong>Grade Overview</strong></h4><br>
 
-      <div *ngIf="loadingSubjects" class="d-flex justify-content-center align-items-center mt-5">
-        <div class="spinner-border text-secondary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
+  <!-- Nav Tabs -->
+  <ul *ngIf="(hasSemester(1) || hasSemester(2)) && !hasNullSemester()" class="nav nav-tabs mb-3">
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="selectedTab === 1" (click)="selectTab(1)"><b>First Semester</b></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="selectedTab === 2" (click)="selectTab(2)"><b>Second Semester</b></a>
+    </li>
+  </ul>
 
-    <!-- Grades Table -->
-    <div *ngIf="!loadingSubjects" class="table-responsive">
-      <!--  -->
-        <!-- Senior High Grades Table -->
-        <div *ngIf="!isJuniorHigh">
-            <!-- Display Midterm and Final grades -->
-            <table class="table table-striped table-hover custom-table">
-                <thead>
-                    <tr>
-                        <th scope="col">Subjects</th>
-                        <th scope="col" class="text-center">Midterm</th>
-                        <th scope="col" class="text-center">Final</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let subject of studentSubjects">
-                        <td scope="row">{{ subject.subject_name }}</td>
-                        <td class="text-center">{{ subject.grades[0] !== 0 ? subject.grades[0] : '-' }}</td> <!-- Midterm -->
-                        <td class="text-center">{{ subject.grades[1] !== 0 ? subject.grades[1] : '-' }}</td> <!-- Final -->
-                    </tr>
-                </tbody>
-            </table>
+  <!-- Loading Placeholder -->
+  <div *ngIf="loadingSubjects" class="table-responsive mt-3">
+    <table class="table table-bordered custom-table" aria-hidden="true">
+      <thead class="thead-light">
+        <tr>
+          <th><span class="placeholder col-5"></span></th>
+          <th><span class="placeholder col-3"></span></th>
+          <th><span class="placeholder col-3"></span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let i of [].constructor(5); let index = index"> <!-- Change 5 to the number of placeholders you want -->
+          <td><span class="placeholder col-5"></span></td>
+          <td><span class="placeholder col-3"></span></td>
+          <td><span class="placeholder col-3"></span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-            <!-- Optional: Message if no subjects are available -->
-            <div *ngIf="studentSubjects.length === 0" class="text-muted text-center mt-3">
-                No subjects available.
-            </div>
+  <!-- Tab Content for First Semester -->
+  <div *ngIf="selectedTab === 1 && hasSemester(1)">
+    <table class="table table-bordered custom-table">
+      <thead class="thead-light">
+        <tr>
+          <th>Subject</th>
+          <th>Midterm</th>
+          <th>Final</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let grade of studentSubjects" class="fw-bold">
+          <tr *ngIf="grade.semester === 1">
+            <td>{{ grade.subject_name }}</td>
+            <td class="text-center">{{ grade.Midterm !== null ? grade.Midterm : '-' }}</td>
+            <td class="text-center">{{ grade.Final !== null ? grade.Final : '-' }}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
 
-        </div> <!-- End of Senior High Table -->
+  <!-- Tab Content for Second Semester -->
+  <div *ngIf="selectedTab === 2 && hasSemester(2)">
+    <table class="table table-bordered custom-table">
+      <thead class="thead-light">
+        <tr>
+          <th>Subject</th>
+          <th>Midterm</th>
+          <th>Final</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let grade of studentSubjects" class="fw-bold">
+          <tr *ngIf="grade.semester === 2">
+            <td>{{ grade.subject_name }}</td>
+            <td class="text-center">{{ grade.Midterm !== null ? grade.Midterm : '-' }}</td>
+            <td class="text-center">{{ grade.Final !== null ? grade.Final : '-' }}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
 
-    </div> 
+  <!-- No Semester Section -->
+  <div *ngIf="hasNullSemester()">
+    <!-- Table for Subjects with Null Semesters -->
+    <table class="table table-bordered custom-table mt-3">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>First Quarter</th>
+          <th>Second Quarter</th>
+          <th>Third Quarter</th>
+          <th>Fourth Quarter</th>
+          <th>Final Grade</th> 
+        </tr>
+      </thead>
+      <tbody *ngFor="let subject of studentSubjects" class="fw-bold">
+        <!-- Display subjects that have a null semester -->
+        <tr *ngIf="subject.semester === null">
+          <td>{{ subject.subject_name }}</td> 
+          <td>{{ subject.First_Quarter !== null ? subject.First_Quarter : '-' }}</td> 
+          <td>{{ subject.Second_Quarter !== null ? subject.Second_Quarter : '-' }}</td> 
+          <td>{{ subject.Third_Quarter !== null ? subject.Third_Quarter : '-' }}</td> 
+          <td>{{ subject.Fourth_Quarter !== null ? subject.Fourth_Quarter : '-' }}</td> 
+          <!-- Optionally add final grades if needed -->
+          <!-- Example: Assuming Final is calculated as an average or provided in your data structure -->
+          <!--<td>{{ calculateFinalGrade(subject) }}</td>-->
+        </tr> 
+      </tbody> 
+    </table>
 
-      <!-- Grades Legend -->
-      <div class="mt-4 text-muted d-flex flex-column align-items-center justify-content-center">
-          <small>* Grades are displayed as per the latest evaluation.</small>
-          <div class="row mt-3">
-              <div class="col-12 col-md-6 d-flex align-items-center">
-                  <span class="indicator text-dark" title="Outstanding"></span>
-                  <span class="ml-2">90-100: <span class="text-light">Outstanding</span></span>
-              </div>
-              <div class="col-12 col-md-6 d-flex align-items-center">
-                  <span class="indicator text-dark" title="Strongly Satisfactory"></span>
-                  <span class="ml-2">85-89: <span class="text-light">Strongly Satisfactory</span></span>
-              </div>
-              <div class="col-12 col-md-6 d-flex align-items-center">
-                  <span class="indicator text-dark" title="Satisfactory"></span>
-                  <span class="ml-2">80-84: <span class="text-light">Satisfactory</span></span>
-              </div>
-              <div class="col-12 col-md-6 d-flex align-items-center">
-                  <span class="indicator text-dark" title="Fairly Satisfactory"></span>
-                  <span class="ml-2">75-79: <span class="text-light">Fairly Satisfactory</span></span>
-              </div>
-              <div class="col-12 col-md-6 d-flex align-items-center">
-                  <span class="indicator text-dark" title="Did Not Meet Expectations"></span>
-                  <span class="ml-2">Below 75: <span class="text-dark">Did Not Meet Expectations</span></span>
-              </div>
-          </div>
-      </div>
+    <!-- Default Message if No Subjects Available -->
+    <div *ngIf="!studentSubjects.length" class="text-muted text-center mt-5">No subjects available.</div>
 
-  </div> <!-- End of attendance-content -->
-</div> <!-- End of attendance-container -->
+  </div>
+
+  <!-- Optional Message if no subjects are available -->
+  <div *ngIf="!loadingSubjects && studentSubjects.length === 0" class="text-muted text-center mt-3">
+    No subjects available.
+  </div>
+
+</div> <!-- End of container -->

@@ -58,14 +58,12 @@
     </div>
 
     <div class="col-md mb-3 form-col">
-      <div class="student_name mt-2">
-        <h4><strong>{{ student?.lname }} {{ student?.fname }} </strong> <span class="badge text-bg-primary">Grade  {{ enrollment?.grade_level }}</span></h4> 
-      </div>
       <div class="container">
         <div class="row g-2">
           <div class="col-md">
             <blockquote class="blockquote mt-3" style="border-bottom: 2px solid; border-bottom-color: black;">
-              <strong>Payment Details</strong>
+              <strong><i class="bi bi-3-circle-fill text-warning h3 mx-2"></i>Payment Details <span>{{ student?.lname }} {{ student?.fname }} <span class="badge text-bg-primary">Grade  {{ enrollment?.grade_level }}</span></span> 
+            </strong>
             </blockquote>
             <div class="card-body mb-2">
               <table class="tuition-table">
@@ -76,38 +74,41 @@
                     </tr>
                     <tr>
                         <th>Tuition Fee:</th>
-                        <td class="text-end">{{ tuitionDetails?.tuition || '0.00' }}</td>
+                        <td class="text-end">{{ tuitionDetails?.tuition | number: '1.2-2' }}</td>
                     </tr>
                     <tr>
                         <th>General and Miscellaneous Fees:</th>
-                        <td class="text-end">{{ tuitionDetails?.general || '0.00' }}</td>
+                        <td class="text-end" style="border-bottom: 2px solid; border-bottom-color: black;">{{ tuitionDetails?.general || '0.00' }}</td>
+                        <!-- <td class="text-end"></td> -->
                     </tr>
                     <tr>
                         <th>Total Tuition and Fees (+old account):</th>
-                        <td class="text-end">{{ tuitionDetails?.total_and_fees || '0.00' }}</td>
+                        
+                        <td class="text-end">{{ calculateTotalBalance() | number: '1.2-2' }}</td>
+
                     </tr>
                     <tr>
                         <th>Less: ESC</th>
-                        <td class="text-end">{{ tuitionDetails?.esc || '0.00' }}</td>
+                        <td class="text-end">({{ tuitionDetails?.esc | number: '1.2-2' }})</td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <th>TOTAL BALANCE</th>
                         <td class="text-end">
-                            {{ calculateTotalBalance() | number: '1.2-2' }}
+                          {{ tuitionDetails?.total_and_fees || '0.00' }}
                         </td>
-                    </tr>
+                    </tr> -->
                     <tr>
-                        <th class="text-end">Down Payment</th>
+                        <th class="text-end">Down Payment (40%):</th>
                         <td class="text-end" style="border-bottom: 2px solid; border-bottom-color: black;">
-                            {{ tuitionDetails?.req_downpayment || '0.00' }}
+                            {{ calculateDownPaymentNoEsc() | number: '1.2-2' }}
                         </td>
                     </tr>
-                    <tr class="m-3 justify-content-center align-items-center">
+                    <!-- <tr class="m-3 justify-content-center align-items-center">
                         <th style="text-align: center;">Down Payment (NO ESC)</th>
                         <td style="text-align: center;">
                             {{ calculateDownPaymentNoEsc() | number: '1.2-2' }}
                         </td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
             </div>
@@ -115,21 +116,34 @@
     
           <div class="col-md-12">
             <div class="card border-info mb-3" >
-              <div class="card-header text-primary"><i class="bi bi-exclamation-octagon "></i> <strong> For incoming Grade 11,</strong> ESC Certificate can be use as down payment. Those coming from public school no need to pay downpayment.</div>
-              <div class="card-body">
-                <span class="card-title text-success">Payment could be made through:</span>
-                  <ol>
-                    <li>School Cashier</li>
-                    <p class="card-text fw-bold">7:30-12:00 A.M. (Mon.to.Fri.)<br>
-                      7:30-12:00 A.M. | 1:30-5:00 P.M. (Mon.to.Thurs.)
-                     </p>
-                    <li>Online Payment (To pay online please click the link below)</li>
-                    <a class="card-text">Link for Online Payment</a>
-                  </ol>
+              <div *ngIf="student.grade_level === '11' || student.grade_level === '12'" class="card-header text-primary">
+                <i class="bi bi-exclamation-octagon"></i>
+                <strong> For incoming Grade 11,</strong> ESC Certificate can be used as down payment. Those coming from public school do not need to pay a down payment.
               </div>
+              <div class="card-body">
+                <h5 class="card-title text-success">Payment Options</h5>
+                <p>We offer several convenient ways for you to make your payments:</p>
+                <ol>
+                  <li>
+                    <strong>Visit the School Cashier</strong>
+                    <p class="card-text fw-bold">Our cashier is available:</p>
+                    <ul>
+                      <li>Monday to Friday: 7:30 AM - 12:00 PM</li>
+                      <li>Monday to Thursday: 1:30 PM - 5:00 PM</li>
+                    </ul>
+                  </li>
+                  <!-- <li>
+                    <strong>Online Payment</strong><br>
+                    To pay online, please click the link below:
+                    <a class="card-text" href="#" style="color: blue; text-decoration: underline;">Link for Online Payment</a>
+                  </li> -->
+                </ol>
+              </div>
+              
               <div class="card-footer d-flex">
                 <div class="col-md">
-                  <p>You may upload you <strong class="text-success">Bank Deposit Slip</strong> or your <strong class="text-success">ESC Certificate.</strong></p>
+                  <p>If you have a <strong class="text-success">Bank Deposit Slip</strong> or an <strong class="text-success">ESC Certificate</strong>, feel free to upload it here!</p>
+                  <p>Your timely payment helps us provide the best services for our students. Thank you for your cooperation!</p>
                 </div>
                 <div class="col-md">
                   <div class="card mb-3">
@@ -148,9 +162,6 @@
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label class="text-dark">
                                 Amount Paid
-                                <span matTooltip="Enter the amount you've been paid" matTooltipPosition="above">
-                                    <i class="bi bi-exclamation-circle text-danger"></i>
-                                </span>
                             </mat-label>
                             <input matInput type="number" id="amount_paid" name="amount_paid" [(ngModel)]="amount_paid" required>
                         </mat-form-field>

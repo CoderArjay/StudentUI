@@ -1,53 +1,165 @@
 <div class="attendance-container">
   <div class="attendance-content">
-      <div class="week-header d-flex justify-content-between">
-          <h4><b>Attendance Report</b></h4>
-          <!-- <span>{{ getCurrentWeek() }}</span> -->
-          <span class="date">{{ currentTime | date: 'fullDate' }}</span>
-          <div class="attendance-indicators mt-2">
-              <i class="bi bi-circle-fill text-success"></i> Present 
-              <i class="bi bi-circle-fill text-danger"></i> Absent  
-              <i class="bi bi-circle-fill text-warning"></i> Late  
-          </div>
+    <div class="week-header">
+      <h4><b>Attendance Report</b></h4>
+      <span class="date">{{ currentTime | date: 'fullDate' }}</span>
+    </div>
+
+    <!-- Semester Tabs -->
+    <div class="mb-3">
+      <ng-container *ngIf="loadingAttendance; else semesterButtons" class="placeholder-glow">
+        <button class="btn  me-2 placeholder col-2"></button> <!-- Placeholder for First Semester Button -->
+        <button class="btn  placeholder col-2"></button> <!-- Placeholder for Second Semester Button -->
+      </ng-container>
+      <ng-template #semesterButtons>
+        <button 
+            *ngIf="hasSemester(1) && !hasNullSemester()" 
+            class="btn me-2" 
+            [class.active]="selectedTab === 1" 
+            (click)="selectTab(1)">
+            <b>First Semester</b>
+        </button>
+        <button 
+            *ngIf="hasSemester(2) && !hasNullSemester()" 
+            class="btn" 
+            [class.active]="selectedTab === 2" 
+            (click)="selectTab(2)">
+            <b>Second Semester</b>
+        </button>
+      </ng-template>
+    </div>
+
+    <!-- Previous and Next Week Navigation Buttons -->
+    <div class="d-flex justify-content-between gap-2" style="float: right;">
+      <div class="attendance-indicators mt-2">
+        <i class="bi bi-circle-fill text-success"></i> Present
+        <i class="bi bi-circle-fill text-danger"></i> Absent
+        <i class="bi bi-circle-fill text-warning"></i> Late
       </div>
+      <i class="bi bi-arrow-left-circle-fill text-secondary h4 ms-4" (click)="navigateToPreviousWeek()"></i>
+      <i class="bi bi-arrow-right-circle-fill text-secondary h4 ms-4" (click)="navigateToNextWeek()"></i>
+    </div> <br>
 
-      <!-- Spinner displayed while loading attendance data -->
-      <div *ngIf="loadingAttendance" class="d-flex justify-content-center align-items-center mt-5">
-          <div class="spinner-border text-secondary" role="status">
-              <span class="visually-hidden">Loading...</span>
-          </div>
-      </div>
-
-      <!-- Attendance Table -->
-      <table *ngIf="!loadingAttendance && calendarData.length > 0" class="attendance-table table table-striped">
-          <thead>
-              <tr>
-                  <th class="h5 text-center">Subject</th>
-                  <th class="text-center" *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']">
-                    {{day}} <br>
-                    {{ calendarData[0]?.dates[day]?.split(' ')[1] }}
-                  </th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr *ngFor="let subject of calendarData">
-                  <td class="subject-name">{{ subject.subject_name }}</td>
-
-                  <td *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']"
-                      [ngClass]="{
-                          'present': subject.attendance[day] === 'present',
-                          'absent': subject.attendance[day] === 'absent',
-                          'late': subject.attendance[day] === 'late'
-                      }">
-                      <!-- {{ day }} -->
-                  </td>
-              </tr>
-          </tbody>
+    <!-- Loading Placeholders for Attendance Report -->
+    <div *ngIf="loadingAttendance" class="table-responsive mt-3">
+      <table class="table table-bordered" aria-hidden="true">
+        <thead>
+          <tr>
+            <th class="placeholder-glow" style="font-weight:bold;"><span class="placeholder col-7"></span></th>
+            <th class="placeholder-glow" *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']" style="font-weight:bold;">
+              <span class="placeholder col-7"></span><br>
+              <small><span class="placeholder col-3"></span></small> <!-- Placeholder for date -->
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Placeholder Rows -->
+          <tr *ngFor="let i of [].constructor(5); let index = index"> <!-- Adjust the number of rows as needed -->
+            <td class="placeholder-glow subject-name">
+              <span class="placeholder col-12"></span> <!-- Placeholder for subject name -->
+            </td>
+            <td class="placeholder-glow" *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']">
+              <span class="placeholder col-12"></span> <!-- Placeholder for attendance status -->
+            </td>
+          </tr>
+        </tbody>
       </table>
+    </div>
 
-      <!-- Message if no attendance data is available -->
-      <div *ngIf="!loadingAttendance && calendarData.length === 0" class="text-muted text-center mt-3">
-          No attendance data available.
-      </div>
-  </div>
-</div>
+    <!-- Tab Content for First Semester Attendance -->
+    <div *ngIf="selectedTab === 1 && hasSemester(1)">
+      <table class="table table-bordered">
+        <thead class="thead">
+          <tr>
+            <strong><th style="font-weight:bold;">Subject</th></strong>
+            <strong><th *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']" style="font-weight:bold;">
+              {{ day }}<br>
+              <small>{{ calendarData[0]?.dates[day]?.split('/')[1] }}</small>
+            </th></strong>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let subject of calendarData">
+            <tr *ngIf="subject.semester === 1">
+              <td class="subject-name">{{ subject.subject_name }}</td>
+              <td *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']"
+                  [ngClass]="{
+                    'present': subject.attendance[day] === 'present',
+                    'absent': subject.attendance[day] === 'absent',
+                    'late': subject.attendance[day] === 'late'
+                  }">
+                <!-- Attendance status will be shown here -->
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tab Content for Second Semester Attendance -->
+    <div *ngIf="selectedTab === 2 && hasSemester(2)">
+      <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th>Subject</th>
+            <th *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']">
+              {{ day }}<br>
+              <small>{{ calendarData[0]?.dates[day]?.split('/')[1] }}</small>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let subject of calendarData">
+            <tr *ngIf="subject.semester === 2">
+              <td class="subject-name">{{ subject.subject_name }}</td>
+              <td *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']"
+                  [ngClass]="{
+                    'present': subject.attendance[day] === 'present',
+                    'absent': subject.attendance[day] === 'absent',
+                    'late': subject.attendance[day] === 'late'
+                  }">
+                <!-- Attendance status will be shown here -->
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- No Semester Section -->
+    <div *ngIf="hasNullSemester()">
+      <table class="table table-bordered">
+        <thead class="thead-light ">
+          <tr>
+            <th class="fw-bold h4">Subject</th>
+            <th class="fw-bold text-center" *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']">
+              {{ day }}<br>
+              <small>{{ calendarData[0]?.dates[day]?.split('/')[1] }}</small>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let subject of calendarData">
+            <tr *ngIf="subject.semester === null">
+              <td class="subject-name">{{ subject.subject_name }}</td>
+              <td *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']"
+                  [ngClass]="{
+                    'present': subject.attendance[day] === 'present',
+                    'absent': subject.attendance[day] === 'absent',
+                    'late': subject.attendance[day] === 'late'
+                  }">
+                <!-- Attendance status will be shown here -->
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Message if no attendance data is available -->
+    <div *ngIf="!loadingAttendance && calendarData.length === 0" class="text-muted text-center mt-3">
+      No attendance data available.
+    </div>
+
+  </div> <!-- End of attendance-content -->
+</div> <!-- End of attendance-container -->

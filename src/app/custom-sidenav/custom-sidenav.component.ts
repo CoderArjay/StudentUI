@@ -12,6 +12,7 @@ export type MenuItem = {
   label: string,
   route: string,
   subItems?: MenuItem[];
+  unreadCount?: any;
 }
 
 @Component({
@@ -22,13 +23,28 @@ export type MenuItem = {
   styleUrl: './custom-sidenav.component.css',
 })
 export class CustomSidenavComponent implements OnInit {
+  @Input() item: any;
+
+  private intervalId: any;
+
+  unreadMessagesCount: any = 0;
+
   lname = '';
   fname = '';
   mname = '';
+  uid: any;
   profileImage: string | null = null;
 
   ngOnInit(): void {
+    this.uid = localStorage.getItem('LRN')
+    this.intervalId = setInterval(() => {
+      this.loadUnreadMessagesCount();
+    }, 10000)
+
+    this.loadUnreadMessagesCount();
+
     this.loadUserData();
+
     this.conn.studentPic$.subscribe((newImageUrl) => {
       if (newImageUrl) {
         this.profileImage = newImageUrl; // Update the component's admin picture
@@ -40,6 +56,54 @@ export class CustomSidenavComponent implements OnInit {
     if (user && user.student_pic) {
       this.profileImage = user.student_pic;
     }
+  }
+
+  loadUnreadMessagesCount() {
+    if (this.uid) {
+      this.conn.getUnreadMessagesCount(this.uid).subscribe(response => {
+        console.log(response)
+        this.unreadMessagesCount = response; // Extract the count from the response
+        console.log('Unread Messages Count:', this.unreadMessagesCount); // Check value here
+        this.updateMenuItems(); // Update menu items with the new count
+      });
+    }
+  }
+
+  updateMenuItems() {
+    this.menuItems.set([
+        {
+          icon: 'home',
+          label: 'Home',
+          route: 'home-page'
+        },
+        // {
+        //   icon: 'assignment',
+        //   label: 'Enrollment',
+        //   route: 'enrollment-page',
+        // },
+        {
+          icon: 'table',
+          label: 'Attendance',
+          route: 'attendance-page'
+        },
+        {
+          icon: 'grade',
+          label: 'Grades',
+          route: 'grades-page'
+        },
+        {
+          icon: 'money',
+          label: 'Financial',
+          route: 'financial-page'
+        },
+       
+        {
+          icon: 'chat',
+          label: 'Message',
+          route: 'message-page',
+          unreadCount: this.unreadMessagesCount
+        },
+    ]);
   }
    
 
@@ -89,7 +153,8 @@ export class CustomSidenavComponent implements OnInit {
     {
       icon: 'chat',
       label: 'Message',
-      route: 'message-page'
+      route: 'message-page',
+      unreadCount: this.unreadMessagesCount
     },
 ]);
 

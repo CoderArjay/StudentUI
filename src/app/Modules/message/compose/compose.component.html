@@ -1,0 +1,40 @@
+<form class="example-form" [formGroup]="msgForm">
+    <h6><strong>Compose New Message</strong></h6>
+
+    <!-- Recipient Input Field -->
+    <mat-form-field class="example-full-width mt-3">
+        <mat-label>Send Message to:</mat-label>
+        <input 
+            type="text" 
+            placeholder="Send to..." 
+            aria-label="Recipient" 
+            matInput 
+            [formControl]="myControl"
+            [matAutocomplete]="auto"
+        />
+
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onOptionSelected($event.option.value)">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{ option.receiver_name }} <!-- Display receiver_name -->
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <!-- Hidden Input for Receiver ID -->
+    <input type="hidden" formControlName="message_reciever" class="form-control" placeholder="Receiver ID" readonly>
+
+    <!-- Message Input Field -->
+    <mat-form-field class="example-full-width">
+        <mat-label>Message:</mat-label>
+        <textarea formControlName="message" matInput></textarea>
+    </mat-form-field>
+
+    <!-- Dialog Actions -->
+    <mat-dialog-actions class="d-flex justify-content-end" style="padding: 16px;">
+        <button mat-button mat-dialog-close style="font-size: 14px; padding: 8px 16px;">Cancel</button>
+
+        <button mat-button (click)="submit(); $event.preventDefault()" class="ms-3"
+                style="font-size: 14px; padding: 8px 16px; background-color: #3f51b5; color: white;"
+               >Send</button>
+    </mat-dialog-actions>
+</form>

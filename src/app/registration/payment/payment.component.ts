@@ -27,7 +27,7 @@ export class PaymentComponent implements OnInit {
     last_attended: '',
     public_private: '',
     guardian_name: '',
-    contact_no: '',
+    guardian_no: '',
     grade_level: '',
     strand: '',
     school_year: '',
@@ -120,7 +120,7 @@ export class PaymentComponent implements OnInit {
 
   formatTuitionDetails(): void {
     if (this.tuitionDetails) {
-      const fieldsToFormat = ['tuition', 'general', 'esc', 'subsidy', 'req_downpayment'];
+      const fieldsToFormat = ['old_account','tuition', 'general', 'esc', 'subsidy', 'req_downpayment'];
       fieldsToFormat.forEach(field => {
         if (this.tuitionDetails[field]) {
           this.tuitionDetails[field] = parseFloat(this.tuitionDetails[field].replace(',', '')).toFixed(2);
@@ -205,17 +205,27 @@ calculateTotalBalance(): number {
   const esc = parseFloat(this.tuitionDetails?.esc || '0');
 
   // Total balance calculation
-  return oldAccount + tuition + generalFees;
+  return oldAccount + tuition + generalFees; // Note: ESC is not included in the total balance
 }
 
 calculateDownPaymentNoEsc(): number {
-  const downPayment = parseFloat(this.tuitionDetails?.req_downpayment || '0');
+  // Get the total balance from calculateTotalBalance
+  const totalBalance = this.calculateTotalBalance();
   const esc = parseFloat(this.tuitionDetails?.esc || '0');
 
-  // Calculate down payment without ESC and ensure it doesn't go negative
-  const result = downPayment - esc;
+  
+  // Calculate 40% of the total balance
+  const fortyPercentOfBalance = totalBalance - esc ;
+
+  // Parse down payment and ESC
+  // const downPayment = parseFloat(this.tuitionDetails?.req_downpayment || '0');
+
+  // Calculate down payment without ESC
+  const result = fortyPercentOfBalance * 0.40;
 
   // Return 0 if the result is negative
   return result < 0 ? 0 : result; 
 }
+
+
 }

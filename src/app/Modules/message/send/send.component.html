@@ -1,11 +1,10 @@
-<!-- chat.component.html -->
-<div class="container h-90 mt-2">
+<div class="container h-100 mt-2">
     <div class="row h-100 messenger-container">
         <!-- Sidebar -->
         <div class="col-12 col-md-3 col-lg-2 p-0 sidebar container">
             <div class="container mb-2 d-flex justify-content-between align-items-center">
                 <p class="h4 mt-3 pe-3 ms-1">Chats</p>
-                <!-- <i mat-button type="button" class="bi bi-pencil-square" style="font-size: 20px;"></i> -->
+                <i type="button" class="bi bi-pencil-square" style="font-size: 20px;" (click)="openDialog()"></i>
             </div>
             <div class="container mb-3 mt-3">
                 <div class="input-group">
@@ -17,28 +16,81 @@
             </div>
             <input type="hidden" [(ngModel)]="uid">
             <div class="scrollable-container">
-                <!-- List of Users -->
+                <!-- Loading Placeholders for Users -->
+                <ng-container *ngIf="loadingUsers; else userList">
+                    <!-- Placeholder for users -->
+                    <div class="placeholder-glow user-list-item d-flex align-items-center">
+                        <img src="default-image.jpg" alt="User" class="rounded-circle me-1" width="40" height="40">
+                        <div class="flex-grow-1">
+                            <span class="placeholder col-9 placeholder-lg" style="border-radius: 1rem;"></span> <!-- Placeholder for user name -->
+                            <span class="placeholder col-7 placeholder-sm d-block mt-1" style="border-radius: 1rem;"></span> <!-- Placeholder for additional info -->
+                        </div>
+                    </div>
+                    <div class="placeholder-glow user-list-item d-flex align-items-center">
+                        <img src="default-image.jpg" alt="User" class="rounded-circle me-1" width="40" height="40">
+                        <div class="flex-grow-1">
+                            <span class="placeholder col-9 placeholder-lg" style="border-radius: 1rem;"></span> <!-- Placeholder for user name -->
+                            <span class="placeholder col-7 placeholder-sm d-block mt-1" style="border-radius: 1rem;"></span> <!-- Placeholder for additional info -->
+                        </div>
+                    </div>
+                    <div class="placeholder-glow user-list-item d-flex align-items-center">
+                        <img src="default-image.jpg" alt="User" class="rounded-circle me-1" width="40" height="40">
+                        <div class="flex-grow-1">
+                            <span class="placeholder col-9 placeholder-lg" style="border-radius: 1rem;"></span> <!-- Placeholder for user name -->
+                            <span class="placeholder col-7 placeholder-sm d-block mt-1" style="border-radius: 1rem;"></span> <!-- Placeholder for additional info -->
+                        </div>
+                    </div>
+                    <!-- Add more placeholders as needed -->
+                </ng-container>
                 
-                @if(keyword || inputClicked){
-                    @for(sp of stupar | searchFilter: keyword; track sp){
-                        <div class="user-list-item" [routerLink]="['/main/message-page/message-page/messages/view/' + sp.account_id]" routerLinkActive="active-link">
-                            <img src="default-image.jpg" alt="User" class="rounded-circle me-1" width="40" height="40">
-                            <span>{{sp.account_name}}<br></span>
-                            <!-- <p>{{sp.role}}</p> -->
-                        </div>
-                    }
-                } @else if(messages && inputClicked == false) {
-                    @for(msg of messages; track msg.message_id){
-                        <div class="user-list-item" [routerLink]="['/main/message-page/message-page/messages/view/', msg.message_sender == uid ? msg.message_reciever : msg.message_sender]" routerLinkActive="active-link">
-                            <img src="default-image.jpg" alt="User" class="rounded-circle me-1" width="40" height="40">
-                            <div class="content">
-                                <span>{{ msg.sender_name }}</span> <!-- Displaying sender's name -->
-                                <h6>{{ msg.message.length > 30 ? (msg.message | slice:0:30) + '...' : msg.message }}</h6>
+
+                <ng-template #userList>
+                    @if(keyword || inputClicked){
+                        @for(sp of stupar | searchFilter: keyword; track sp){
+                            <div class="user-list-item" [routerLink]="['/main/message-page/message-page/messages/view/' + sp.account_id]" routerLinkActive="active-link">
+                                <img src="default-image.jpg" alt="User" class="rounded-circle me-1" width="40" height="40">
+                                <span>{{sp.account_name}}<br></span>
+                                <!-- <p>{{sp.role}}</p> -->
                             </div>
-                        </div>
+                        }
+                    } @else if(messages && inputClicked == false) {
+                        @for(msg of messages; track msg.message_id){
+                            @if (msg.is_read == 0 && msg.message_sender != uid) {
+                                <div class="user-list-item" 
+                                [routerLink]="['/main/message-page/message-page/messages/view/', 
+                                    msg.message_sender == uid ? msg.message_reciever : msg.message_sender]" 
+                                routerLinkActive="active-link" (click)="markAsRead(msg.message_sender == uid ? msg.message_reciever : msg.message_sender)">
+                               <img src="mik.jpg" alt="User " class="rounded-circle me-1" width="40" height="40">
+                               <div class="content">
+                                   <span><strong>{{msg.sender_name}}</strong></span>
+                                   <h6><strong>{{ msg.message.length > 30 ? (msg.message | slice:0:30) + '...' : msg.message }}</strong></h6>
+                                   
+                               </div>
+                           </div>
+                            } @else {
+                                <div class="user-list-item" 
+                                [routerLink]="['/main/message-page/message-page/messages/view/', 
+                                    msg.message_sender == uid ? msg.message_reciever : msg.message_sender]" 
+                                routerLinkActive="active-link">
+                               <img src="mik.jpg" alt="User " class="rounded-circle me-1" width="40" height="40">
+                               <div class="content">
+                                   <span>{{msg.sender_name}}</span>
+                                   <h6>{{ msg.message.length > 30 ? (msg.message | slice:0:30) + '...' : msg.message }}</h6>
+                               </div>
+                           </div>
+                            }
+                            <!-- <div class="user-list-item" [routerLink]="['/main/message-page/message-page/messages/view/', msg.message_sender == uid ? msg.message_reciever : msg.message_sender]" routerLinkActive="active-link">
+                                <img src="default-image.jpg" alt="User" class="rounded-circle me-1" width="40" height="40">
+                                <div class="content">
+                                    <span>{{ msg.sender_name }}</span> 
+                                    <h6>{{ msg.message.length > 30 ? (msg.message | slice:0:30) + '...' : msg.message }}</h6>
+                                </div>
+                            </div> -->
+                        }
                     }
-                }
-            </div>
+                </ng-template>
+
+            </div>            
         </div>
 
         <!-- Main Content -->

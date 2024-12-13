@@ -58,7 +58,7 @@
     
     <div class="col-md mb-3 form-col">
       <blockquote class="blockquote mb-4 mt-3" style="border-bottom: 2px solid; border-bottom-color: black;">
-        <strong>Personal Information</strong>
+        <strong><i class="bi bi-1-circle-fill text-warning h3 mx-2"></i>Personal Information</strong>
       </blockquote>
 
       <form (ngSubmit)="onSubmit(personalInfoForm)" #personalInfoForm="ngForm">
@@ -90,7 +90,7 @@
                 <mat-form-field class="w-100">
                     <mat-label>Middlename</mat-label>
                     <input matInput id="mname" [(ngModel)]="student.mname" name="mname" 
-                           required oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');" title="Please enter letters only." readonly>
+                          oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');" title="Please enter letters only." readonly>
                 </mat-form-field>
             </div>
     
@@ -107,15 +107,13 @@
             <div class="col-md">
               <mat-form-field class='w-100'>
                 <mat-label>Birth Date</mat-label>
-                <input matInput [matDatepicker]="picker" 
+                <input matInput
                       id='bdate' 
                       [(ngModel)]='student.bdate' 
                       name='bdate' 
-                      required 
-                      [matDatepickerFilter]="myDateFilter"
-                      oninput="this.value = this.value.replace(/[^0-9]/g, '');" > <!-- Bind the filter here -->
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
+                      required
+                      readonly
+                      oninput="this.value = this.value.replace(/[^0-9-]/g, '');" >
             </mat-form-field>
             </div>
     
@@ -173,7 +171,7 @@
                     <mat-label>Address</mat-label>
                     <!-- Allowing letters, numbers, and spaces for address -->
                     <input matInput id='address' [(ngModel)]='student.address' name='address' 
-                           required oninput="this.value = this.value.replace(/[^A-Za-z0-9]/g, '');"  title='Please enter a valid address.' >
+                           required oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s\'.]/g, '');"  title='Please enter a valid address.' >
                 </mat-form-field>
             </div>
         </div>

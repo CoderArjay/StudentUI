@@ -58,12 +58,15 @@
         </div>
 
         <div class="col-md mt-2 mb-3 form-col">
+          <blockquote class="blockquote mb-4 mt-3" style="border-bottom: 2px solid; border-bottom-color: black;">
+            <i class="bi bi-4-circle-fill text-warning h3 mx-2"></i><strong>Payment Details</strong> {{ lname }} {{ fname }} <span class="badge text-bg-primary">Grade {{ enrollment.grade_level }}</span>
+          </blockquote>
           <div class="card border-info mb-3">
-              <div class="card-header text-dark">
+              <!-- <div class="card-header text-dark">
                   <div class="student_name mt-2">
-                      <h4><strong>{{ lname }} {{ fname }}</strong> <span class="badge text-bg-primary">Grade {{ enrollment.grade_level }}</span></h4>
+                      <h4><strong></h4>
                   </div>
-              </div>
+              </div> -->
               <div class="card-body">
                 <h6 class="card-title text-success text-center">
                     <strong *ngIf="!paymentApproved">
@@ -88,8 +91,8 @@
                                   <img [src]="paymentImage" alt="Proof of Payment" class="img-thumbnail" style="max-width: 100%; max-height: 100px;">
                               </div>
                               <div>
-                                  <p class="card-text"><strong>Payment Approval Date:</strong> {{ paymentDate || 'Loading...' }}</p>
-                                  <p class="card-text"><strong>Amount Paid:</strong> &#8369;{{ amountPaid ? amountPaid.toFixed(2) : 'Loading...' }}</p>
+                                  <p class="card-text">Payment Approval Date:<strong> {{ paymentDate || 'Loading...' }}</strong></p>
+                                  <p class="card-text">Amount Paid: <strong> &#8369;{{ amountPaid ? amountPaid.toFixed(2) : 'Loading...' }}</strong></p>
                               </div>
                           </div>
                       </div>

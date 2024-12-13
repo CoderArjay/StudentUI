@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -107,7 +107,7 @@ getProfileImage(lrn: string): Observable<any> {
     return this.http.get<any[]>('http://localhost:8000/api/students');
   }
 
-  getAttendanceReport(LRN: string): Observable<any> {
+  getAttendanceReport(LRN: string, currentWeekStart: Date, currentWeekEnd: Date): Observable<any> {
     return this.http.get(`${this.url}attendance-report/${LRN}`);
 }
 
@@ -118,15 +118,30 @@ getProfileImage(lrn: string): Observable<any> {
 getConvo(sid: any, uid: any){
   return this.http.get(this.url + 'getConvo/' + sid , {params: {uid: uid}});
 }
-sendMessage(messageData: any): Observable<any> {
-  return this.http.post(`${this.url}sendMessage`, messageData);
+
+sendMessage(mdata: any):Observable<any>{
+  return this.http.post(this.url + 'sendMessage', mdata );
 }
+
+// sendMessage(messageData: any): Observable<any> {
+//   return this.http.post(`${this.url}sendMessage`, messageData);
+// }
 getRecipients(): Observable<any[]> {
   return this.http.get<any[]>(this.url + 'getrecepeints');
 }
 composeMessage(messageData: any): Observable<any> {
   return this.http.post(this.url + 'composemessage', messageData);
 }
+
+markAsRead(sid: any){
+  return this.http.post(this.url + 'markAsRead', {sid});
+}
+
+getUnreadMessagesCount(uid: any) {
+  const params = new HttpParams().set('uid', uid);
+  return this.http.get(this.url + 'getUnreadCount', {params});
+}
+
 getAdmins(){
   return this.http.get(this.url + 'getAdmin');
 }

@@ -185,10 +185,6 @@
         flex-direction: column;
     }
 
-    span, h6 {
-        /* display: none; */
-    }
-
     .main-content {
         flex: 1;
         min-width: 120px;
