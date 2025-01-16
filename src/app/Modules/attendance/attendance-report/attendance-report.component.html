@@ -69,13 +69,13 @@
     <!-- Tab Content for First Semester Attendance -->
     <div *ngIf="selectedTab === 1 && hasSemester(1)">
       <table class="table table-bordered">
-        <thead class="thead">
+        <thead >
           <tr>
-            <strong><th style="font-weight:bold;">Subject</th></strong>
-            <strong><th *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']" style="font-weight:bold;">
+            <th scope="col" style="font-weight:bold;">Subject</th> <!-- Added font-weight here -->
+            <th class="text-center" scope="col" *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']" style="font-weight:bold;">
               {{ day }}<br>
-              <small>{{ calendarData[0]?.dates[day]?.split('/')[1] }}</small>
-            </th></strong>
+              <span >{{ calendarData[0]?.dates[day]?.split('/')[1] }}</span>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -99,12 +99,12 @@
     <!-- Tab Content for Second Semester Attendance -->
     <div *ngIf="selectedTab === 2 && hasSemester(2)">
       <table class="table table-bordered">
-        <thead class="thead-light">
+        <thead >
           <tr>
-            <th>Subject</th>
-            <th *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']">
+            <th scope="col" style="font-weight:bold;">Subject</th> <!-- Added font-weight here -->
+            <th class="text-center" scope="col" *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']" style="font-weight:bold;">
               {{ day }}<br>
-              <small>{{ calendarData[0]?.dates[day]?.split('/')[1] }}</small>
+              <span >{{ calendarData[0]?.dates[day]?.split('/')[1] }}</span>
             </th>
           </tr>
         </thead>
@@ -129,12 +129,12 @@
     <!-- No Semester Section -->
     <div *ngIf="hasNullSemester()">
       <table class="table table-bordered">
-        <thead class="thead-light ">
+        <thead >
           <tr>
-            <th class="fw-bold h4">Subject</th>
-            <th class="fw-bold text-center" *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']">
+            <th scope="col" class="fw-bold h4">Subject</th> <!-- Added font-weight here -->
+            <th class="text-center" scope="col" *ngFor="let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']" style="font-weight:bold;">
               {{ day }}<br>
-              <small>{{ calendarData[0]?.dates[day]?.split('/')[1] }}</small>
+              <span >{{ calendarData[0]?.dates[day]?.split('/')[1] }}</span>
             </th>
           </tr>
         </thead>

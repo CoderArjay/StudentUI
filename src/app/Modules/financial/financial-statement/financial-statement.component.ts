@@ -98,14 +98,12 @@ export class FinancialStatementComponent implements OnInit {
 
   openModal(imageUrl: string): void {
     Swal.fire({
-      title: 'Image Preview',
+      // title: 'Image Preview',
       imageUrl: imageUrl,
       imageWidth: 500, 
       imageHeight: 400, 
       imageAlt: 'Document Image',
-      showCloseButton: true,
-      showCancelButton: false,
-      confirmButtonText: 'Close'
+      
     });
   }
 
@@ -116,69 +114,69 @@ export class FinancialStatementComponent implements OnInit {
     }
   }
 
-  openNewPaymentAlert(): void {
-    Swal.fire({
-        title: 'New Payment',
-        html: `
-            <form id="paymentForm" class="justify-content-start align-items-start">
-                <div class="form-group">
-                    <label for="amount">Payment Amount:</label>
-                    <input type="number" class="form-control" id="amount" name="amount" required>
-                </div>
-                <div class="form-group">
-                    <label for="paymentMethod">Payment Method:</label>
-                    <select class="form-control" id="paymentMethod" name="paymentMethod" required>
-                        <option value="" disabled selected>Select a method</option>
-                        <option value="Credit Card">Credit Card</option>
-                        <option value="Debit Card">Debit Card</option>
-                        <option value="Gcash">Gcash</option>
-                        <option value="Bank Transfer">Bank Transfer</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="receipt">Upload Receipt:</label><br>
-                    <input type="file" class="form-control-file" id="receipt" name="receipt" accept=".jpg,.jpeg,.png,.pdf">
-                </div>
-            </form>
-        `,
-        showCancelButton: true,
-        confirmButtonText: 'Submit Payment',
-        preConfirm: () => {
-            const form = document.getElementById('paymentForm') as HTMLFormElement;
-            const amount = (form.querySelector('#amount') as HTMLInputElement).value;
-            const paymentMethod = (form.querySelector('#paymentMethod') as HTMLSelectElement).value;
-            const receiptInput = form.querySelector('#receipt') as HTMLInputElement;
+//   openNewPaymentAlert(): void {
+//     Swal.fire({
+//         title: 'New Payment',
+//         html: `
+//             <form id="paymentForm" class="justify-content-start align-items-start">
+//                 <div class="form-group">
+//                     <label for="amount">Payment Amount:</label>
+//                     <input type="number" class="form-control" id="amount" name="amount" required>
+//                 </div>
+//                 <div class="form-group">
+//                     <label for="paymentMethod">Payment Method:</label>
+//                     <select class="form-control" id="paymentMethod" name="paymentMethod" required>
+//                         <option value="" disabled selected>Select a method</option>
+//                         <option value="Credit Card">Credit Card</option>
+//                         <option value="Debit Card">Debit Card</option>
+//                         <option value="Gcash">Gcash</option>
+//                         <option value="Bank Transfer">Bank Transfer</option>
+//                     </select>
+//                 </div>
+//                 <div class="form-group">
+//                     <label for="receipt">Upload Receipt:</label><br>
+//                     <input type="file" class="form-control-file" id="receipt" name="receipt" accept=".jpg,.jpeg,.png,.pdf">
+//                 </div>
+//             </form>
+//         `,
+//         showCancelButton: true,
+//         confirmButtonText: 'Submit Payment',
+//         preConfirm: () => {
+//             const form = document.getElementById('paymentForm') as HTMLFormElement;
+//             const amount = (form.querySelector('#amount') as HTMLInputElement).value;
+//             const paymentMethod = (form.querySelector('#paymentMethod') as HTMLSelectElement).value;
+//             const receiptInput = form.querySelector('#receipt') as HTMLInputElement;
 
-            // Safely access files property
-            const receipt = receiptInput?.files?.[0]; // Use optional chaining
+//             // Safely access files property
+//             const receipt = receiptInput?.files?.[0]; // Use optional chaining
 
-            // Perform validation
-            if (!amount || !paymentMethod || !receipt) {
-                Swal.showValidationMessage('Please fill out all fields');
-                return false;
-            }
+//             // Perform validation
+//             if (!amount || !paymentMethod || !receipt) {
+//                 Swal.showValidationMessage('Please fill out all fields');
+//                 return false;
+//             }
 
-            // Set the values to the component properties
-            this.amount_paid = Number(amount);
-            this.description = paymentMethod;
-            this.selectedFile = receipt; // Store the selected file
+//             // Set the values to the component properties
+//             this.amount_paid = Number(amount);
+//             this.description = paymentMethod;
+//             this.selectedFile = receipt; // Store the selected file
 
-            return true; // Return true to proceed with submission
-        },
-        customClass: {
-            popup: 'custom-swal-popup',
-            title: 'custom-swal-title',
-            input: 'custom-swal-input',
-            confirmButton: 'custom-swal-button',
-            cancelButton: 'custom-swal-button',
-            htmlContainer: 'left-align'
-        }
-    }).then((result) => {
-        if (result.isConfirmed) {
-            this.onSubmit(); // Call onSubmit when confirmed
-        }
-    });
-}
+//             return true; // Return true to proceed with submission
+//         },
+//         customClass: {
+//             popup: 'custom-swal-popup',
+//             title: 'custom-swal-title',
+//             input: 'custom-swal-input',
+//             confirmButton: 'custom-swal-button',
+//             cancelButton: 'custom-swal-button',
+//             htmlContainer: 'left-align'
+//         }
+//     }).then((result) => {
+//         if (result.isConfirmed) {
+//             this.onSubmit(); // Call onSubmit when confirmed
+//         }
+//     });
+// }
 
 onSubmit(): void {
     // Validation checks

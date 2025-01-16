@@ -4,7 +4,7 @@
     class="menu-item"
     routerLinkActive="selected-menu-item">
     <!-- <mat-icon matListItemIcon>{{item().icon}}</mat-icon> -->
-    <mat-icon matListItemIcon   matTooltip="{{item().label}}"  [matBadge]="item().unreadCount > 0 ? item().unreadCount : null" matBadgeColor="accent">
+    <mat-icon matListItemIcon   matTooltip="{{item().label}}"  [matBadge]="item().unreadCount > 0 ? item().unreadCount : null" >
         {{ item().icon }}
       </mat-icon>
     @if (!collapsed()) {

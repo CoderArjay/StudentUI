@@ -28,68 +28,77 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 })
 export class LandingPageComponent implements OnInit {
   collapsed = signal(false);
+  announcementCount: number = 0;
+  announcements: any[] = []; // Array to hold announcements
+  profileImage: string | null = null;
 
   // Dynamically calculate sidenav width based on state
   sidenavWidth = computed(() => (this.collapsed() ? '65px' : '250px'));
 
-  
-  lname = '';
-  fname = '';
-  mname = '';
-  profileImage: string | null = null;
-
-  isSmallScreen = false; // To track if the screen is small
-
-  constructor(private conn: ConnectService, private router: Router, private breakpointObserver: BreakpointObserver) {} // Use Router instead of RouterModule
+  constructor(private conn: ConnectService, private router: Router, private breakpointObserver: BreakpointObserver) {}
 
   ngOnInit(): void {
     this.loadUserData();
     
+    // Observe screen size changes
     this.breakpointObserver.observe([Breakpoints.Small, Breakpoints.XSmall]).subscribe((result) => {
-      this.isSmallScreen = result.matches; // Update isSmallScreen based on match
-      if (this.isSmallScreen) {
+      if (result.matches) {
         this.collapsed.set(true); // Collapse sidenav on small screens
       }
     });
 
-    this.conn.studentPic$.subscribe((newImageUrl) => {
-      if (newImageUrl) {
-        this.profileImage = newImageUrl; // Update the component's admin picture
-      }
-    });
-
-    // Optionally, initialize with the image from localStorage
-    const user = JSON.parse(localStorage.getItem('student') || '{}');
-    if (user && user.student_pic) {
-      this.profileImage = user.student_pic;
-    }
+    // Load announcements
+    this.loadAnnouncements();
   }
 
   loadUserData() {
     const userData = localStorage.getItem('student');
     if (userData) {
       const parsedData = JSON.parse(userData);
-      // this.role = parsedData.role || '';
-      this.lname = parsedData.lname || '';
-      this.fname = parsedData.fname || '';
+      this.profileImage = parsedData.student_pic || null; // Assuming student_pic is part of user data
     }
   }
 
-// Method to handle logout
-onLogout() {
-  this.conn.logout().subscribe(
-    (response) => {
-      console.log('Logout successful:', response);
-      localStorage.removeItem('token');
-      localStorage.removeItem('student'); 
-      localStorage.removeItem('LRN'); 
-      this.router.navigate(['/login']); 
-    },
-    (error) => {
-      console.error('Error during logout', error);
+  loadAnnouncements() {
+    const uid = localStorage.getItem('LRN'); // Assuming LRN is used as uid
+    if (uid) {
+      this.conn.getAnnouncementCount(uid).subscribe(response => {
+        this.announcementCount = response; // Set the announcement count
+        this.fetchAnnouncements(uid); // Fetch announcements details
+      });
     }
-  );
-}
+  }
 
+  fetchAnnouncements(uid: string) {
+    this.conn.getAnnouncement(uid).subscribe(announcements => {
+      this.announcements = announcements; // Store fetched announcements
+      this.announcementCount = this.announcements.length; // Update count based on fetched announcements
+    });
+  }
 
+  onNotificationClick() {
+    const sid = localStorage.getItem('LRN'); // Get the user ID for marking notifications as viewed
+    if (sid) {
+      this.conn.markAsViewed(sid).subscribe(() => {
+        console.log('Notifications marked as viewed');
+        // Optionally refresh the announcement count or fetch new announcements here
+        this.loadAnnouncements();
+      });
+    }
+  }
+
+  onLogout() {
+    this.conn.logout().subscribe(
+      (response) => {
+        console.log('Logout successful:', response);
+        localStorage.removeItem('token');
+        localStorage.removeItem('student'); 
+        localStorage.removeItem('LRN'); 
+        this.router.navigate(['/login']); 
+      },
+      (error) => {
+        console.error('Error during logout', error);
+      }
+    );
+  }
 }

@@ -79,8 +79,8 @@ fetchStudentData(lrn: string) {
           console.log('Student data received:', student); // Log the entire student object
           
           if (student) {
-              // Check enrollment completion status
-              const isEnrollmentComplete = !!student.gender && !!student.grade_level && !!student.proof_payment && !!student.payment_approval && !!student.regapproval_date;
+              // Check enrollment completion status !!student.proof_payment &&
+              const isEnrollmentComplete = !!student.gender && !!student.grade_level &&  !!student.payment_approval && !!student.regapproval_date;
 
               if (!isEnrollmentComplete) {
                   console.warn('Enrollment process not completed. Cannot log in.');
@@ -93,9 +93,9 @@ fetchStudentData(lrn: string) {
                   } else if (!student.grade_level) {
                       missingProcess = 'enrollment details';
                       this.router.navigate(['/register/enrollment-details']);
-                  } else if (!student.proof_payment) {
-                      missingProcess = 'payment proof';
-                      this.router.navigate(['/register/payment']);
+                //   } else if (!student.proof_payment) {
+                //       missingProcess = 'payment proof';
+                //       this.router.navigate(['/register/payment']);
                   } else if (!student.payment_approval) {
                       missingProcess = 'DSF approval';
                       this.router.navigate(['/register/dsf-approval']);
@@ -118,14 +118,14 @@ fetchStudentData(lrn: string) {
               // Set enrollment state flags
               this.enrollmentStateService.personalInfoSubmitted = !!student.gender; 
               this.enrollmentStateService.enrollmentDetailsSubmitted = !!student.grade_level; 
-              this.enrollmentStateService.paymentSubmitted = !!student.proof_payment; 
+            //   this.enrollmentStateService.paymentSubmitted = !!student.proof_payment; 
               this.enrollmentStateService.dsfApproved = !!student.payment_approval; 
               this.enrollmentStateService.registrarApproved = !!student.regapproval_date; 
 
               // Log each property to see if they are undefined
               console.log('Gender:', student.gender);
               console.log('Grade Level:', student.grade_level);
-              console.log('Proof of Payment:', student.proof_payment);
+            //   console.log('Proof of Payment:', student.proof_payment);
               console.log('Payment Approval:', student.payment_approval);
               console.log('Registration Approval:', student.regapproval_date);
 

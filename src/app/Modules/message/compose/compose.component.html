@@ -12,13 +12,17 @@
             [formControl]="myControl"
             [matAutocomplete]="auto"
         />
-
+    
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onOptionSelected($event.option.value)">
             <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                {{ option.receiver_name }} <!-- Display receiver_name -->
+                <div>
+                    {{ option.receiver_name }} <!-- Display receiver_name -->
+                    <!-- <span class="role-label"><strong>({{ option.role }})</strong></span>  -->
+                </div>
             </mat-option>
         </mat-autocomplete>
     </mat-form-field>
+    
 
     <!-- Hidden Input for Receiver ID -->
     <input type="hidden" formControlName="message_reciever" class="form-control" placeholder="Receiver ID" readonly>
@@ -30,11 +34,13 @@
     </mat-form-field>
 
     <!-- Dialog Actions -->
-    <mat-dialog-actions class="d-flex justify-content-end" style="padding: 16px;">
-        <button mat-button mat-dialog-close style="font-size: 14px; padding: 8px 16px;">Cancel</button>
+    <mat-dialog-actions
+        style="display: flex; justify-content: flex-end; padding: 16px; margin-top: -30px; text-transform: uppercase; font-weight: 500;">
+        <button mat-button (click)="onNoClick()" style="font-size: 14px; padding: 8px 16px;">Cancel</button>
 
-        <button mat-button (click)="submit(); $event.preventDefault()" class="ms-3"
-                style="font-size: 14px; padding: 8px 16px; background-color: #3f51b5; color: white;"
-               >Send</button>
+        <button mat-button (click)="submit();$event.preventDefault()" class="ms-3"
+            style="font-size: 14px; padding: 8px 16px; background-color: #3f51b5; color: white;"
+            onmouseover="this.style.backgroundColor='#2c387e';"
+            onmouseout="this.style.backgroundColor='#3f51b5';">Send</button>
     </mat-dialog-actions>
 </form>

@@ -3,11 +3,13 @@ import { MatListModule } from '@angular/material/list';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ConnectService } from '../../connect.service';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
+import { StepperComponent } from '../../Modules/enrollment/stepper/stepper.component';
 
 @Component({
   selector: 'app-payment-approval',
   standalone: true,
-  imports: [MatListModule, RouterModule, CommonModule],
+  imports: [MatListModule, RouterModule, CommonModule, StepperComponent],
   templateUrl: './payment-approval.component.html',
   styleUrl: './payment-approval.component.css'
 })
@@ -113,4 +115,23 @@ getEnrollmentDetails(LRN: string): void {
       }
   );
 }
+
+showPaymentImage() {
+  Swal.fire({
+    imageUrl: this.paymentImage,
+    imageAlt: 'Proof of Payment',
+    showCloseButton: true,
+    showConfirmButton: false,
+    width: '300px',
+    customClass: {
+      popup: 'swal-popup',
+      image: 'swal-image', // Custom class for image styling
+      closeButton: 'swal-close-button' // Optional: Custom class for close button
+    },
+    // Optional: Add padding to the popup
+    padding: '20px'
+  });
+}
+
+
 }

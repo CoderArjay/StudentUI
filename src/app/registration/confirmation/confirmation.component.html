@@ -1,15 +1,9 @@
 <section>
     <div class="container mt-3">
-      <div class="row">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb ">
-            <li class="breadcrumb-item ">
-              <a class="text-primary" routerLink="/register/dsf-approval">DSF Approval</a>
-            </li>
-            <li class="breadcrumb-item active text-dark" aria-current="page">Official Registration<li>
-          </ol>
-        </nav> 
-        <div class="col-md image">
+      <app-stepper></app-stepper>
+
+      <div class="row mt-3">
+        <div class="col-md mb-3 form-col">
           <div class="card header">
             <img src="/nlac1.jpg" 
                  class="card-img" 
@@ -20,43 +14,7 @@
               <h6 class="card-text text-white">The School that Prepares for Life</h6>
             </div>
           </div>
-          <div class="col-md mb-3">
-          <div class="card-body enrollment_proccess">
-              <blockquote class="blockquote m-3" style="border-bottom: 2px solid; border-bottom-color: black;">
-                <strong>Enrollment Process</strong>
-              </blockquote>
-              
-              <div class="list-group">
-                <a class="list-group-item list-group-item-action">
-                  <i class="bi bi-check-circle-fill text-success h3 mx-2" style="float: left;"></i>
-                  <strong class="text-secondary">Personal Information</strong>: Fill up the required fields in the Personal Information form, including your full name, date of birth, gender, address, and contact information. Ensure all details are accurate to avoid issues later.
-                </a>
-                
-                <a class="list-group-item list-group-item-action">
-                  <i class="bi bi-check-circle-fill text-success h3 mx-2" style="float: left;"></i>
-                  <strong class="text-secondary">Enrollment Details</strong>: Provide your enrollment details such as the grade level you are applying for, the strand (if applicable), and any previous school information. This helps us understand your academic background.
-                </a>
-                
-                <a class="list-group-item list-group-item-action">
-                  <i class="bi bi-check-circle-fill text-success h3 mx-2" style="float: left;"></i>
-                  <strong>Payment</strong>: Review the tuition fees and payment options available. Make sure to complete the payment process by the specified deadline to secure your enrollment.
-                </a>
-                
-                <a class="list-group-item list-group-item-action">
-                  <i class="bi bi-check-circle-fill text-success h3 mx-2" style="float: left;"></i>
-                  <strong >DSF Approval</strong>: Await approval from the Department of Student Affairs (DSF). You may need to provide additional documents or information if requested. Check your email regularly for updates on your application status.
-                </a>
-                                
-                <a class="list-group-item list-group-item-action">
-                  <i class="bi bi-5-circle-fill text-warning h3 mx-2" style="float: left;"></i>
-                  <strong class="text-dark">Official Registration</strong>: Wait for the registration decision from the school administration. Follow up as needed to ensure your application is processed in a timely manner. Once approved, you will receive confirmation and further instructions.
-                </a>
-              </div>
-            </div>
           </div>
-        </div>
-
-        <div class="col-md mb-3 form-col">
           <div class="col-md-12">
               <div class="card border-info mb-3">
                   <div class="card-header text-primary d-flex align-items-center">
@@ -75,14 +33,13 @@
                     <ng-template #waitingTemplate>
                       <h6 class="card-title text-warning"><strong>Waiting for Official Registration</strong></h6>
                       <div class="mt-3">
-                        <!-- <img src="samplePic/hour-glass.gif" alt="" height="100" width="100" class="img-fluid"> -->
                       </div>
                       <p class="mt-2">Your registration is currently under review. Please check back later for updates.</p>
                     </ng-template>
                   </div>
                   <div class="card-footer text-center">
                     <button class="btn btn-success" 
-                       routerLink="/main" 
+                       routerLink="/login" 
                        [disabled]="!reg_approval">
                         <i class="bi bi-arrow-right-circle"></i> Proceed to Portal
                     </button>
@@ -91,5 +48,4 @@
           </div>
       </div>
     </div>
-</div>
 </section>

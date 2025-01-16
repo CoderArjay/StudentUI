@@ -11,18 +11,36 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import Swal from 'sweetalert2';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { StepperComponent } from '../../Modules/enrollment/stepper/stepper.component';
+import { HttpErrorResponse } from '@angular/common/http'; // Import HttpErrorResponse
 
+interface Enrollment {
+  LRN: string;
+  last_attended: string;
+  public_private: string;
+  guardian_name: string;
+  guardian_no: string;
+  grade_level: string;
+  strand: string;
+  school_year: string;
+}
+
+interface Payment {
+  proof_payment: string;
+  amount_paid: number;
+  date_of_payment: string;
+}
 
 @Component({
   selector: 'app-payment',
   standalone: true,
-  imports: [MatTableModule, MatCardModule, MatIconModule, MatListModule, RouterModule, CommonModule, FormsModule, ReactiveFormsModule,MatFormFieldModule,MatInputModule],
+  imports: [MatTableModule, MatCardModule, MatIconModule, MatListModule, RouterModule, CommonModule, FormsModule, ReactiveFormsModule,MatFormFieldModule,MatInputModule, StepperComponent],
   changeDetection: ChangeDetectionStrategy.Default, // Changed to Default
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css']
 })
 export class PaymentComponent implements OnInit {
-  enrollment: any = {
+  enrollment: Enrollment = {
     LRN: '',
     last_attended: '',
     public_private: '',
@@ -32,18 +50,22 @@ export class PaymentComponent implements OnInit {
     strand: '',
     school_year: '',
   };
-  
-  student: any; // This will hold the student data fetched from local storage
-  fname: string = '';
-  lname: string = '';
+
+  paymentHistory: Payment[] = [];
+  enrollmentId!: string;
+  student!: {
+    fname: string;
+    lname: string; LRN: string; grade_level: string 
+  }; // Define student type
+  fname = '';
+  lname = '';
   tuitionDetails: any = {};
   selectedFile: File | null = null;
-  LRN: string | undefined;
-  amount_paid: any;
-  description: string = '';
+  LRN?: string; // Optional type
+  amount_paid?: number; // Use number for amount
+  description = '';
   date_of_payment!: string;
-// grade_level: any;
-  
+
   constructor(private conn: ConnectService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -54,30 +76,33 @@ export class PaymentComponent implements OnInit {
 
     // Check if student data exists
     if (studentData) {
-        this.student = JSON.parse(studentData); // Parse and assign the student data
+        this.student = JSON.parse(studentData);
         console.log('Student data retrieved from local storage:', this.student);
-        this.LRN = this.student.LRN; // Retrieve LRN from student data
-
-        // Fetch tuition details based on LRN
+        
+        // Set first name and last name
+        this.fname = this.student.fname; // Adjust according to your actual property names
+        this.lname = this.student.lname;   // Adjust according to your actual property names
+        
+        this.LRN = this.student.LRN; 
+        this.enrollmentId = this.student.LRN; 
+        this.fetchPaymentHistory(this.enrollmentId);
         this.fetchTuitionDetails();
         this.enrollment.grade_level = this.student.grade_level;
     } else {
         console.error('No student data found in local storage.');
-        // Navigate away or show an error message
         this.router.navigate(['/error']); // Example navigation on error
     }
 
     // Check if enrollment data exists
     if (enrollmentData) {
-        this.enrollment = JSON.parse(enrollmentData); // Parse and assign the enrollment data
+        this.enrollment = JSON.parse(enrollmentData);
         console.log('Enrollment data retrieved from local storage:', this.enrollment);
-        
-        // You can add additional logic here if needed, such as setting default values or updating UI based on enrollment.
     } else {
         console.warn('No enrollment data found in local storage.');
-        // Optionally, handle the absence of enrollment data, e.g., set default values or notify the user.
+        // Optionally handle absence of enrollment data
     }
 }
+
 
   fetchTuitionDetails(): void {
     if (this.LRN) {
@@ -139,39 +164,27 @@ export class PaymentComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // Check if a proof of payment file has been selected
-    if (!this.selectedFile || !this.amount_paid || this.amount_paid <= 0 || !this.description) {
+    // Create a FormData object to hold the form data
+    const formData = new FormData();
+    
+    // Ensure LRN is appended safely
+    if (this.LRN) {
+        formData.append('LRN', this.LRN);
+    } else {
         Swal.fire({
             title: "Error!",
-            text: "Please select a proof of payment file before submitting.",
+            text: "Please enter a valid LRN.",
             icon: "error",
             confirmButtonText: "OK"
         });
-
-        Swal.fire({
-          title: "Error!",
-          text: "Please enter a valid amount paid.",
-          icon: "error",
-          confirmButtonText: "OK"
-      });
-
-      Swal.fire({
-        title: "Error!",
-        text: "Please provide a description.",
-        icon: "error",
-        confirmButtonText: "OK"
-    });
-        return;
+        return; // Stop execution if LRN is not provided
     }
 
-    
-
-    const formData = new FormData();
-    formData.append('LRN', this.LRN || ''); // Ensure LRN is appended safely
-    formData.append('amount_paid', this.amount_paid.toString()); // Append amount_paid as string
-    formData.append('proof_payment', this.selectedFile); // Append the selected file
-    formData.append('description', this.description); // Append description
-    formData.append('date_of_payment', this.date_of_payment);
+    // Append optional fields, allowing them to be empty
+    formData.append('amount_paid', this.amount_paid ? this.amount_paid.toString() : ''); // Append amount_paid as string or empty
+    formData.append('proof_payment', this.selectedFile || ''); // Append the selected file or empty
+    formData.append('description', this.description || ''); // Append description or empty
+    formData.append('date_of_payment', this.date_of_payment || ''); // Append date_of_payment or empty
 
     // Call the service to upload payment proof
     this.conn.uploadPaymentProof(formData).subscribe(
@@ -197,6 +210,7 @@ export class PaymentComponent implements OnInit {
         }
     );
 }
+
 
 calculateTotalBalance(): number {
   const oldAccount = parseFloat(this.tuitionDetails?.old_account || '0');
@@ -227,5 +241,18 @@ calculateDownPaymentNoEsc(): number {
   return result < 0 ? 0 : result; 
 }
 
+
+fetchPaymentHistory(lrn: string): void {
+  this.conn.getPaymentHistory(lrn).subscribe(
+    (payments) => {
+      console.log('Payment history received:', payments);
+      this.paymentHistory = payments; // Store payment history in the component property
+    },
+    (error: HttpErrorResponse) => { 
+      console.error('Error fetching payment history', error.message); // Log only the error message for clarity
+      // Optionally, you could display an error message to the user here
+    }
+  );
+}
 
 }

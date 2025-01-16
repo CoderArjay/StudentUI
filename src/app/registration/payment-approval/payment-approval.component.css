@@ -20,3 +20,15 @@
 strong{
   font-weight: 700;
 }
+
+.swal-popup {
+  margin: 20px; /* Adjust margin as needed */
+}
+
+.swal-image {
+  margin: 10px auto; /* Center the image with auto margins */
+}
+
+.swal-close-button {
+  margin-top: 10px; /* Optional margin for close button */
+}

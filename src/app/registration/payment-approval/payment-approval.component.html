@@ -1,16 +1,8 @@
 <section>
     <div class="container mt-3">
-      <div class="row">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb ">
-            <li class="breadcrumb-item ">
-              <a class="text-primary" routerLink="/register/personal-information">Payment</a>
-            </li>
-            <li class="breadcrumb-item active text-dark" aria-current="page">DSF Approval</li>
-          </ol>
-        </nav>
-            
-        <div class="col-md image">
+      <app-stepper></app-stepper>
+          
+        <div class="col-md mt-2 mb-3 form-col">
           <div class="card header">
             <img src="/nlac1.jpg" 
                  class="card-img" 
@@ -19,54 +11,17 @@
             <div class="card-img-overlay d-flex flex-column justify-content-center align-items-center">
               <h5 class="card-title text-white"><strong>Northern Luzon Adventist College Academy</strong></h5>
               <h6 class="card-text text-white">The School that Prepares for Life</h6>
+              <h6 class="card-text text-white">S.Y. 2024-2025</h6>
             </div>
           </div>
-          <div class="col-md ">
-          <div class="card-body enrollment_proccess">
-              <blockquote class="blockquote m-3" style="border-bottom: 2px solid; border-bottom-color: black;">
-                <strong>Enrollment Process</strong>
-              </blockquote>
-              
-              <div class="list-group">
-                <a class="list-group-item list-group-item-action">
-                  <i class="bi bi-check-circle-fill text-success h3 mx-2" style="float: left;"></i>
-                  <strong class="text-secondary">Personal Information</strong>: Fill up the required fields in the Personal Information form, including your full name, date of birth, gender, address, and contact information. Ensure all details are accurate to avoid issues later.
-                </a>
-                
-                <a class="list-group-item list-group-item-action">
-                  <i class="bi bi-check-circle-fill text-success h3 mx-2" style="float: left;"></i>
-                  <strong class="text-secondary">Enrollment Details</strong>: Provide your enrollment details such as the grade level you are applying for, the strand (if applicable), and any previous school information. This helps us understand your academic background.
-                </a>
-                
-                <a class="list-group-item list-group-item-action">
-                  <i class="bi bi-check-circle-fill text-success h3 mx-2" style="float: left;"></i>
-                  <strong class="text-dark">Payment</strong>: Review the tuition fees and payment options available. Make sure to complete the payment process by the specified deadline to secure your enrollment.
-                </a>
-                
-                <a class="list-group-item list-group-item-action">
-                  <i class="bi bi-4-circle-fill text-warning h3 mx-2" style="float: left;"></i>
-                  <strong class="text-dark">DSF Approval</strong>: Await approval from the Department of Student Affairs (DSF). You may need to provide additional documents or information if requested. Check your email regularly for updates on your application status.
-                </a>
-                
-                <a class="list-group-item list-group-item-action">
-                  <i class="bi bi-5-circle-fill text-warning h3 mx-2" style="float: left;"></i>
-                  <strong class="text-secondary">Official Registration</strong>: Wait for the registration decision from the school administration. Follow up as needed to ensure your application is processed in a timely manner. Once approved, you will receive confirmation and further instructions.
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md mt-2 mb-3 form-col">
           <blockquote class="blockquote mb-4 mt-3" style="border-bottom: 2px solid; border-bottom-color: black;">
-            <i class="bi bi-4-circle-fill text-warning h3 mx-2"></i><strong>Payment Details</strong> {{ lname }} {{ fname }} <span class="badge text-bg-primary">Grade {{ enrollment.grade_level }}</span>
+            <strong><i class="bi bi-4-circle-fill text-warning h3 mx-2"></i>Payment Details <br>
+              <span>Name</span>: <strong>{{ lname }} {{ fname }}</strong> <br>
+              <span>Grade Level:</span>: <strong>{{ enrollment?.grade_level }}</strong>
+          </strong>
           </blockquote>
           <div class="card border-info mb-3">
-              <!-- <div class="card-header text-dark">
-                  <div class="student_name mt-2">
-                      <h4><strong></h4>
-                  </div>
-              </div> -->
+             
               <div class="card-body">
                 <h6 class="card-title text-success text-center">
                     <strong *ngIf="!paymentApproved">
@@ -82,20 +37,27 @@
               <div class="card-footer">
                  
                   <div class="mt-3">
-                      <div class="card border-info mb-3">
-                          <div class="card-header text-dark">
-                              <h6 class="mb-0">Payment Approval Details</h6>
-                          </div>
-                          <div class="card-body d-flex align-items-center">
-                              <div class="me-3">
-                                  <img [src]="paymentImage" alt="Proof of Payment" class="img-thumbnail" style="max-width: 100%; max-height: 100px;">
-                              </div>
-                              <div>
-                                  <p class="card-text">Payment Approval Date:<strong> {{ paymentDate || 'Loading...' }}</strong></p>
-                                  <p class="card-text">Amount Paid: <strong> &#8369;{{ amountPaid ? amountPaid.toFixed(2) : 'Loading...' }}</strong></p>
-                              </div>
-                          </div>
+                    <div class="card border-info mb-3">
+                      <div class="card-header text-dark">
+                        <h6 class="mb-0">Payment Approval Details</h6>
                       </div>
+                      <div class="card-body d-flex align-items-center">
+                        <div class="me-3">
+                          <img 
+                            [src]="paymentImage" 
+                            alt="Proof of Payment" 
+                            class="img-thumbnail" 
+                            style="max-width: 100%; max-height: 100px;"
+                            (click)="showPaymentImage()" 
+                          >
+                        </div>
+                        <div>
+                          <p class="card-text">Payment Date:<strong> {{ paymentDate || '' }}</strong></p>
+                          <p class="card-text">Amount Paid: <strong> &#8369;{{ amountPaid ? amountPaid.toFixed(2) : '' }}</strong></p>
+                        </div>
+                      </div>
+                    </div>
+                    
                   </div>
                   <div class="d-flex justify-content-between align-items-center">
                     <div>
@@ -106,5 +68,4 @@
           </div>
       </div>
     </div>
-</div>
 </section>

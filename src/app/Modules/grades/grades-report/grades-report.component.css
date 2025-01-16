@@ -3,6 +3,7 @@
   background-color: #f9f9f9; /* Light background for contrast */
   border-radius: 10px; /* Rounded corners */
   box-shadow: 0px 4px 10px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+  font-weight: bold;
 }
 
 .table {
@@ -11,6 +12,12 @@
 
 .table th {
   background-color: #2c9ace; /* Header color */
+  font-weight: bold;
+  color: #fff;
+}
+
+.table td {
+  /* background-color: #2c9ace; Header color */
   font-weight: bold;
 }
 
@@ -32,17 +39,31 @@
 }
 
 .placeholder {
-  height: 20px; /* Adjust height as needed */
-  background-color: #e0e0e0; /* Light gray color for the placeholder */
-  animation: pulse-animation 1.5s infinite; /* Add animation */
+  background-color: #b6b2b2; /* Light gray color */
+}
+
+.placeholder-glow {
+  animation: pulse-animation 2s infinite; /* Add animation */
 }
 
 @keyframes pulse-animation {
   from {
-    background-color: #e0e0e0;
+    opacity: 0.5;
   }
   
   to {
-    background-color: #f5f5f5; /* Slightly lighter gray */
+    opacity: 1;
   }
+}
+
+.btn{
+  background-color: #fff;
+}
+
+.btn.active{
+  background-color: #2c9ace;
+  color: #fff;
+}
+.btn.placeholder {
+  height: 40px; /* Height for the placeholder buttons */
 }

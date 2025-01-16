@@ -28,6 +28,9 @@ import { ConnectService } from '../../../connect.service';
   styleUrl: './compose.component.css'
 })
 export class ComposeComponent implements OnInit {
+  readonly dialogRef = inject(MatDialogRef<SendComponent>);
+  readonly data = inject(MAT_DIALOG_DATA);
+
   myControl = new FormControl('');
   recipients: any[] = [];
   filteredOptions!: Observable<any[]>;
@@ -38,6 +41,7 @@ export class ComposeComponent implements OnInit {
     message_reciever: new FormControl(''),
     message: new FormControl('')
   });
+  
 
 
   constructor(private conn: ConnectService) {}
@@ -75,9 +79,9 @@ export class ComposeComponent implements OnInit {
   }
 
 
-  // onNoClick(): void {
-  //   // Logic to close the dialog
-  // }
+  onNoClick(){
+    this.dialogRef.close(); 
+  }
 
   submit(): void {
     if (this.msgForm.valid) {
@@ -93,7 +97,8 @@ export class ComposeComponent implements OnInit {
         next: (response) => {
           console.log('Message sent successfully:', response);
           // Close the dialog and pass the message back to SendComponent
-          // Logic to close the dialog
+          this.dialogRef.close(messageData);
+          
         },
         error: (error) => {
           console.error('Error sending message:', error);
@@ -102,5 +107,5 @@ export class ComposeComponent implements OnInit {
     } else {
       console.error('Form is not valid');
     }
-  }
+}
 }

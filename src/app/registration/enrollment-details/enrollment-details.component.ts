@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { StepperComponent } from '../../Modules/enrollment/stepper/stepper.component';
 
 @Component({
   selector: 'app-enrollment-details',
@@ -19,7 +20,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatInputModule,
     MatDatepickerModule,
     MatRadioModule,
-    MatTooltipModule],
+    MatTooltipModule,
+    StepperComponent],
   templateUrl: './enrollment-details.component.html',
   styleUrl: './enrollment-details.component.css'
 })

@@ -3,11 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ConnectService } from '../../connect.service';
+import { StepperComponent } from '../../Modules/enrollment/stepper/stepper.component';
 
 @Component({
   selector: 'app-confirmation',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, StepperComponent],
   templateUrl: './confirmation.component.html',
   styleUrl: './confirmation.component.css'
 })

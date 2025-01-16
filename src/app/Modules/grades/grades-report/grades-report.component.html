@@ -31,83 +31,113 @@
     </table>
   </div>
 
-  <!-- Tab Content for First Semester -->
-  <div *ngIf="selectedTab === 1 && hasSemester(1)">
-    <table class="table table-bordered custom-table">
-      <thead class="thead-light">
-        <tr>
-          <th>Subject</th>
-          <th>Midterm</th>
-          <th>Final</th>
+ <!-- Tab Content for First Semester -->
+<div *ngIf="selectedTab === 1 && hasSemester(1)">
+  <table class="table table-bordered custom-table">
+    <thead class="thead-light">
+      <tr>
+        <th>Subject</th>
+        <th>Midterm</th>
+        <th>Final</th>
+        <th>Final Grade</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let grade of studentSubjects" class="fw-bold">
+        <tr *ngIf="grade.semester === 1">
+          <td>{{ grade.subject_name }}</td>
+          <td class="text-center">{{ grade.Midterm !== null ? grade.Midterm : '-' }}</td>
+          <td class="text-center">{{ grade.Final !== null ? grade.Final : '-' }}</td>
+          <td class="grd">
+            <span *ngIf="calculateFinalGrade(grade['Midterm'], grade['Final']) > 0">
+              {{ calculateFinalGrade(grade['Midterm'], grade['Final']) }}
+            </span>
+          </td>
         </tr>
-      </thead>
-      <tbody>
-        <ng-container *ngFor="let grade of studentSubjects" class="fw-bold">
-          <tr *ngIf="grade.semester === 1">
-            <td>{{ grade.subject_name }}</td>
-            <td class="text-center">{{ grade.Midterm !== null ? grade.Midterm : '-' }}</td>
-            <td class="text-center">{{ grade.Final !== null ? grade.Final : '-' }}</td>
-          </tr>
-        </ng-container>
-      </tbody>
-    </table>
-  </div>
+      </ng-container>
+    </tbody>
+    <tbody>
+      <th class="hdn text-center bg-light"></th>
+      <th class="hdn text-center bg-light"></th>
+      <th class="nth text-center bg-light  text-dark">Average:</th>
+      <th class="nth  bg-light  text-dark">{{ calculateGeneralAveragee() }}</th>
+    </tbody>
+  </table>
+</div>
 
-  <!-- Tab Content for Second Semester -->
-  <div *ngIf="selectedTab === 2 && hasSemester(2)">
-    <table class="table table-bordered custom-table">
-      <thead class="thead-light">
-        <tr>
-          <th>Subject</th>
-          <th>Midterm</th>
-          <th>Final</th>
+<!-- Tab Content for Second Semester -->
+<div *ngIf="selectedTab === 2 && hasSemester(2)">
+  <table class="table table-bordered custom-table">
+    <thead class="thead-light">
+      <tr>
+        <th>Subject</th>
+        <th>Midterm</th>
+        <th>Final</th>
+        <th>Final Grade</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let grade of studentSubjects" class="fw-bold">
+        <tr *ngIf="grade.semester === 2">
+          <td>{{ grade.subject_name }}</td>
+          <td class="text-center">{{ grade.Midterm !== null ? grade.Midterm : '-' }}</td>
+          <td class="text-center">{{ grade.Final !== null ? grade.Final : '-' }}</td>
+          <td class="grd">
+            <span *ngIf="calculateFinalGrade(grade['Midterm'], grade['Final']) > 0">
+              {{ calculateFinalGrade(grade['Midterm'], grade['Final']) }}
+            </span>
+          </td>
         </tr>
-      </thead>
-      <tbody>
-        <ng-container *ngFor="let grade of studentSubjects" class="fw-bold">
-          <tr *ngIf="grade.semester === 2">
-            <td>{{ grade.subject_name }}</td>
-            <td class="text-center">{{ grade.Midterm !== null ? grade.Midterm : '-' }}</td>
-            <td class="text-center">{{ grade.Final !== null ? grade.Final : '-' }}</td>
-          </tr>
-        </ng-container>
-      </tbody>
-    </table>
-  </div>
+      </ng-container>
+    </tbody>
+    <tbody>
+      <th class="hdn text-center bg-light"></th>
+      <th class="hdn text-center bg-light"></th>
+      <th class="nth text-center bg-light text-dark">Average:</th>
+      <th class="nth bg-light  text-dark">{{ calculateGeneralAveragee() }}</th>
+    </tbody>
+  </table>
+</div>
 
-  <!-- No Semester Section -->
-  <div *ngIf="hasNullSemester()">
-    <!-- Table for Subjects with Null Semesters -->
-    <table class="table table-bordered custom-table mt-3">
-      <thead>
-        <tr>
-          <th>Subject</th>
-          <th>First Quarter</th>
-          <th>Second Quarter</th>
-          <th>Third Quarter</th>
-          <th>Fourth Quarter</th>
-          <th>Final Grade</th> 
-        </tr>
-      </thead>
-      <tbody *ngFor="let subject of studentSubjects" class="fw-bold">
-        <!-- Display subjects that have a null semester -->
-        <tr *ngIf="subject.semester === null">
-          <td>{{ subject.subject_name }}</td> 
-          <td>{{ subject.First_Quarter !== null ? subject.First_Quarter : '-' }}</td> 
-          <td>{{ subject.Second_Quarter !== null ? subject.Second_Quarter : '-' }}</td> 
-          <td>{{ subject.Third_Quarter !== null ? subject.Third_Quarter : '-' }}</td> 
-          <td>{{ subject.Fourth_Quarter !== null ? subject.Fourth_Quarter : '-' }}</td> 
-          <!-- Optionally add final grades if needed -->
-          <!-- Example: Assuming Final is calculated as an average or provided in your data structure -->
-          <!--<td>{{ calculateFinalGrade(subject) }}</td>-->
-        </tr> 
-      </tbody> 
-    </table>
+<!-- No Semester Section -->
+<div *ngIf="hasNullSemester()">
+  <table class="table table-bordered custom-table mt-3">
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>First Quarter</th>
+        <th>Second Quarter</th>
+        <th>Third Quarter</th>
+        <th>Fourth Quarter</th>
+        <th>Final Grade</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let subject of studentSubjects" class="fw-bold">
+      <tr *ngIf="subject.semester === null">
+        <td>{{ subject.subject_name }}</td>
+        <td>{{ subject.First_Quarter !== null ? subject.First_Quarter : '-' }}</td>
+        <td>{{ subject.Second_Quarter !== null ? subject.Second_Quarter : '-' }}</td>
+        <td>{{ subject.Third_Quarter !== null ? subject.Third_Quarter : '-' }}</td>
+        <td>{{ subject.Fourth_Quarter !== null ? subject.Fourth_Quarter : '-' }}</td>
+        <td class="grd">
+          <span *ngIf="calculateAverage(subject['First_Quarter'], subject['Second_Quarter'], subject['Third_Quarter'], subject['Fourth_Quarter']) > 0">
+            {{ calculateAverage(subject['First_Quarter'], subject['Second_Quarter'], subject['Third_Quarter'], subject['Fourth_Quarter']) }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+    <tbody >
+      <th class="hdn text-center bg-light"></th>
+      <th class="hdn text-center bg-light"></th>
+      <th class="hdn text-center bg-light"></th>
+      <th class="hdn text-center bg-light"></th>
+      <th class="nth text-center bg-light  text-dark">Average:</th>
+      <th class="nth  bg-light  text-dark">{{ calculateGeneralAverage() }}</th>
+    </tbody>
+  </table>
 
-    <!-- Default Message if No Subjects Available -->
-    <div *ngIf="!studentSubjects.length" class="text-muted text-center mt-5">No subjects available.</div>
-
-  </div>
+  <div *ngIf="!studentSubjects.length" class="text-muted text-center mt-5">No subjects available.</div>
+</div>
 
   <!-- Optional Message if no subjects are available -->
   <div *ngIf="!loadingSubjects && studentSubjects.length === 0" class="text-muted text-center mt-3">

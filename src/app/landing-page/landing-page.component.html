@@ -4,29 +4,51 @@
   </button>
   
   <img [width]="180" [height]="40" src="Logo.png"/>
-    <span class="example-spacer"></span>
+  <span class="example-spacer"></span>
 
-<!-- Profile Button with Dropdown -->
-<button mat-icon-button class="example-icon circle-btn ms-2" [matMenuTriggerFor]="profileMenu">
-  <ng-container *ngIf="profileImage; else defaultImage">
+  <!-- Notification Bell Button -->
+  <button mat-icon-button class="example-icon circle-btn ms-2" [matMenuTriggerFor]="notificationMenu">
+    <mat-icon>
+      <i class="bi bi-bell text-light"></i>
+    </mat-icon>
+    <span *ngIf="announcementCount > 0" matBadge [matBadge]="announcementCount" matBadgeColor="accent"></span>
+  </button>
+
+  <!-- Profile Button with Dropdown -->
+  <button mat-icon-button class="example-icon circle-btn ms-2" [matMenuTriggerFor]="profileMenu">
+    <ng-container *ngIf="profileImage; else defaultImage">
       <img [src]="profileImage" class="prof-image" />
-  </ng-container>
-  <ng-template #defaultImage>
+    </ng-container>
+    <ng-template #defaultImage>
       <img src="mik.jpg" class="prof-image" alt="Default Profile" />
-  </ng-template>
-</button>
+    </ng-template>
+  </button>
 
-<!-- Profile Dropdown Menu -->
-<mat-menu #profileMenu="matMenu">
+  <!-- Profile Dropdown Menu -->
+  <mat-menu #profileMenu="matMenu">
     <button mat-menu-item [routerLink]="['/main/account-page']">
-        <mat-icon>settings</mat-icon>
-        <span>Account Settings</span>
+      <mat-icon>settings</mat-icon>
+      <span>Account Settings</span>
     </button>
     <button mat-menu-item (click)="onLogout()">
-        <mat-icon>exit_to_app</mat-icon>
-        <span>Logout</span>
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Logout</span>
     </button>
-</mat-menu>
+  </mat-menu>
+
+  <!-- Notification Dropdown Menu -->
+  <mat-menu #notificationMenu="matMenu">
+    <div *ngIf="announcementCount > 0; else noNotifications">
+      <button mat-menu-item *ngFor="let announcement of announcements" (click)="onNotificationClick()">
+        <span>{{ announcement.title }}</span>
+        <footer class="notification-time">{{ announcement.created_at | date:'short' }}</footer>
+      </button>
+    </div>
+    <ng-template #noNotifications>
+      <button mat-menu-item disabled>No new notifications</button>
+    </ng-template>
+  </mat-menu>
+  
 
 </mat-toolbar>
 
@@ -39,5 +61,3 @@
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
-
-

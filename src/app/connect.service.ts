@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -42,8 +42,8 @@ export class ConnectService {
     return this.http.get<any>(`${this.url}classes/${lrn}`); // Assuming your endpoint is structured like this
   }
 
-  getNotifications(lrn: string): Observable<any> {
-    return this.http.get<any>(`${this.url}notifications/?LRN=${lrn}`); // Pass LRN as a query parameter
+   getNotifications(lrn: string): Observable<any> {
+    return this.http.get(`${this.url}notifications?LRN=${lrn}`);
   }
 
   getSubject(): Observable<any[]> {
@@ -176,5 +176,29 @@ getLatestMessages(uid: any): Observable<any[]> {
     });
   }
   
+  getPaymentHistory(lrn: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.url}payments/history/${lrn}`);
+  }
+
+
+  getAnnouncementCount(uid: string): Observable<number> {
+    const params = new HttpParams().set('LRN', uid); // Assuming LRN is used as uid
+    return this.http.get<any[]>(`${this.url}notifications`, { params }).pipe(
+      map(notifications => notifications.filter(notification => notification.type === 'announcement').length)
+    );
+  }
+
+  // Get the list of announcements
+  getAnnouncement(uid: string): Observable<any[]> {
+    const params = new HttpParams().set('LRN', uid); 
+    return this.http.get<any[]>(`${this.url}notifications`, { params }).pipe(
+      map(notifications => notifications.filter(notification => notification.type === 'announcement'))
+    );
+  }
+
+  // Mark announcements as viewed
+  markAsViewed(sid: string): Observable<any> {
+    return this.http.post(`${this.url}notifications/viewed`, { sid });
+  }
   
 }

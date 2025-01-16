@@ -56,3 +56,8 @@
   border-radius: 0.5rem; /* Rounded corners */
   /* color: red; */
 }
+
+::ng-deep .mat-badge-content{
+  background-color: red !important;
+  color: white !important;
+}

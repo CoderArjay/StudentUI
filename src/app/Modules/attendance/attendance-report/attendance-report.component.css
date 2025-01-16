@@ -33,7 +33,7 @@ body {
 }
 
 .present {
-  background-color: #4CAF50; /* Green for present */
+  background-color: #33a837; /* Green for present */
   color: white; /* Text color */
 }
 
@@ -74,17 +74,6 @@ body {
 }
 
 
-.thead {
-  background-color: transparent; 
-  color: rgb(0, 0, 0);
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-  width:90px;
-  max-width: 90px;
-  /* font-weight: 700; */
-  border: 1px solid #ddd; 
-  padding: 10px; 
-  text-align: center;
-}
 .subject-name {
   font-weight: bold;
 }
@@ -109,4 +98,10 @@ body {
 /* Additional styles to improve button appearance */
 .btn.placeholder {
   height: 40px; /* Height for the placeholder buttons */
+}
+
+.table th {
+  background-color: #2c9ace; /* Header color */
+  font-weight: bold;
+  color: #fff;
 }

@@ -1,86 +1,24 @@
-<div class="col-md ms-3 mx-3">
-  <div class="card-body enrollment_process">
-    <blockquote class="blockquote m-3" style="border-bottom: 2px solid; border-bottom-color: black; font-weight:600;">
-      <b><img class="img-fluid m-2" style="width: 30px; height: 30px;" src="agreement.png" alt="">Enrollment Process</b>
-    </blockquote>
-
-    <div class="row">
-      <!-- Step 1: Personal Information -->
-      <div class="col-12 col-md-4 mb-3">
-        <div class="card text-center" style="height: 150px;" (click)="enrollmentStateService.personalInfoSubmitted || goToStep(1)">
-          <div class="card-body d-flex flex-column justify-content-between">
-            <div>
-              <strong class="text-dark">Step <i class="bi bi-1-circle-fill text-warning h3"></i></strong>
-              <p>Personal Information</p>
-            </div>
-            <span class="badge" [ngClass]="enrollmentStateService.personalInfoSubmitted ? 'bg-success' : 'bg-warning'">
-              {{ enrollmentStateService.personalInfoSubmitted ? 'Finished' : 'Pending' }}
-            </span>
-          </div>
-        </div>
-      </div>
-    
-      <!-- Step 2: Enrollment Details -->
-      <div class="col-12 col-md-4 mb-3">
-        <div class="card text-center" style="height: 150px;" (click)="enrollmentStateService.enrollmentDetailsSubmitted || goToStep(2)">
-          <div class="card-body d-flex flex-column justify-content-between">
-            <div>
-              
-              <strong class="text-dark">Step <i class="bi bi-2-circle-fill text-warning h3"></i></strong>
-              <p>Enrollment Details</p>
-            </div>
-            <span class="badge" [ngClass]="enrollmentStateService.enrollmentDetailsSubmitted ? 'bg-success' : 'bg-warning'">
-              {{ enrollmentStateService.enrollmentDetailsSubmitted ? 'Finished' : 'Pending' }}
-            </span>
-          </div>
-        </div>
-      </div>
-    
-      <!-- Step 3: Payment -->
-      <div class="col-12 col-md-4 mb-3">
-        <div class="card text-center" style="height: 150px;" routerLink="/register/payment">
-          <div class="card-body d-flex flex-column justify-content-between">
-            <div>
-              
-              <strong class="text-dark">Step <i class="bi bi-3-circle-fill text-warning h3"></i></strong>
-              <p>Payment</p>
-            </div>
-            <span class="badge" [ngClass]="enrollmentStateService.paymentSubmitted ? 'bg-success' : 'bg-warning'">
-              {{ enrollmentStateService.paymentSubmitted ? 'Finished' : 'Pending' }}
-            </span>
-          </div>
-        </div>
-      </div>
-    
-       <!-- Step 4: DSF Approval -->
-       <div class="col-12 col-md-4 mb-3">
-         <div class="card text-center" style="height: 150px;" (click)="enrollmentStateService.dsfApproved || goToStep(4)">
-           <div class="card-body d-flex flex-column justify-content-between">
-             <div>
-               
-               <strong class="text-dark">Step <i class="bi bi-4-circle-fill text-warning h3"></i></strong>
-               <p>DSF Approval</p>
-             </div>
-             <span class="badge" [ngClass]="enrollmentStateService.dsfApproved ? 'bg-success' : 'bg-warning'">
-               {{ enrollmentStateService.dsfApproved ? 'Finished' : 'Pending' }}
-             </span>
-           </div>
-         </div>
-       </div>
-    
-       <!-- Step 5: Confirmation -->
-       <div class="col-12 col-md-4 mb-3">
-         <div class="card text-center" style="height: 150px;" (click)="enrollmentStateService.registrarApproved || goToStep(5)">
-           <div class="card-body d-flex flex-column justify-content-between">
-             <div>
-               
-               <strong class="text-dark">Step <i class="bi bi-5-circle-fill text-warning h3"></i></strong>
-               <p>Confirmation</p>
-             </div>
-             <span class="badge" [ngClass]="enrollmentStateService.registrarApproved ? 'bg-success' : 'bg-warning'">
-               {{ enrollmentStateService.registrarApproved ? 'Finished' : 'Pending' }}
-             </span>
-           </div>
-         </div>
-       </div>
-       </div>    
+<div class="row mb-2">
+  <nav class="nav justify-content-center">
+      <a class="nav-link" (click)="goToStep(1)" [ngClass]="{'active': enrollmentStateService.personalInfoSubmitted, 'font-weight-bold': enrollmentStateService.personalInfoSubmitted}">
+          <i class="bi h3" [ngClass]="enrollmentStateService.personalInfoSubmitted ? 'bi-check-circle-fill text-success' : 'bi-1-circle-fill text-warning'"></i>
+          <strong class="text-dark"> Personal Information</strong>
+      </a>
+      <a class="nav-link" (click)="goToStep(2)" [ngClass]="{'active': enrollmentStateService.enrollmentDetailsSubmitted, 'font-weight-bold': enrollmentStateService.enrollmentDetailsSubmitted}">
+          <i class="bi h3" [ngClass]="enrollmentStateService.enrollmentDetailsSubmitted ? 'bi-check-circle-fill text-success' : 'bi-2-circle-fill text-warning'"></i>
+          <strong class="text-dark"> Enrollment Details</strong>
+      </a>
+      <a class="nav-link" (click)="goToStep(3)" [ngClass]="{'active': enrollmentStateService.paymentSubmitted, 'font-weight-bold': enrollmentStateService.paymentSubmitted}">
+          <i class="bi h3" [ngClass]="enrollmentStateService.paymentSubmitted ? 'bi-check-circle-fill text-success' : 'bi-3-circle-fill text-warning'"></i>
+          <strong class="text-dark"> Payment</strong>
+      </a>
+      <a class="nav-link" (click)="goToStep(4)" [ngClass]="{'active': enrollmentStateService.dsfApproved, 'font-weight-bold': enrollmentStateService.dsfApproved}">
+          <i class="bi h3" [ngClass]="enrollmentStateService.dsfApproved ? 'bi-check-circle-fill text-success' : 'bi-4-circle-fill text-warning'"></i>
+          <strong class="text-dark"> DSF Approval</strong>
+      </a>
+      <a class="nav-link" (click)="goToStep(5)" [ngClass]="{'active': enrollmentStateService.registrarApproved, 'font-weight-bold': enrollmentStateService.registrarApproved}">
+          <i class="bi h3" [ngClass]="enrollmentStateService.registrarApproved ? 'bi-check-circle-fill text-success' : 'bi-5-circle-fill text-warning'"></i>
+          <strong class="text-dark"> Official Registration</strong>
+      </a>
+  </nav>
+</div>
